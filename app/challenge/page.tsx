@@ -14,6 +14,8 @@ export default function Challenge() {
   const { shortlist, pickId, setPick, replaceId, presetId, setPreset, customWeights, setCustomWeights, challenge, setChallenge, log } = useStore();
   const [critique, setCritique] = useState<string | null>(challenge?.critique ?? null);
   const [busy, setBusy] = useState(false);
+  // Critique belongs to one pick: clear it when the pick changes.
+  useEffect(() => { setCritique(challenge?.pickId === pickId ? challenge?.critique ?? null : null); }, [pickId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const list = useMemo(() => (ds ? shortlist.map((id) => ds.byId.get(id)!).filter(Boolean) : []), [ds, shortlist]);
   const pick = ds && pickId ? ds.byId.get(pickId) : undefined;
