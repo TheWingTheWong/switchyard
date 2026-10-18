@@ -55,4 +55,4 @@ A stamp-deep header band holds a turnout mark (one track diverging into two), th
 
 - No colour-only encodings, gradient text, glass, or card shadows.
 - No new accent hues. Anything that acts uses stamp ink.
-- Don't change button labels; VIDEO.md and the click-through test depend on them.
+- Keep button labels stable; the click-through test depends on them.

@@ -39,21 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-*.pptx
-*.pdf
-Screenshot*
-HANDOFF_PROMPT.md
-.claude/
-.agents/
-.codex/
-.cursor/
-.impeccable/
 public/suppliers.json
 *.tsbuildinfo
 next-env.d.ts
 !.env.example
-HANDOFF_EVIDENCE.md
-HANDOFF_FIX3.md
-HANDOFF_REVIEW.md
-HANDOFF_VERDICT.md
-HANDOFF_ROUTING.md

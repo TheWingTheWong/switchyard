@@ -1,102 +1,106 @@
-# SWITCHYARD — The AI Procurement Decision Room
+# SWITCHYARD — the procurement decision room
 
-> Every supplier has a score. Every decision needs a reason.
+> **Every supplier has a score. Every decision needs a reason.**
 
-Built in one day at the **Nebius × NVIDIA Build Week hackathon** (Berlin, 18 Oct 2026), Siemens track: *Supplier Risk Intelligence for rolling stock*.
+SWITCHYARD helps a rail buyer go from *"this supplier is a problem"* to *"here is the alternative we can defend"*. You narrow 10,000 suppliers to a shortlist, compare them, let the tool **challenge your pick**, check the real company on the web, and finish with a decision memo an auditor can sign off.
 
-SWITCHYARD takes a rail buyer from "this supplier is a problem" to an auditable decision memo in six steps:
+Built for the **Siemens challenge — Supplier Risk Intelligence for rolling stock** at the Nebius × NVIDIA Build Week hackathon, Berlin, 18 Oct 2026.
 
-| Step | What happens |
+**Live app:** https://web-production-109233.up.railway.app — jury login is in the submission form.
+
+---
+
+## Try it in three minutes
+
+1. **Triage** — the app opens on the portfolio: €20.4bn of orders, and the most exposed supplier, `SUPP_09733` (risk 87 / Critical, €50M). Its risk score is broken down to the exact point.
+2. **Narrow** — click the quick filter **"Proven at scale"** → 10,000 suppliers become 20. **Add top 20 to shortlist.**
+3. **Compare** — a heatmap of the 20 across all 18 risk dimensions. Pick `SUPP_09414` (it looks safe: risk 38, 99.7% order confirmation).
+4. **Challenge** — SWITCHYARD disagrees: two Critical risks hide behind its calm average, and it wins **0 of 5** priority scenarios. One click switches to `SUPP_07967`.
+5. **Verify** — type a real company (default **Knorr-Bremse**) → **Run research** (≈25 s) or **Load cached run**. Then **Apply evidence** to see whether the real-world findings change the decision.
+6. **Decide** — **Generate memo** → print to PDF.
+
+The **Ask SWITCHYARD** panel works on every step — try *"Why is the Total Risk Index of SUPP_00018 so high?"*
+
+---
+
+## What makes it different
+
+**1. The risk formula, recovered.** The brief describes the Total Risk Index as "a weighted average of all risk categories" but gives no weights. A regression over all 10,000 suppliers recovers them exactly — R² 0.9996, weights summing to 1.00, largest gap 0.5 (rounding):
+
+| Weight | Risk dimensions |
 |---|---|
-| **1 · Triage** | Portfolio KPIs (10,000 suppliers, €20.4bn PO volume, 182 hidden-risk suppliers), top-10 risk-weighted exposure, exact TRI breakdown of the supplier to replace (default `SUPP_09733`, TRI 87, €50M). |
-| **2 · Narrow** | Filter 10,000 → ≤ 20 on any of the 18 risk scores, levels, ops metrics, sourcing risk, complexity, hidden-risk toggle. Build a shortlist (cap 20). |
-| **3 · Compare** | Heatmap (suppliers × 18 scores + ops metrics), "where they differ most", radar overlay, per-supplier TRI waterfall. Pick a candidate. |
-| **4 · Challenge** | Six deterministic checks (hidden risk, robustness across 5 priority presets, delivery, sourcing…), re-ranking with presets/custom weights, AI devil's advocate. |
-| **5 · Verify** | Research agent on a **real company**: plans → searches (Tavily) → flags red flags → digs deeper → scores a *shadow profile* on the same 18 dimensions with a source URL per score → report. |
-| **6 · Decide** | Decision memo: why act, shortlist, pick explained, challenges, external evidence with links, open qualification checks, audit log. Print → PDF. |
+| 10% | Operational Resilience, Financial Health, Quality |
+| 8% | Compliance |
+| 6% | Credit Rating, Safety Incidents, Sub-Tier Visibility |
+| 5% | Geopolitical, Governance, ESG |
+| 4% | Environmental Exposure, Labor Stability, Digital Security, Political Stability, Industry Benchmark |
+| 3% | Market Sentiment, Media Sentiment, External Intelligence |
 
-A **chat panel** ("Ask SWITCHYARD") is available on every step. It answers with tool calls over the same data engine and renders results as inline tables / waterfalls.
+So *"why is this supplier risky?"* gets an exact answer — a waterfall of score × weight — not a guess.
 
-## Live demo
+**2. Averages lie.** **182 suppliers** look Low or Medium overall but carry two or more Critical risks. SWITCHYARD flags them everywhere and uses them to challenge the buyer's choice.
 
-- URL: **https://web-production-109233.up.railway.app**
-- Jury login (HTTP Basic Auth): provided in the submission form (stored as `JURY_USER` / `JURY_PASS` env vars on Railway, never in the repo).
+**3. A tool that argues back.** The Challenge step runs six deterministic checks on the pick (hidden risk, robustness under five priority lenses, improvement over the supplier being replaced, delivery performance, sourcing risk, lowest risk on the shortlist) and re-ranks live as priorities change. The official index is never altered — re-weighting is a lens, clearly labelled.
 
-## Key insight: the TRI formula, recovered
+**4. Real-world evidence that can change the decision.** The research agent plans its own searches, flags red flags, follows the serious ones deeper, and scores the real company on the **same 18 dimensions** — every score linked to a source, blank where nothing was found. *Apply evidence* then computes an **evidence-adjusted risk score next to the official one** under strict rules:
+- only adverse, verified findings move a score, and only upward;
+- only events **after the data's as-of date** count — older ones are listed as history, never counted twice;
+- weight depends on severity, recency, whether it's still ongoing, and source credibility (regulators and filings fully, reputable press partly, social media and law-firm ads never) — decided in code from the domain;
+- a separate check, *"No active credible high-severity red flag"*, catches what an average would hide.
 
-The brief calls the Total Risk Index "a weighted average" without weights. A linear regression over the 10,000 rows recovers them exactly (R² = 0.9996, weights sum to 1.00, max residual 0.5 = rounding):
+**5. Numbers you can trust.** The language model never computes a number. All math lives in one deterministic engine shared by the screen and the assistant; the model chooses tools and explains their output, and charts in the chat are rendered from the tool results themselves. Research citations must be URLs that actually came back from search.
 
-| Weight | Scores |
-|---|---|
-| 0.10 | Operational Resilience, Financial Health, Quality Risk |
-| 0.08 | Compliance Risk |
-| 0.06 | Credit Rating, Safety Incident, Sub-Tier Visibility |
-| 0.05 | Geopolitical Risk, Governance Risk, ESG Performance |
-| 0.04 | Environmental Exposure, Labor Stability, Digital Security, Political Stability, Industry Benchmark |
-| 0.03 | Market Sentiment, Media Sentiment, External Intelligence |
+---
 
-So "why is this supplier risky?" has an exact answer: contribution = score × weight. And because the index is an average, it can hide trouble: **182 suppliers** have a Low/Medium TRI but ≥ 2 Critical sub-scores ("averages lie").
-
-## Architecture
+## How it works
 
 ```
-Browser (Next.js client)
- ├─ public/suppliers.json (10,000 suppliers, built from the CSV) → instant filter / rank / reweight
- ├─ Zustand store (persisted): replace target, shortlist, pick, challenge, research, memo, audit log
- └─ Triage · Narrow · Compare · Challenge · Verify · Decide + Chat panel
+Browser (Next.js)
+ ├─ all 10,000 suppliers loaded once → instant filter, rank, re-weight
+ ├─ decision state: replace target, shortlist, pick, challenge, evidence, memo, audit log
+ └─ Triage · Narrow · Compare · Challenge · Verify · Decide  +  Ask SWITCHYARD
 
-Next.js server (Railway, long-running Node)
- ├─ /api/chat      Nemotron tool-calling loop → lib/tools.ts → lib/engine.ts → cards
- ├─ /api/research  research agent (Nemotron + Tavily), streams NDJSON steps
- ├─ /api/critique  devil's advocate prose from computed checks
- ├─ /api/memo      executive summary prose from computed facts
- └─ middleware.ts  HTTP Basic Auth for the jury
+Server (Next.js on Railway)
+ ├─ /api/chat      tool-calling assistant → lib/tools.ts → lib/engine.ts
+ ├─ /api/research  research agent (web search), streams each step live
+ ├─ /api/critique  devil's-advocate summary of the computed checks
+ ├─ /api/memo      executive summary from computed facts
+ └─ middleware.ts  jury login (HTTP Basic Auth)
 ```
 
-**The LLM never computes numbers.** All math lives in `lib/engine.ts`, shared by the browser and the server. The model chooses tools and explains their results; tables and charts in the chat are rendered from tool output, not from model prose. Research URLs are validated against the actual search results; scores without evidence are left empty ("no evidence found"), never guessed.
+**AI models** — all on **Nebius Token Factory**: NVIDIA **Nemotron 3.5 Super VL** for the assistant, red-flag assessment, shadow scoring, critique and memo; **Nemotron 3.5 Lightning** for fast research planning. Web search via **Tavily**.
 
 | Path | Purpose |
 |---|---|
-| `data/` | Original dataset + criteria description (committed) |
-| `scripts/build-data.ts` | CSV → `public/suppliers.json` (runs on every build) |
-| `lib/schema.ts` | Score keys, labels, recovered weights, level thresholds |
-| `lib/engine.ts` | explainScore, hiddenRisk, filter, rank, reweight, compare, robustness, exposure, percentiles |
-| `lib/challenge.ts` | Deterministic challenge checks |
-| `lib/tools.ts` | Chat tool definitions + card generation |
+| `data/` | Original dataset, criteria description, one cached research run |
+| `lib/schema.ts` | Risk dimensions, recovered weights, level bands |
+| `lib/engine.ts` | Score breakdown, hidden risk, filters, ranking, robustness, evidence adjustment |
+| `lib/challenge.ts` | The six challenge checks + the red-flag check |
+| `lib/sources.ts`, `lib/dates.ts` | Source credibility tiers and event-date parsing (deterministic) |
 | `lib/research.ts` | Research agent loop |
-| `data/cache/knorr-bremse.json` | One cached full research run (demo fallback, labeled "cached" in the UI) |
+| `lib/tools.ts` | Assistant tools and result cards |
+| `scripts/` | Data build, cache refresh, and checks for the evidence math and date parsing |
 
-### Stack
-Next.js 15 (App Router) · TypeScript · Tailwind v4 · Recharts · Zustand · OpenAI SDK against **Nebius Token Factory** (`nvidia/Nemotron-3.5-Super-VL`, tool calling) · Tavily search · Railway.
+**Stack:** Next.js 15 · TypeScript · Tailwind v4 · Recharts · Zustand · Nebius Token Factory (OpenAI-compatible) · Tavily · Railway.
+
+---
 
 ## Run locally
 
 ```bash
 pnpm install
-cp .env.example .env.local   # fill in keys
-pnpm dev                      # builds public/suppliers.json, then http://localhost:3000
+cp .env.example .env.local   # add your Nebius Token Factory and Tavily keys
+pnpm dev                     # builds the supplier data, then http://localhost:3000
 ```
 
-Env vars:
+Checks: `pnpm tsx scripts/check-evidence.ts` · `pnpm tsx scripts/check-dates.ts`
+Refresh the cached research run: `pnpm tsx --env-file=.env.local scripts/cache-research.ts "Knorr-Bremse" http://localhost:3000`
+Deploy: `railway up --service web`
 
-```
-NEBIUS_API_KEY=            # Nebius Token Factory
-NEBIUS_BASE_URL=https://api.tokenfactory.nebius.com/v1
-LLM_MODEL=nvidia/Nemotron-3.5-Super-VL
-LLM_MODEL_FAST=nvidia/Nemotron-3_5-Lightning
-TAVILY_API_KEY=
-JURY_USER=                 # Basic Auth (leave empty to disable locally)
-JURY_PASS=
-```
-
-Re-generate the cached research run: `pnpm tsx --env-file=.env.local scripts/cache-research.ts "Knorr-Bremse" http://localhost:3000`.
+---
 
 ## Honest limits
 
-The dataset has no component categories, capacity, prices, qualification status or countries. SWITCHYARD therefore recommends **candidates for qualification**, never "switch now", and the memo lists those open checks explicitly. The chatbot says so when asked (e.g. "Can X replace Y for brake pads?").
-
-## Deploy
-
-```bash
-railway up --service web
-```
+- The dataset has no component categories, capacity, prices, qualification status or countries. SWITCHYARD therefore recommends **candidates for qualification**, never "switch now", and the memo lists the open checks.
+- The dataset is anonymised. Linking a real company to a dataset supplier in *Apply evidence* is the buyer's assumption, and the app says so.
+- The shadow profile comes from public evidence, not an internal assessment; it shows its coverage and confidence, and calibrating it against known suppliers is the natural next step.
