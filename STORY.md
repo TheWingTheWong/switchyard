@@ -146,6 +146,7 @@ How it works:
 - **The AI gets tools, not data.** The chat model has eight tools: `getSupplier`, `compareSuppliers`, `explainScore`, `filterSuppliers`, `hiddenRiskScan`, `getShortlist`, `addToShortlist`, `glossary`. It decides *which* tool to call. Our code runs it and hands back the result. The AI then explains that result in plain words. Its instructions forbid stating any number that didn't come from a tool.
 - **The cards come from the tool output, not from the AI's text.** Even if the AI phrased something badly, the table or chart underneath would still be correct.
 - **It knows what the data can't answer.** Ask *"Can SUPP_00731 replace SUPP_09733 for brake pads?"* and it says plainly that the dataset has no product, capacity, price, qualification or country information. Then it offers what the data *can* say: a lower-risk profile, as a candidate for qualification.
+- **Evidence can move a number, but only a separate one, and only under strict rules.** When the buyer applies research evidence to a supplier, the official TRI is never touched. The app shows a second, labelled number ("Official TRI 10 → Evidence-adjusted 11"). The AI only *extracts facts* (when an event happened, whether it is still ongoing). All the weighting is plain code in `lib/engine.ts` (see Act VII, step 7).
 - **It degrades gracefully.** If the AI service fails, the chat still shows the computed card. Every challenge check and memo section still works without the AI.
 
 **Verified today on the live site:**
@@ -165,6 +166,20 @@ The brief asked for an agent that *"plans its research, crawls news, public sour
 4. **Dig deeper.** This is the moment the agent takes initiative. It picks the **top 3 medium- or high-severity flags** and runs follow-up searches on its own, then re-assesses, reporting only *new or escalated* issues.
 5. **Shadow profile.** This is our original idea. It scores the real company on **the same 18 dimensions as the dataset**. Each score carries a confidence level and a source link. Where nothing was found, it says **"no evidence found"** and the row is greyed out, never guessed. The real company is then overlaid on the same radar chart as the dataset suppliers. Our engine (not the AI) computes its risk-index equivalent using the official weights, counting only the dimensions that have evidence, and shows the coverage percentage.
 6. **Report.** A summary, red flags, *verified facts kept separate from unverified claims*, every source, and the time the research was done.
+7. **Apply evidence: research that can move the decision.** Without this step, Verify is a dead end: a nice report that changes nothing. So the buyer can apply the findings to the dataset supplier they believe is that company. The link is shown as exactly what it is: *"Assumption: SUPP_07967 is Knorr-Bremse."* Then a strict, deterministic formula decides how far each of the 18 scores may move toward the web evidence:
+
+   **adjusted = internal + trust × recency × status × source × (shadow − internal)**
+
+   - **Never double-count.** The buyer sets a *data as-of date* (default: one year ago). Anything that happened before it is probably already in the internal scores, so it is listed as history and never counted. A year-only date counts as "before" only if the whole year is before the as-of date.
+   - **Recency:** less than a year old counts fully (1.0), 1–3 years half, 3–5 years a quarter, older than 5 years not at all. Unknown date is treated as old (0.25).
+   - **Status:** ongoing 1.0, resolved 0.5, unknown 0.75. A settled 2018 lawsuit should not weigh like a live 2025 recall. The agent extracts each event's date and status from the snippets. It never guesses: if the text doesn't say, the date is "unknown".
+   - **Trust:** high confidence 0.5, medium 0.3, low 0.15. Even the best evidence can only move a score halfway, because the internal assessment knows things the web doesn't.
+   - **Source credibility, decided in code from the web address, never by the AI.** Tier 1 (regulators, government, courts, filings, the company's own sites) counts fully. Tier 2 (Reuters, Bloomberg, FT, Handelsblatt, Railway Gazette and similar) counts 0.7. Everything else (law-firm pages, class-action sites, LinkedIn, blogs, aggregators) counts **zero**: shown, never counted. If two or more credible domains back the same dimension, the best tier applies.
+   - **Unverified means zero.** Anything resting only on claims the report lists as unverified is shown with "unverified — not counted".
+
+   The evidence-adjusted TRI uses the official weights. Every row on screen says why it counted or why not. The Challenge page then re-runs all six checks on the adjusted copy of the pick and shows a banner: **"Evidence changes the decision"** (with one-click "Switch pick to …") or **"Evidence applied — pick still holds"**. The memo records both numbers, the as-of date, the counted rows with sources, and the history that wasn't counted.
+
+   **The honest result for Knorr-Bremse today:** the pick SUPP_07967 goes from **10 to 11**. Two dimensions moved: Financial Health (a 2026 company report, tier 1) and Digital Security. The 2018 no-poach case, the 2020 settlement, the 2022 Russia exit and the 2024 recalls all predate the as-of date. The governance dispute was unverified, and the forced-labour report came from a tier-3 site. The 2025 NHTSA recall was listed by the report itself as unverified, so it didn't count either. A small move is the correct answer here: Knorr-Bremse is a large, low-risk company, and most of its trouble is old news.
 
 **The guardrails:**
 - **It can only cite links that actually came back from the search.** Any red flag or score pointing at another URL is dropped.
@@ -175,6 +190,8 @@ The brief asked for an agent that *"plans its research, crawls news, public sour
 - **Knorr-Bremse:** 10 searches, 44 sources, 3 red flags followed up.
 - **Alstom:** 10 searches, 46 sources, 10 red flags, including its FCPA bribery settlement and a hydrogen-train recall. About 24 seconds.
 - **Siemens Mobility** (tested today on the live site): 26 seconds, 42 sources, 10 red flags, including halted train deliveries over weld-seam defects. *(See "Careful with" at the end before you ever run this one in front of Siemens.)*
+
+> **Say it like this (evidence):** "Research can move the decision, but never the official score. Only what's new since the data was made, from credible sources, may shift a number, and every row says why it counted or not."
 
 > **Say it like this:** "The agent plans its own research, follows red flags deeper by itself, and scores the real company on the same eighteen dimensions as our data. Every score has a source, and where there's no evidence the score stays blank."
 
@@ -272,6 +289,15 @@ No. The official index is never touched. The presets are lenses that test whethe
 **"Why should I trust the research agent?"**
 Every claim has to cite a URL that actually came back from the search, or it's dropped. Dimensions without evidence stay blank instead of being guessed. Verified facts and unverified claims are kept separate, and the run is timestamped.
 
+**"How do you avoid double counting?"**
+With the data as-of date. Anything that happened before it is assumed to be already in the internal scores, so it's listed as history and counted zero. On top of that, recency fades older evidence and resolved events count half.
+
+**"Why not just overwrite the score with what the web says?"**
+Because the internal score knows things the web doesn't: audits, delivery history, contracts. And the official index has to stay auditable. So we never touch it. Evidence produces a separate, labelled second number, and even the strongest evidence can only move a score halfway.
+
+**"Which sources do you trust?"**
+Only verified evidence from credible sources moves a number: regulators fully, reputable press partly, blogs and social media never. The tier is decided in code from the web address, not by the AI, and anything the report marks as unverified counts zero.
+
 **"Does it only work for Knorr-Bremse?"**
 It works for any company. Knorr-Bremse is cached as a demo fallback. We ran Alstom and Siemens Mobility live as well.
 
@@ -309,6 +335,8 @@ As the place where a sourcing decision gets made *and* recorded. You start from 
 | Top weights | **Operational, Financial, Quality at 10% each** |
 | Opening case | **SUPP_09733: risk 87, €50M, financial 100** |
 | Demo pick → winner | **SUPP_09414 (38, hidden risk, 0/5) → SUPP_07967 (10, 5/5)** |
+| Evidence-adjusted (cached Knorr-Bremse → SUPP_07967) | **Official 10 → evidence-adjusted 11; 2 dimensions counted, 8 shown but not counted** |
+| Evidence rules | **as-of date · recency 1/0.5/0.25/0 · status 1/0.5/0.75 · trust 0.5/0.3/0.15 · source 1/0.7/0 · unverified 0** |
 | Chat speed / research run | **~2–3 s / ~20–26 s** |
 | Model | **Nemotron 3.5 Super VL on Nebius Token Factory** |
 
