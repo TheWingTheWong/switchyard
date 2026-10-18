@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* =========================================================
+   SWITCHYARD design tokens — phase 1: plain black & white.
+   ALL visual decisions live here. Restyle = edit this block.
+   ========================================================= */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #6b6b6b;
+  --line: #e5e5e5;
+  --line-strong: #000000;
+  --surface: #fafafa;
+  --accent: #000000;
+  --accent-fg: #ffffff;
+
+  /* Risk levels: gray shades (always paired with a text label) */
+  --risk-low: #f2f2f2;
+  --risk-low-fg: #000000;
+  --risk-medium: #cfcfcf;
+  --risk-medium-fg: #000000;
+  --risk-high: #7a7a7a;
+  --risk-high-fg: #ffffff;
+  --risk-critical: #111111;
+  --risk-critical-fg: #ffffff;
+
+  /* Chart strokes */
+  --chart-1: #000000;
+  --chart-2: #6b6b6b;
+  --chart-3: #a3a3a3;
+  --chart-4: #3a3a3a;
+  --chart-5: #c7c7c7;
+  --chart-grid: #e5e5e5;
+
+  --radius: 0px;
+  --container: 1440px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-risk-low: var(--risk-low);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-high: var(--risk-high);
+  --color-risk-critical: var(--risk-critical);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+  --radius-base: var(--radius);
+}
+
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--font-inter), system-ui, sans-serif; font-size: 14px; line-height: 1.45; }
+* { transition: none !important; animation: none !important; }
+.num, .mono { font-family: var(--font-jetbrains), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+table { border-collapse: collapse; }
+input, select, button, textarea { font: inherit; }
+::selection { background: var(--fg); color: var(--bg); }
+
+/* Small reusable primitives (keep tokens above as the only source of style values) */
+.btn { border: 1px solid var(--line-strong); padding: 4px 10px; background: var(--bg); color: var(--fg); cursor: pointer; border-radius: var(--radius); }
+.btn:hover { background: var(--fg); color: var(--bg); }
+.btn-primary { background: var(--accent); color: var(--accent-fg); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.input { border: 1px solid var(--line); padding: 4px 8px; background: var(--bg); border-radius: var(--radius); }
+.card { border: 1px solid var(--line); background: var(--bg); border-radius: var(--radius); }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+@media print {
+  .no-print { display: none !important; }
+  body { font-size: 12px; }
+}
