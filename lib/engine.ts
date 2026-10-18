@@ -390,8 +390,8 @@ export function evidenceAdjust(s: Supplier, evidence: EvidenceInput[], asOf: str
     if (!e || e.score == null) return base;
     const flags = e.flags ?? [];
     if (!flags.length) return { ...base, reason: "no adverse evidence — positive evidence never raises risk" };
-    // Evaluate every backing flag; corroboration may use the shadow URL too.
-    const assessed = flags.map((f) => assessFlag(f, asOf, today, company, [e.url]));
+    // Evaluate every backing flag on its OWN url + supportUrls (never the dimension's shadow URL).
+    const assessed = flags.map((f) => assessFlag(f, asOf, today, company));
     const factorOf = (a: FlagAssessment) => a.severityFactor * base.confidenceFactor * a.recency * a.statusFactor * TIER_FACTOR[a.tier];
     const counted = assessed.filter((a) => a.counted).sort((a, b) => factorOf(b) - factorOf(a));
     if (!counted.length) {
@@ -412,9 +412,10 @@ export function evidenceAdjust(s: Supplier, evidence: EvidenceInput[], asOf: str
     return { ...base, ...meta, factor: round(factor, 4), adjusted, delta: adjusted - internal, counted: true, reason: why };
   });
   // Σ weight × adjusted, expressed as official TRI + Σ weight × Δ so a zero adjustment reproduces the official TRI exactly
-  // (the reported TRI is itself the rounded weighted sum; this avoids ±1 rounding noise).
+  // (the reported TRI is itself the rounded weighted sum; this avoids ±1 rounding noise). One decimal, so a small
+  // honest movement (e.g. 6 → 6.5) stays visible instead of rounding to ±0.
   const deltaSum = rows.reduce((a, r) => a + r.weight * r.delta, 0);
-  const adjustedTri = Math.max(0, Math.min(100, Math.round(s.tri + deltaSum)));
+  const adjustedTri = Math.max(0, Math.min(100, round(s.tri + deltaSum, 1)));
 
   // Active credible high-severity flags (independent of the average): counted, high, ongoing/unknown,
   // and credible = tier 1/2 or corroborated by ≥2 domains.
@@ -424,7 +425,7 @@ export function evidenceAdjust(s: Supplier, evidence: EvidenceInput[], asOf: str
     .map((f) => ({ f, a: assessFlag(f, asOf, today, company) }))
     .filter(({ f, a }) => a.counted && f.status !== "resolved" && (a.tier === "1" || a.tier === "2" || a.corroborated))
     .map(({ f, a }) => ({ title: f.title, url: f.url, domain: a.domains[0] ?? hostOf(f.url), dimension: f.dimension, eventDate: f.eventDate ?? null, status: (f.status ?? "unknown") as EvidenceStatus }));
-  return { supplierId: s.id, asOf, rows, officialTri: s.tri, adjustedTri, deltaTri: adjustedTri - s.tri, activeHighFlags };
+  return { supplierId: s.id, asOf, rows, officialTri: s.tri, adjustedTri, deltaTri: round(adjustedTri - s.tri, 1), activeHighFlags };
 }
 
 /** Copy of a supplier with evidence-adjusted sub-scores and TRI (the dataset is never mutated). */

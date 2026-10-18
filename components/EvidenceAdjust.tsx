@@ -10,7 +10,8 @@ const host = (u: string) => { try { return new URL(u).hostname.replace(/^www\./,
 
 /** Headline: Official TRI X → Evidence-adjusted Y (▲/▼Δ). Both numbers always shown, official first. */
 export function EvidenceHeadline({ official, adjusted, size = "lg" }: { official: number; adjusted: number; size?: "lg" | "sm" }) {
-  const d = adjusted - official;
+  const d = Math.round((adjusted - official) * 10) / 10;
+  const f1 = (v: number) => v.toFixed(1);
   const big = size === "lg" ? "text-[26px]" : "text-[16px]";
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -18,8 +19,8 @@ export function EvidenceHeadline({ official, adjusted, size = "lg" }: { official
       <span className={`num ${big} font-medium`}>{official}</span><LevelTag score={official} showScore={false} />
       <span className="text-muted">→</span>
       <span className="cap">Evidence-adjusted</span>
-      <span className={`num ${big} font-semibold`}>{adjusted}</span><LevelTag score={adjusted} showScore={false} />
-      <span className={`num font-semibold ${d > 0 ? "text-[var(--risk-critical)]" : d < 0 ? "text-[var(--pass)]" : "text-muted"}`}>{d > 0 ? `▲${d}` : d < 0 ? `▼${-d}` : "±0"}</span>
+      <span className={`num ${big} font-semibold`}>{f1(adjusted)}</span><LevelTag score={adjusted} showScore={false} />
+      <span className={`num font-semibold ${d > 0 ? "text-[var(--risk-critical)]" : d < 0 ? "text-[var(--pass)]" : "text-muted"}`}>{d > 0 ? `▲${f1(d)}` : d < 0 ? `▼${f1(-d)}` : "±0"}</span>
     </div>
   );
 }

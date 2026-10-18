@@ -43,8 +43,8 @@ expect("corroboration → best tier (1)", [r.operational.sourceTier, r.operation
 expect("resolved halves", r.geopolitical.adjusted, 38);
 expect("low confidence × tier 2", r.credit.adjusted, 33);
 expect("no evidence untouched", r.environmental.adjusted, 20);
-// TRI = 20 + .06×30 + .10×20 + .05×13 + .10×21 + .05×18 + .06×13 = 28.23 → 28
-expect("adjusted TRI", a.adjustedTri, 28);
+// TRI = 20 + .06×30 + .10×20 + .05×13 + .10×21 + .05×18 + .06×13 = 28.23 → 28.2
+expect("adjusted TRI (one decimal)", a.adjustedTri, 28.2);
 expect("active credible high flags", a.activeHighFlags.map((f) => f.title).sort(), ["Brake chamber recall", "Cyber incident", "Downgrade"]);
 expect("zero evidence keeps official TRI", evidenceAdjust(s, [], AS_OF, today).adjustedTri, 20);
 

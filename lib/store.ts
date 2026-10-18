@@ -83,7 +83,7 @@ export const useStore = create<State>()(
       setEvidence: (evidence) => {
         set({ evidence });
         if (evidence) {
-          const d = evidence.adjustedTri - evidence.officialTri;
+          const d = Math.round((evidence.adjustedTri - evidence.officialTri) * 10) / 10;
           get().log("Verify", `Evidence from ${evidence.company} applied to ${evidence.supplierId} (assumption, as-of ${evidence.asOf}): official TRI ${evidence.officialTri} → evidence-adjusted ${evidence.adjustedTri} (${d >= 0 ? "+" : ""}${d}); ${evidence.rows.filter((r) => r.counted).length} dimensions counted`);
         }
       },

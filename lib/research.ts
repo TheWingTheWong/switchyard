@@ -3,6 +3,8 @@ import { tavily } from "@tavily/core";
 import { llm, MODEL, parseJson } from "./llm";
 import { SCORES, SCORE_KEYS, type ScoreKey } from "./schema";
 import { partialTri } from "./engine";
+import { eventDateFromText, normalizeEventDate } from "./dates";
+import { sourceTier } from "./sources";
 import type {
   Confidence, EventStatus, RedFlag, ResearchEvent, ResearchReport, Severity, ShadowScore, Source,
 } from "./research-types";
@@ -20,7 +22,7 @@ const DIMENSION_GROUPS = [
 ];
 
 const fallbackQueries = (c: string): Query[] => [
-  { dimension: "financial", query: `${c} financial results profit warning debt 2025 2026` },
+  { dimension: "financial", query: `${c} financial results profit warning debt` },
   { dimension: "legal/compliance", query: `${c} lawsuit fine antitrust investigation` },
   { dimension: "labor", query: `${c} strike union labor dispute` },
   { dimension: "safety/quality recalls", query: `${c} recall defect safety incident` },
@@ -61,24 +63,15 @@ const asSeverity = (s: unknown): Severity => (s === "high" || s === "medium" || 
 const asConfidence = (s: unknown): Confidence | null =>
   s === "high" || s === "medium" || s === "low" ? s : null;
 const asStatus = (s: unknown): EventStatus => (s === "ongoing" || s === "resolved" ? s : "unknown");
-/** Accept only "YYYY" or "YYYY-MM" between 1990 and next year; anything else → null (never invented). */
-const asEventDate = (d: unknown): string | null => {
-  const m = String(d ?? "").trim().match(/^(\d{4})(-(0[1-9]|1[0-2]))?$/);
-  if (!m) return null;
-  const y = Number(m[1]);
-  return y >= 1990 && y <= new Date().getFullYear() + 1 ? m[0] : null;
-};
-const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-/** Deterministic event-date hint from a source: publish date, "Month YYYY" in the title, or /YYYY/ in the URL. */
-function dateFromSource(src: Source | undefined): string | null {
-  if (!src) return null;
-  const pub = asEventDate(src.publishedDate?.slice(0, 7));
-  if (pub) return pub;
-  const m = src.title.toLowerCase().match(new RegExp(`\\b(${MONTHS.join("|")})\\s+(20\\d{2})\\b`));
-  if (m) return asEventDate(`${m[2]}-${String(MONTHS.indexOf(m[1]) + 1).padStart(2, "0")}`);
-  const y = src.url.match(/\/(20\d{2})\//);
-  return y ? asEventDate(y[1]) : null;
-}
+const asEventDate = normalizeEventDate;
+/** Event date stated in a source's own title / snippet / URL (never its publish date). */
+const dateFromSourceText = (src: Source | undefined): string | null => (src ? eventDateFromText(src.title, src.snippet, src.url) : null);
+const publishDate = (src: Source | undefined): string | null => asEventDate(src?.publishedDate?.slice(0, 7));
+
+/** Junk that never helps a supplier assessment: job ads, wiki maintenance dumps. */
+const isJunk = (s: Source) =>
+  /linkedin\.com\/jobs|\/jobs\/view\//i.test(s.url) ||
+  (/wikipedia\.org/i.test(s.url) && /dump|checkwiki|wikipedia:/i.test(`${s.url} ${s.title}`));
 
 const STOP = new Set(["about", "after", "against", "agreement", "agreements", "company", "concerns", "failure", "issues", "potential", "regarding", "related", "report", "reports", "units", "which", "their", "there", "these", "while", "with"]);
 const keyWords = (t: string, exclude: Set<string>) => new Set((t.toLowerCase().match(/[a-z]{5,}/g) ?? []).filter((w) => !STOP.has(w) && !exclude.has(w)));
@@ -101,18 +94,25 @@ export async function* runResearch(company: string): AsyncGenerator<ResearchEven
   const tv = tavily({ apiKey: process.env.TAVILY_API_KEY });
   let searchesUsed = 0;
   const seen = new Map<string, Source>(); // url -> source (all collected evidence)
+  const companyWords = keyWords(name, new Set());
+  const companySlug = name.toLowerCase().replace(/\b(ag|se|sa|plc|inc|gmbh|ltd|corp|group)\b/g, "").replace(/[^a-z0-9]/g, "");
+  const mentionsCompany = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "").includes(companySlug);
+  /** Assessment input: results whose title or snippet names the company, plus tier-1/2 sources (a regulator's recall
+   *  report may name only the subsidiary). Drops generic lists and pages about other firms. */
+  const aboutCompany = (srcs: Source[]) => srcs.filter((x) => mentionsCompany(`${x.title} ${x.snippet ?? ""}`) || ["1", "2"].includes(sourceTier(x.url, name)));
 
   async function search(query: string, dimension?: string): Promise<Source[]> {
     if (searchesUsed >= MAX_SEARCHES) return [];
     searchesUsed++;
-    const topic = dimension && /media|labor|news/i.test(dimension) ? "news" : "general";
-    const res = await tv.search(query, { searchDepth: "advanced", maxResults: 5, topic });
+    // Recent-news groups use Tavily's news index limited to the last year instead of forcing years into the query.
+    const news = !!dimension && /media|labor|news|strike|cyber/i.test(dimension);
+    const res = await tv.search(query, { searchDepth: "advanced", maxResults: 5, topic: news ? "news" : "general", ...(news ? { days: 365 } : {}) });
     const out: Source[] = (res.results ?? []).map((r) => ({
       url: r.url,
       title: clean(r.title || r.url),
       snippet: clip(clean(r.content || ""), SNIPPET),
       ...(r.publishedDate ? { publishedDate: String(r.publishedDate) } : {}),
-    }));
+    })).filter((s) => !isJunk(s));
     for (const s of out) if (!seen.has(s.url)) seen.set(s.url, s);
     return out;
   }
@@ -127,14 +127,14 @@ export async function* runResearch(company: string): AsyncGenerator<ResearchEven
       `Company: ${name}
 Produce a research plan:
 - "disambiguation": one sentence identifying the exact legal entity (full name, HQ country, industry, official website if known).
-- "queries": 7 web search queries, one per risk group from: ${DIMENSION_GROUPS.join(", ")}. Each query must include the company name, be specific (e.g. "recall", "insolvency", "fine", "strike"), and favour recent events (2025, 2026).
+- "queries": 7 web search queries, one per risk group from: ${DIMENSION_GROUPS.join(", ")}. Each query must include the company name, be specific (e.g. "recall", "insolvency", "fine", "strike"). Do NOT put years or dates in the queries.
 JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query": string}]}`,
       2000,
     );
     disambiguation = clean(plan?.disambiguation ?? "");
     queries = (plan?.queries ?? [])
       .filter((q) => q && typeof q.query === "string" && q.query.trim())
-      .map((q) => ({ dimension: String(q.dimension ?? "general"), query: clip(clean(q.query), 200) }))
+      .map((q) => ({ dimension: String(q.dimension ?? "general"), query: clip(clean(q.query.replace(/\b(?:19|20)\d{2}\b/g, " ")), 200) }))
       .slice(0, 8);
   } catch (e) {
     yield { type: "error", text: `Planning failed (${(e as Error).message}); using template plan.` };
@@ -178,8 +178,8 @@ JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query"
         supportUrls: (Array.isArray(f.supportUrls) ? f.supportUrls : [])
           .map((u) => (typeof u === "string" ? u.trim() : ""))
           .filter((u, i, a) => u && u !== url && seen.has(u) && a.indexOf(u) === i).slice(0, 8),
-        // LLM date first; else the article's publish date (YYYY-MM) as a conservative fallback.
-        eventDate: asEventDate(f.eventDate) ?? asEventDate(seen.get(url)?.publishedDate?.slice(0, 7)),
+        // LLM date only; text / publish-date fallbacks are applied in code after all assessment passes.
+        eventDate: asEventDate(f.eventDate),
         status: asStatus(f.status),
       });
     }
@@ -194,7 +194,7 @@ Identify supplier-risk RED FLAGS for this company only (ignore results about oth
 "dimension" must be one of these keys or null:
 ${SCORE_KEYS.join(", ")}
 For each flag also extract WHEN the underlying event happened and whether it is still live:
-- "eventDate": "YYYY-MM" or "YYYY" of the event itself (e.g. the year of the settlement or recall). Read it from the title, URL or snippet: "Recalls … December 2025" → "2025-12"; a recall report URL containing /2025/ → "2025". The article's "Published" date is only a hint: an article published in 2025 about a 2018 settlement has eventDate "2018". If nothing says, use null. Never guess.
+- "eventDate": REQUIRED for every flag: "YYYY-MM" or "YYYY" of the event itself (when the recall, lawsuit, fine, strike or breach happened). Read it from the title, URL or snippet. Examples: "Recalls … December 2025" → "2025-12"; "Part 573 Safety Recall Report 25E048" → "2025" (NHTSA ids start with the year: 24V-559 → "2024"); court docket "2:18-cv-00469" → "2018"; "2025 safety recall" → "2025"; a URL containing /2025/ → "2025". The article's "Published" date is only a hint: an article published in 2025 about a 2018 settlement has eventDate "2018". Use null only if no text gives a year. Never guess.
 - "status": "ongoing" (still open, unresolved, recent recall/investigation/strike), "resolved" (settled, fined and closed, completed), or "unknown".
 - "supportUrls": EVERY other URL from the results above that reports the same issue (e.g. a regulator's recall notice plus news articles about it). Exact URLs only; [] if none.
 Only ADVERSE findings are red flags. Positive news (strong results, good ratings, security programmes) is never a red flag.
@@ -206,7 +206,7 @@ Return at most 8 flags. If none, return {"flags": []}.`;
     try {
       const a = await chatJson<{ flags?: unknown }>(
         "You are a meticulous supplier-risk analyst. You never invent facts or URLs.",
-        assessPrompt([...seen.values()]),
+        assessPrompt(aboutCompany([...seen.values()])),
       );
       for (const f of validateFlags(a?.flags)) { flags.push(f); yield { type: "redflag", flag: f }; }
       if (!a) yield { type: "error", text: "Assessment returned no parsable output; continuing." };
@@ -232,7 +232,7 @@ Return at most 8 flags. If none, return {"flags": []}.`;
       const r = settled[i];
       digs[i].flag.followedUp = true;
       if (r.status === "fulfilled") {
-        digSources.push(...r.value);
+        digSources.push(...r.value.filter((x) => !digSources.some((y) => y.url === x.url)));
         yield { type: "dig", query: digs[i].query, reason: `Following up ${digs[i].flag.severity}-severity flag: "${digs[i].flag.title}"`, results: r.value };
       } else {
         yield { type: "error", text: `Follow-up search failed: ${(r.reason as Error)?.message ?? r.reason}` };
@@ -240,11 +240,25 @@ Return at most 8 flags. If none, return {"flags": []}.`;
     }
     if (digSources.length && elapsed() < TIME_BUDGET_MS * 0.75) {
       try {
-        const a = await chatJson<{ flags?: unknown }>(
+        const known = digs.map((d, i) => `#${i + 1} ${d.flag.title} (event ${d.flag.eventDate ?? "date unknown"}) <${d.flag.url}>`).join("\n");
+        const a = await chatJson<{ flags?: unknown; updates?: { flag?: unknown; supportUrls?: unknown; eventDate?: unknown; status?: unknown }[] }>(
           "You are a meticulous supplier-risk analyst. You never invent facts or URLs.",
-          assessPrompt(digSources, `These are FOLLOW-UP results. Already known flags: ${flags.map((f) => f.title).join("; ")}. Report only NEW or materially escalated issues not already covered.`),
+          assessPrompt(digSources, `These are FOLLOW-UP results for these already known flags:
+${known}
+1. "updates": for each known flag that a result above confirms (e.g. a regulator's recall report or court record about the same event), return {"flag": its number, "supportUrls": [exact URLs from above about that same event], "eventDate": "YYYY-MM"|"YYYY"|null, "status": "ongoing"|"resolved"|"unknown"}.
+2. "flags": only NEW or materially escalated issues not already covered.
+Return {"updates": [...], "flags": [...]}.`),
           2000,
         );
+        const digUrls = new Set(digSources.map((x) => x.url));
+        for (const u of Array.isArray(a?.updates) ? a!.updates : []) {
+          const f = digs[Number(u?.flag) - 1]?.flag;
+          if (!f) continue;
+          const urls = (Array.isArray(u.supportUrls) ? u.supportUrls : []).map((x) => (typeof x === "string" ? x.trim() : "")).filter((x) => digUrls.has(x) && x !== f.url);
+          f.supportUrls = [...new Set([...(f.supportUrls ?? []), ...urls])].slice(0, 8);
+          f.eventDate = f.eventDate ?? asEventDate(u.eventDate);
+          if ((f.status ?? "unknown") === "unknown") f.status = asStatus(u.status);
+        }
         for (const f of validateFlags(a?.flags).slice(0, 4)) { f.followedUp = true; flags.push(f); yield { type: "redflag", flag: f }; }
       } catch (e) {
         yield { type: "error", text: `Follow-up assessment failed: ${(e as Error).message}` };
@@ -255,9 +269,6 @@ Return at most 8 flags. If none, return {"flags": []}.`;
   // ---- Corroboration + dates, in code (not by the LLM) ----
   // A collected source corroborates a flag if it names the company and shares ≥2 key words with the flag title
   // (e.g. a regulator's recall notice and a trade-press article about the same brake-chamber recall).
-  const companyWords = keyWords(name, new Set());
-  const companySlug = name.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const mentionsCompany = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "").includes(companySlug);
   for (const f of flags) {
     const fw = keyWords(f.title, companyWords);
     const extra = [...seen.values()].filter((src) => {
@@ -268,11 +279,13 @@ Return at most 8 flags. If none, return {"flags": []}.`;
       return [...fw].filter((w) => sw.has(w)).length >= 2;
     }).map((src) => src.url);
     f.supportUrls = [...(f.supportUrls ?? []), ...extra].slice(0, 8);
+    // Event date: LLM → the flag's own title/detail/URL → its source's title/snippet/URL → supporting sources'
+    // text (earliest) → publish date of its source → earliest publish date of supporting sources. Never invented.
     if (!f.eventDate) {
-      // Own source first; otherwise the EARLIEST dated corroborating source (conservative for recency).
-      const own = dateFromSource(seen.get(f.url));
-      const others = (f.supportUrls ?? []).map((u) => dateFromSource(seen.get(u))).filter((d): d is string => !!d).sort();
-      f.eventDate = own ?? others[0] ?? null;
+      const earliest = (ds: (string | null)[]) => ds.filter((d): d is string => !!d).sort()[0] ?? null;
+      const support = (f.supportUrls ?? []).map((u) => seen.get(u));
+      f.eventDate = eventDateFromText(f.title, f.detail, f.url) ?? dateFromSourceText(seen.get(f.url))
+        ?? earliest(support.map(dateFromSourceText)) ?? publishDate(seen.get(f.url)) ?? earliest(support.map(publishDate));
     }
   }
 
@@ -292,7 +305,7 @@ Red flags found:
 ${flagText}
 
 Evidence:
-${compact(all, 45)}
+${compact(aboutCompany(all), 45)}
 
 For EACH of the 18 keys return {"key", "score": integer 0-100 or null, "confidence": "low"|"medium"|"high"|null, "rationale": one short sentence naming the evidence (never empty when a score is given), "url": exact evidence URL from above or null, "eventDate": "YYYY-MM" or "YYYY" of the main supporting event (not the article date) or null if unknown, "status": "ongoing"|"resolved"|"unknown"}.
 If no result above provides evidence for a dimension, use score null, confidence null, url null, rationale "no evidence found". Do not reuse an unrelated URL just to fill a dimension.
@@ -307,7 +320,7 @@ Red flags:
 ${flagText}
 
 Evidence:
-${compact(all, 45)}
+${compact(aboutCompany(all), 45)}
 
 Write:
 - "summary": 3-4 sentences: who the company is, overall risk picture, the most important red flags, recommendation for a buyer.
