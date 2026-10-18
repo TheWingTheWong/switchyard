@@ -20,9 +20,9 @@ export function RadarOverlay({ series, height = 340 }: { series: RadarSeries[]; 
         <RadarChart data={data} outerRadius="72%">
           <PolarGrid stroke="var(--chart-grid)" />
           <PolarAngleAxis dataKey="dim" tick={{ fontSize: 10, fill: "var(--muted)" }} />
-          <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 9 }} tickCount={5} stroke="var(--line)" />
+          <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 9, fill: "var(--faint)" }} tickCount={5} stroke="var(--line)" />
           {series.map((s, i) => (
-            <Radar key={s.id} name={s.label} dataKey={s.id} stroke={STROKES[i % 5]} strokeDasharray={DASHES[i % 5]} strokeWidth={1.5} fill="none" isAnimationActive={false} />
+            <Radar key={s.id} name={s.label} dataKey={s.id} stroke={STROKES[i % 5]} strokeDasharray={DASHES[i % 5]} strokeWidth={i === 0 ? 2 : 1.5} fill="none" isAnimationActive={false} />
           ))}
           <Tooltip />
           <Legend wrapperStyle={{ fontSize: 11 }} />

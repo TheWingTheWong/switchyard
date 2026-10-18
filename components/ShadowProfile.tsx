@@ -26,7 +26,7 @@ export function ShadowProfile({ report, supplier }: { report: ResearchReport; su
     <div className="card p-4">
       <div className="flex items-end gap-6 mb-3 flex-wrap">
         <div>
-          <div className="label">Shadow profile</div>
+          <h2 className="display text-[17px]">Shadow profile</h2>
           <div className="text-[13px] text-muted">{report.company} scored on the same 18 dimensions from public evidence.</div>
         </div>
         <div className="ml-auto flex gap-6">
@@ -87,7 +87,7 @@ export function ShadowProfile({ report, supplier }: { report: ResearchReport; su
                   <td className="py-1 pr-2">{s?.confidence ?? "—"}</td>
                   <td className="py-1 pr-2">{none ? <em>no evidence found</em> : s!.rationale}</td>
                   <td className="py-1 max-w-[140px] truncate">
-                    {s?.url ? <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{host(s.url)}</a> : "—"}
+                    {s?.url ? <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-[var(--line)] hover:text-stamp">{host(s.url)}</a> : "—"}
                   </td>
                 </tr>
               );

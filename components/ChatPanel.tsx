@@ -46,22 +46,22 @@ export function ChatPanel() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="px-4 py-2 border-b border-line flex items-baseline">
-        <span className="font-semibold">Ask SWITCHYARD</span>
-        <span className="ml-2 text-muted text-[11px]">Nemotron · numbers from tools only</span>
-        {msgs.length > 0 && <button className="ml-auto text-muted underline text-[11px]" onClick={() => setMsgs([])}>clear</button>}
+      <div className="px-4 py-2.5 border-b border-fg flex items-baseline gap-2">
+        <span className="display text-[16px]">Ask SWITCHYARD</span>
+        <span className="text-muted text-[11px]">Nemotron · numbers from tools only</span>
+        {msgs.length > 0 && <button className="ml-auto linkish text-[11px]" onClick={() => setMsgs([])}>clear</button>}
       </div>
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4 text-[13px]">
         {msgs.length === 0 && (
           <div>
             <p className="text-muted mb-2">Ask about any of the 10,000 suppliers. Every number comes from the data engine.</p>
-            {SUGGESTIONS.map((s) => <button key={s} className="btn w-full text-left mb-1 text-[12px]" onClick={() => send(s)}>{s}</button>)}
+            {SUGGESTIONS.map((s) => <button key={s} className="btn btn-quiet w-full !whitespace-normal text-left mb-1 text-[12px] leading-snug" onClick={() => send(s)}>{s}</button>)}
           </div>
         )}
         {msgs.map((m, i) => (
           <div key={i} className={m.role === "user" ? "pl-8" : ""}>
             {m.role === "user" ? (
-              <div className="border border-fg px-3 py-2">{m.content}</div>
+              <div className="bg-stamp-tint text-stamp-deep px-3 py-2 rounded-[2px]">{m.content}</div>
             ) : (
               <div>
                 <Text s={m.content} />
@@ -71,11 +71,11 @@ export function ChatPanel() {
             )}
           </div>
         ))}
-        {busy && <div className="text-muted">Thinking — calling tools…</div>}
+        {busy && <div className="text-stamp font-medium" role="status">Thinking — calling tools…</div>}
         <div ref={end} />
       </div>
-      <form className="border-t border-line p-3 flex gap-2" onSubmit={(e) => { e.preventDefault(); send(input); }}>
-        <input className="input flex-1" value={input} onChange={(e) => setInput(e.target.value)} placeholder="e.g. Why is SUPP_09733 risky?" />
+      <form className="border-t border-fg p-3 flex gap-2" onSubmit={(e) => { e.preventDefault(); send(input); }}>
+        <input className="input flex-1 min-w-0" aria-label="Ask SWITCHYARD" value={input} onChange={(e) => setInput(e.target.value)} placeholder="e.g. Why is SUPP_09733 risky?" />
         <button className="btn btn-primary" disabled={busy}>Send</button>
       </form>
     </div>
@@ -97,7 +97,7 @@ function CardView({ c }: { c: Card }) {
   if (c.type === "table") {
     return (
       <div className="card mt-2 overflow-x-auto">
-        <div className="px-2 py-1 border-b border-line label">{c.title}</div>
+        <div className="px-2 py-1 border-b border-line cap">{c.title}</div>
         <table className="w-full text-[11px]">
           <thead><tr className="border-b border-line text-left">{c.columns.map((h) => <th key={h} className="px-2 py-1 font-medium whitespace-nowrap">{h}</th>)}</tr></thead>
           <tbody>

@@ -9,6 +9,7 @@ import { useStore } from "@/lib/store";
 import { Loading, PageHeader } from "@/components/Shell";
 import { LevelTag } from "@/components/LevelTag";
 import { Waterfall } from "@/components/Waterfall";
+import { Stamp } from "@/components/Stamp";
 
 const OPEN_CHECKS = [
   "Technical capability for the specific component (not in dataset)",
@@ -65,31 +66,42 @@ export default function Decide() {
         </PageHeader>
       </div>
 
-      <article className="card p-6 space-y-6">
-        <header>
-          <div className="label">SWITCHYARD decision memo · {today}</div>
-          <h1 className="text-xl font-semibold mt-1">Candidate for qualification: <span className="num">{pick.id}</span> {pick.name}</h1>
-          <p className="text-muted">to replace <span className="num">{replace.id}</span> {replace.name}</p>
+      <article className="sheet memo">
+        <div className="guilloche h-3 border-b border-line" aria-hidden />
+        <div className="px-8 pt-6 pb-8 space-y-7">
+        <header className="flex items-start gap-6">
+          <div className="min-w-0 flex-1">
+            <div className="cap">SWITCHYARD decision memo · {today}</div>
+            <h1 className="display text-[26px] mt-2">Candidate for qualification: <span className="num text-stamp">{pick.id}</span> {pick.name}</h1>
+            <p className="text-muted mt-1">to replace <span className="num text-fg">{replace.id}</span> {replace.name}</p>
+            <div className="field-grid grid-cols-4 mt-4 text-[12.5px] max-w-[620px]">
+              <div className="px-3 py-2"><div className="cap">Replace · TRI</div><div className="mt-1"><LevelTag score={replace.tri} /></div></div>
+              <div className="px-3 py-2"><div className="cap">Pick · TRI</div><div className="mt-1"><LevelTag score={pick.tri} /></div></div>
+              <div className="px-3 py-2"><div className="cap">Exposure at stake</div><div className="num mt-1 font-semibold">{fmtEur(exposure(replace))}</div></div>
+              <div className="px-3 py-2"><div className="cap">Checks passed</div><div className="num mt-1 font-semibold">{checks.filter((c) => c.pass).length}/{checks.length}</div></div>
+            </div>
+          </div>
+          <Stamp key={pick.id} word="CANDIDATE" sub="FOR QUALIFICATION" ring="SWITCHYARD · DECISION MEMO ·" size={128} rot={-7} className="shrink-0 mt-1" />
         </header>
 
         <section>
-          <h2 className="label mb-1">Executive summary</h2>
-          {memo ? <p className="whitespace-pre-wrap">{memo}</p> : <p className="text-muted">Click “Generate memo” for the AI-written summary (Nemotron, facts-only).</p>}
+          <h2 className="memo-h">Executive summary</h2>
+          {memo ? <p className="whitespace-pre-wrap leading-relaxed max-w-[75ch] text-[14.5px]">{memo}</p> : <p className="text-muted">Click “Generate memo” for the AI-written summary (Nemotron, facts-only).</p>}
         </section>
 
         <section>
-          <h2 className="label mb-1">1. Why act</h2>
+          <h2 className="memo-h">1. Why act</h2>
           <p><span className="num">{replace.id}</span> has a TRI of <span className="num">{replace.tri}</span> (<LevelTag lvl={level(replace.tri)} showScore={false} />) on <span className="num">{fmtEur(replace.po)}</span> of purchase orders — risk-weighted exposure <span className="num">{fmtEur(exposure(replace))}</span>. Largest drivers: {eRep.contributions.slice(0, 3).map((c) => `${c.label} ${c.score} (+${c.contribution.toFixed(1)} pts)`).join(", ")}.</p>
         </section>
 
         <section>
-          <h2 className="label mb-1">2. Shortlist ({list.length} of 10,000)</h2>
-          <table className="w-full text-[12px]">
-            <thead><tr className="border-b border-fg text-left"><th className="py-1 font-medium">Supplier</th><th className="font-medium">TRI</th><th className="font-medium">Critical dims</th><th className="font-medium text-right">Delivery</th></tr></thead>
+          <h2 className="memo-h">2. Shortlist ({list.length} of 10,000)</h2>
+          <table className="tbl text-[12px]">
+            <thead><tr><th>Supplier</th><th>TRI</th><th>Critical dims</th><th className="r">Delivery</th></tr></thead>
             <tbody>
               {list.map((s) => (
-                <tr key={s.id} className={`border-b border-line ${s.id === pick.id ? "font-semibold" : ""}`}>
-                  <td className="py-0.5"><span className="num">{s.id === pick.id ? "★ " : ""}{s.id}</span> <span className="text-muted">{s.name}</span></td>
+                <tr key={s.id} className={s.id === pick.id ? "is-current font-semibold" : ""}>
+                  <td className="!py-0.5"><span className="num">{s.id === pick.id ? "★ " : ""}{s.id}</span> <span className="text-muted">{s.name}</span></td>
                   <td><LevelTag score={s.tri} /></td><td className="num">{hiddenRisk(s).criticalDims.length}</td><td className="num text-right">{s.del.toFixed(1)}%</td>
                 </tr>
               ))}
@@ -98,20 +110,20 @@ export default function Decide() {
         </section>
 
         <section>
-          <h2 className="label mb-1">3. The pick, explained</h2>
+          <h2 className="memo-h">3. The pick, explained</h2>
           <Waterfall e={ePick} top={8} />
         </section>
 
         <section>
-          <h2 className="label mb-1">4. Challenges ({checks.filter((c) => c.pass).length}/{checks.length} passed · #1 in {rob.wins}/{rob.total} priority scenarios)</h2>
+          <h2 className="memo-h">4. Challenges ({checks.filter((c) => c.pass).length}/{checks.length} passed · #1 in {rob.wins}/{rob.total} priority scenarios)</h2>
           <ul className="space-y-0.5">
-            {checks.map((c) => <li key={c.id}><span className="num font-semibold">{c.pass ? "PASS" : "FAIL"}</span> {c.label} — <span className="text-muted">{c.detail}</span></li>)}
+            {checks.map((c) => <li key={c.id}><span className={`num font-bold text-[11px] mr-1 ${c.pass ? "text-[var(--pass)]" : "text-[var(--risk-critical)]"}`}>{c.pass ? "PASS" : "FAIL"}</span> {c.label} — <span className="text-muted">{c.detail}</span></li>)}
           </ul>
-          {challenge?.critique && <p className="mt-2 border-l-2 border-fg pl-3"><span className="label">Devil&apos;s advocate:</span> {challenge.critique}</p>}
+          {challenge?.critique && <p className="mt-3 bg-surface px-4 py-3 max-w-[75ch]"><span className="cap !text-[var(--risk-critical)]">Devil&apos;s advocate:</span> {challenge.critique}</p>}
         </section>
 
         <section>
-          <h2 className="label mb-1">5. External evidence</h2>
+          <h2 className="memo-h">5. External evidence</h2>
           {research ? (
             <div>
               <p><span className="font-medium">{research.company}</span> researched {new Date(research.researchedAt).toLocaleString("en-GB")}{research.cached ? " (cached run)" : ""}. Shadow TRI <span className="num">{research.shadowTri ?? "n/a"}</span>.</p>
@@ -124,20 +136,21 @@ export default function Decide() {
         </section>
 
         <section>
-          <h2 className="label mb-1">6. Open qualification checks</h2>
+          <h2 className="memo-h">6. Open qualification checks</h2>
           <ul className="list-disc pl-5">{OPEN_CHECKS.map((c) => <li key={c}>{c}</li>)}
             {hr.criticalDims.map((k) => <li key={k}>Mitigation plan for Critical {SCORE_BY_KEY[k].label}</li>)}
           </ul>
         </section>
 
         <section>
-          <h2 className="label mb-1">7. Audit log</h2>
+          <h2 className="memo-h">7. Audit log</h2>
           <ol className="text-[11px] text-muted space-y-0.5">
             {audit.slice(-25).map((a, i) => <li key={i}><span className="num">{new Date(a.at).toLocaleTimeString("en-GB")}</span> · {a.step} · {a.text}</li>)}
           </ol>
         </section>
+        </div>
       </article>
-      <button className="no-print text-muted underline text-[12px] mt-4" onClick={() => { if (confirm("Start a new decision?")) reset(); }}>Start a new decision</button>
+      <button className="no-print linkish text-[12px] mt-4" onClick={() => { if (confirm("Start a new decision?")) reset(); }}>Start a new decision</button>
     </div>
   );
 }
