@@ -24,3 +24,13 @@ export function parseJson<T>(s: string): T | null {
   const end = t.lastIndexOf(close);
   try { return JSON.parse(t.slice(start, end + 1)) as T; } catch { return null; }
 }
+
+/** One-shot prose completion (thinking disabled for speed). */
+export async function complete(system: string, user: string, maxTokens = 600): Promise<string> {
+  const res = await llm.chat.completions.create({
+    model: MODEL, temperature: 0.2, max_tokens: maxTokens,
+    messages: [{ role: "system", content: system }, { role: "user", content: user }],
+    ...({ chat_template_kwargs: { enable_thinking: false } } as object), // Nebius/vLLM extension
+  });
+  return stripThink(res.choices[0].message.content);
+}

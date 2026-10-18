@@ -18,6 +18,7 @@ const SORTS: { f: NumField; label: string; dir: "asc" | "desc" }[] = [
 ];
 
 const QUICK: { label: string; f: FilterCriteria }[] = [
+  { label: "Proven at scale: PO ≥ €10M, TRI ≤ 49, confirmation ≥ 97%", f: { ranges: { po: [10_000_000, null], tri: [null, 49], conf: [97, null] } } },
   { label: "Safe & reliable: TRI < 30, delivery > 95%", f: { ranges: { tri: [null, 29], del: [95, null] } } },
   { label: "Low TRI, no Critical financial risk", f: { levels: { tri: ["Low"] }, ranges: { financial: [null, 74] } } },
   { label: "Hidden risk only (averages lie)", f: { hiddenRiskOnly: true } },
