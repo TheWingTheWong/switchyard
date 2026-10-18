@@ -27,6 +27,7 @@ export interface ResearchReport {
   company: string;
   researchedAt: string; // ISO
   cached?: boolean; // true if served from the cached demo run
+  models?: Record<string, string>; // step (plan / assess / dig / shadow / report) → Nemotron model that produced it
   summary: string;
   facts: { text: string; url: string }[];
   unverified: { text: string; url?: string }[];

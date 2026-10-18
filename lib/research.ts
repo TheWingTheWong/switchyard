@@ -1,6 +1,6 @@
 import "server-only";
 import { tavily } from "@tavily/core";
-import { llm, MODEL, parseJson } from "./llm";
+import { llm, MODEL, MODEL_FAST, MODEL_REASON, modelName, parseJson } from "./llm";
 import { SCORES, SCORE_KEYS, type ScoreKey } from "./schema";
 import { partialTri } from "./engine";
 import { eventDateFromText, normalizeEventDate } from "./dates";
@@ -35,11 +35,14 @@ const fallbackQueries = (c: string): Query[] => [
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
 const clean = (s: string) => s.replace(/\s+/g, " ").trim();
 
-async function chatJson<T>(system: string, user: string, maxTokens = 3000): Promise<T | null> {
+/** JSON completion on the routed model; an error or unparsable reply retries once on MODEL (Super VL), so routing
+ *  can never fail a run. `onModel` receives the model that actually produced the answer. */
+async function chatJson<T>(system: string, user: string, maxTokens = 3000, model = MODEL, onModel?: (m: string) => void): Promise<T | null> {
   for (let attempt = 0; attempt < 2; attempt++) {
+    const m = attempt ? MODEL : model;
     try {
       const r = await llm.chat.completions.create({
-        model: MODEL,
+        model: m,
         temperature: 0.2,
         max_tokens: maxTokens + 4000,
         // Nemotron: skip the long <think> phase — we need structured JSON fast.
@@ -50,7 +53,7 @@ async function chatJson<T>(system: string, user: string, maxTokens = 3000): Prom
         ],
       });
       const out = parseJson<T>(r.choices[0]?.message?.content ?? "");
-      if (out) return out;
+      if (out) { onModel?.(m); return out; }
       console.warn(`[research] unparsable LLM reply (finish=${r.choices[0]?.finish_reason}):`, (r.choices[0]?.message?.content ?? "").slice(0, 300));
     } catch (e) {
       if (attempt) throw e;
@@ -118,7 +121,10 @@ export async function* runResearch(company: string): AsyncGenerator<ResearchEven
   }
 
   // ---- 1. Plan ----
-  yield { type: "status", text: `Planning research on "${name}"…` };
+  // Which model did each step (shown on the page). Fallbacks to Super VL are recorded as such.
+  const models: Record<string, string> = {};
+  const rec = (step: string) => (m: string) => { models[step] = m; };
+  yield { type: "status", text: `Planning with ${modelName(MODEL_FAST)}: research on "${name}"…` };
   let disambiguation = "";
   let queries: Query[] = [];
   try {
@@ -129,7 +135,7 @@ Produce a research plan:
 - "disambiguation": one sentence identifying the exact legal entity (full name, HQ country, industry, official website if known).
 - "queries": 7 web search queries, one per risk group from: ${DIMENSION_GROUPS.join(", ")}. Each query must include the company name, be specific (e.g. "recall", "insolvency", "fine", "strike"). Do NOT put years or dates in the queries.
 JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query": string}]}`,
-      2000,
+      2000, MODEL_FAST, rec("plan"),
     );
     disambiguation = clean(plan?.disambiguation ?? "");
     queries = (plan?.queries ?? [])
@@ -202,11 +208,12 @@ JSON shape: {"flags": [{"title": string, "severity": "low"|"medium"|"high", "dim
 Return at most 8 flags. If none, return {"flags": []}.`;
 
   if (seen.size) {
-    yield { type: "status", text: `Assessing ${seen.size} sources for red flags…` };
+    yield { type: "status", text: `Assessing ${seen.size} sources for red flags with ${modelName(MODEL_REASON)}…` };
     try {
       const a = await chatJson<{ flags?: unknown }>(
         "You are a meticulous supplier-risk analyst. You never invent facts or URLs.",
         assessPrompt(aboutCompany([...seen.values()])),
+        3000, MODEL_REASON, rec("assess"),
       );
       for (const f of validateFlags(a?.flags)) { flags.push(f); yield { type: "redflag", flag: f }; }
       if (!a) yield { type: "error", text: "Assessment returned no parsable output; continuing." };
@@ -248,7 +255,7 @@ ${known}
 1. "updates": for each known flag that a result above confirms (e.g. a regulator's recall report or court record about the same event), return {"flag": its number, "supportUrls": [exact URLs from above about that same event], "eventDate": "YYYY-MM"|"YYYY"|null, "status": "ongoing"|"resolved"|"unknown"}.
 2. "flags": only NEW or materially escalated issues not already covered.
 Return {"updates": [...], "flags": [...]}.`),
-          2000,
+          2000, MODEL_REASON, rec("dig"),
         );
         const digUrls = new Set(digSources.map((x) => x.url));
         for (const u of Array.isArray(a?.updates) ? a!.updates : []) {
@@ -290,7 +297,7 @@ Return {"updates": [...], "flags": [...]}.`),
   }
 
   // ---- 5 + 6. Shadow profile and report (in parallel) ----
-  yield { type: "status", text: "Scoring shadow profile on 18 dimensions and writing report…" };
+  yield { type: "status", text: `Scoring shadow profile on 18 dimensions with ${modelName(MODEL_REASON)} and writing report with ${modelName(MODEL)}…` };
   const all = [...seen.values()];
   const flagText = flags.map((f) => `- [${f.severity}] ${f.title} (${f.dimension ?? "n/a"}; event ${f.eventDate ?? "date unknown"}; ${f.status ?? "unknown"}): ${f.detail} <${f.url}>`).join("\n") || "(none)";
 
@@ -310,7 +317,7 @@ ${compact(aboutCompany(all), 45)}
 For EACH of the 18 keys return {"key", "score": integer 0-100 or null, "confidence": "low"|"medium"|"high"|null, "rationale": one short sentence naming the evidence (never empty when a score is given), "url": exact evidence URL from above or null, "eventDate": "YYYY-MM" or "YYYY" of the main supporting event (not the article date) or null if unknown, "status": "ongoing"|"resolved"|"unknown"}.
 If no result above provides evidence for a dimension, use score null, confidence null, url null, rationale "no evidence found". Do not reuse an unrelated URL just to fill a dimension.
 JSON shape: {"scores": [ ...18 items... ]}`,
-    4000,
+    4000, MODEL_REASON, rec("shadow"),
   ).catch(() => null);
 
   const reportP = chatJson<{ summary?: string; facts?: { text?: string; url?: string }[]; unverified?: { text?: string; url?: string }[] }>(
@@ -327,7 +334,7 @@ Write:
 - "facts": 4-8 verified facts, each directly supported by a cited URL from the evidence.
 - "unverified": 0-5 claims that appear in a single weak source, are speculative, or conflict between sources (url optional).
 JSON shape: {"summary": string, "facts": [{"text": string, "url": string}], "unverified": [{"text": string, "url": string}]}`,
-    2500,
+    2500, MODEL, rec("report"),
   ).catch(() => null);
 
   const [shadowRaw, reportRaw] = await Promise.all([shadowP, reportP]);
@@ -380,6 +387,7 @@ JSON shape: {"summary": string, "facts": [{"text": string, "url": string}], "unv
     shadow,
     shadowTri: tri.value,
     sources: all,
+    models: Object.fromEntries(Object.entries(models).map(([k, v]) => [k, modelName(v)])),
   };
   yield { type: "status", text: `Done in ${(elapsed() / 1000).toFixed(0)}s · ${searchesUsed} searches · ${all.length} sources · coverage ${Math.round(tri.coverage * 100)}% of TRI weight.` };
   yield { type: "report", report };

@@ -207,7 +207,7 @@ The visual idea comes from rail itself. **Every part of a train ships with an in
 |---|---|---|
 | **Next.js + TypeScript** | One codebase for the website and its server | The screen and the chatbot share the same math, so they never disagree |
 | **Engine in the browser** | All 10,000 suppliers load once as a ~2 MB file | Filtering, re-ranking and slider changes are instant, with no waiting on a server |
-| **Nemotron 3.5 Super VL** | NVIDIA's open model, running on **Nebius Token Factory** | Reliable tool calling and fast (~1–2 s per answer). It's NVIDIA's model on Nebius, which is the point of this hackathon. It powers every AI step: chat, research planning, red-flag assessment, digging deeper, shadow scoring, the critique and the memo summary |
+| **Two Nemotron models, each on the job it's best at** | NVIDIA's open models, running on **Nebius Token Factory** | **Nemotron 3.5 Lightning** (~0.4 s) plans the research: entity identification and the query plan. **Nemotron 3.5 Super VL** (~1–2 s, reliable tool calling) does the reasoning: red-flag assessment, digging deeper, shadow scoring, the report, chat, critique and memo. Any step that errors or returns bad JSON retries once on Super VL. We A/B-tested **Nemotron 3 Ultra** for the reasoning steps: 34 s vs 24 s, 4 red flags vs 7, and its shadow scores failed validation, so it stays off (one env switch brings it back). The page shows which model did each step |
 | **"Thinking off" for structured steps** | Nemotron can reason at length before answering; for JSON steps we switch that off | One research run dropped from about 60 s to about 23 s, and the output became reliably well-formed |
 | **Tavily** | A search API built for AI agents | Clean snippets plus URLs, which is what lets us check every citation |
 | **Railway** | Hosting for an always-on server | Research streams for 20–60 s, and serverless hosting would have cut it off |
@@ -304,7 +304,7 @@ It's on the same 18 dimensions and the same 0–100 scale, computed with the sam
 It tells you which suppliers are **candidates for qualification**, and why. The data has no component, capacity, price or country information, so a responsible tool doesn't say "switch now". The memo lists exactly what still has to be checked.
 
 **"Where's NVIDIA and Nebius in this?"**
-Every AI step runs on Nemotron 3.5 Super VL through Nebius Token Factory: chat with tool calling, research planning, red-flag assessment, digging deeper, shadow scoring, the critique and the memo summary.
+Two Nemotron models, each on the job it's best at, all through Nebius Token Factory. Nemotron 3.5 Lightning plans the research in under half a second; Nemotron 3.5 Super VL does red-flag assessment, digging deeper, shadow scoring, chat with tool calling, the critique and the memo. We measured Nemotron 3 Ultra for the reasoning steps too: slower and fewer findings on our task, so we kept Super VL. The agent log names the model for every step.
 
 **"What was the hardest part?"**
 Making the agent *reliable* rather than impressive once. That meant switching off Nemotron's thinking phase for structured steps, extracting JSON robustly, validating every URL, enforcing a search and time budget, and keeping an honestly labelled cached fallback.
@@ -334,6 +334,6 @@ As the place where a sourcing decision gets made *and* recorded. You start from 
 | Evidence-adjusted (cached Knorr-Bremse → SUPP_07967) | **Official 10 → evidence-adjusted 12; Quality 1→10, Safety 25→28; red-flag check FAILS (2025 NHTSA recall)** |
 | Evidence rules | **adverse-only · severity 0.6/0.35/0.15 × confidence 1/0.85/0.6 × recency 1/0.5/0.25/0 × status 1/0.5/0.75 × source 1/0.7/0.35/0 · unverified 0 · as-of date** |
 | Chat speed / research run | **~2–3 s / ~20–26 s** |
-| Model | **Nemotron 3.5 Super VL on Nebius Token Factory** |
+| Model | **Nemotron 3.5 Lightning (planning) + Nemotron 3.5 Super VL (reasoning, chat) on Nebius Token Factory** |
 
 *One line to finish on:* **Every supplier has a score. Every decision needs a reason.**

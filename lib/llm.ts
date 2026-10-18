@@ -9,6 +9,19 @@ export const llm = new OpenAI({
 
 export const MODEL = process.env.LLM_MODEL ?? "nvidia/Nemotron-3.5-Super-VL";
 export const MODEL_FAST = process.env.LLM_MODEL_FAST ?? MODEL;
+/** Research reasoning steps (red-flag assessment, dig-deeper, shadow scoring). Defaults to MODEL: in an A/B on
+ *  Knorr-Bremse, Nemotron-3-Ultra-550b-a55b was 10s slower, found fewer red flags and its shadow scores failed
+ *  validation. Set LLM_MODEL_REASON to opt back in. */
+export const MODEL_REASON = process.env.LLM_MODEL_REASON || MODEL;
+
+/** Display name for the agent log: "nvidia/Nemotron-3_5-Lightning" → "Nemotron 3.5 Lightning". */
+export function modelName(id: string): string {
+  const n = id.split("/").pop() ?? id;
+  if (/lightning/i.test(n)) return "Nemotron 3.5 Lightning";
+  if (/ultra/i.test(n)) return "Nemotron 3 Ultra";
+  if (/super-vl/i.test(n)) return "Nemotron 3.5 Super VL";
+  return n.replace(/[-_]/g, " ");
+}
 
 /** Strip <think>…</think> reasoning blocks some Nemotron variants emit. */
 export function stripThink(s: string | null | undefined): string {

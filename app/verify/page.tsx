@@ -125,6 +125,7 @@ function Report({ report, supplier }: { report: ResearchReport; supplier: Parame
             <div className="flex flex-wrap items-baseline gap-x-3">
               <div className="cap">Research report · {report.company}</div>
               <div className="text-[12px] text-muted">Researched {fmtTime(report.researchedAt)}{report.cached ? " · cached" : ""}</div>
+              {report.models && <div className="text-[12px] text-muted">{Object.entries(report.models).map(([k, v]) => `${k}: ${v}`).join(" · ")}</div>}
             </div>
             <p className="mt-2 text-[14px] leading-relaxed max-w-[72ch]">{report.summary}</p>
           </div>

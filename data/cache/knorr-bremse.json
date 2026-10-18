@@ -2,92 +2,96 @@
  "events": [
   {
    "type": "status",
-   "text": "Planning research on \"Knorr-Bremse\"…"
+   "text": "Planning with Nemotron 3.5 Lightning: research on \"Knorr-Bremse\"…"
   },
   {
    "type": "plan",
-   "text": "Knorr-Bremse Aktiengesellschaft is a German manufacturer of braking systems for rail and commercial vehicles headquartered in Munich, Germany, with an official website at knorr-bremse.com.",
+   "text": "Knorr-Bremse AG, headquartered in Munich, Germany, is a global leader in the rail and commercial vehicle brake systems industry, with its official website at www.knorr-bremse.com.",
    "queries": [
     {
      "dimension": "financial",
-     "query": "Knorr-Bremse insolvency bankruptcy financial distress"
+     "query": "Knorr-Bremse AG financial performance revenue profit margin"
     },
     {
      "dimension": "legal/compliance",
-     "query": "Knorr-Bremse fine penalty lawsuit compliance violation"
+     "query": "Knorr-Bremse AG legal dispute fine regulatory investigation"
     },
     {
      "dimension": "labor",
-     "query": "Knorr-Bremse strike labor dispute union grievance"
+     "query": "Knorr-Bremse AG strike labor dispute workforce"
     },
     {
      "dimension": "safety/quality recalls",
-     "query": "Knorr-Bremse recall safety defect quality issue"
+     "query": "Knorr-Bremse AG product recall safety defect"
     },
     {
      "dimension": "ESG",
-     "query": "Knorr-Bremse ESG environmental sustainability carbon emissions controversy"
+     "query": "Knorr-Bremse AG ESG sustainability rating environmental social governance"
     },
     {
      "dimension": "cyber",
-     "query": "Knorr-Bremse cyber attack data breach ransomware"
+     "query": "Knorr-Bremse AG data breach cybersecurity incident"
     },
     {
      "dimension": "geopolitical/sanctions",
-     "query": "Knorr-Bremse sanctions export control Russia China trade restriction"
+     "query": "Knorr-Bremse AG sanctions export control geopolitical risk"
+    },
+    {
+     "dimension": "media",
+     "query": "Knorr-Bremse AG news media coverage recent developments"
     }
    ]
   },
   {
    "type": "status",
-   "text": "Searching the web (7 queries)…"
+   "text": "Searching the web (8 queries)…"
   },
   {
    "type": "search",
-   "query": "Knorr-Bremse insolvency bankruptcy financial distress",
+   "query": "Knorr-Bremse AG financial performance revenue profit margin",
    "dimension": "financial",
    "results": [
     {
-     "url": "https://valueinvesting.io/KBX.DE/probability-of-bankruptcy",
-     "title": "KBX.DE Probability of Bankruptcy | Knorr Bremse AG ...",
-     "snippet": "The Probability of Bankruptcy of Knorr Bremse AG (KBX.DE) is 0% . This number represents the probability that KBX.DE will face financial distress in the next 24"
+     "url": "https://finance.yahoo.com/quote/KBX.DE/key-statistics",
+     "title": "Knorr-Bremse AG (KBX.DE) Valuation Measures & Financial Statistics",
+     "snippet": "### Financial Highlights ### Fiscal Year | | | --- | | Fiscal Year Ends | 12/31/2025 | | Most Recent Quarter (mrq) | 6/30/2026 | ### Profitability | | | --- | | Profit Margin | 7.28% | | Operating Margin (ttm) | 13.49% | ### Management Effectiveness | | | --- | | Return on Assets (ttm) | 7.09% | |…"
     },
     {
-     "url": "https://nclt.gov.in/gen_pdf.php?filepath=%2FEfile_Document%2Fncltdoc%2Fcasedoc%2F0404116035792022%2F04%2FOrder-Challenge%2F04_order-Challange_004_168310228387632963464521a4b1d661.pdf",
-     "title": "CP (IB) No. 325 of 2022 Anand Prakash Garg Vs. Knorr- ...",
-     "snippet": "Knorr-Bremse India Private Limited Through its Director, with its registered office at: 51/4, Delhi-Mathura Road, Village & P.O. Baghola Palwal, Haryana-121102 …Respondent-Corporate Debtor Order delivered on: 19.04.2023 Coram: Hon’ble Mr. Harnam Singh Thakur, Member (Judicial) Hon’ble Mr. Subrata K…"
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-sees-higher-profit-margin-and-strong-cash-flow",
+     "title": "Knorr-Bremse Sees Higher Profit Margin and Strong Cash Flow",
+     "snippet": "Frank Markus Weber, Chief Financial Officer of Knorr-Bremse AG: “We were able to achieve further pleasing revenue growth in the last three months. At € 1.9 billion, this represents an increase of 8% on the same quarter last year. Our greater profitability stems from the successful implementation of…"
     },
     {
-     "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459",
-     "title": "German Brake Specialist Knorr-Bremse AG Downgrade",
-     "snippet": "Germany-based brake specialist Knorr-Bremse (KB) not to return to its above-average EBITDA margin profile over the next 24 months,"
-    },
-    {
-     "url": "https://simplywall.st/stocks/us/capital-goods/otc-knrr.y/knorr-bremse/health",
-     "title": "Knorr-Bremse (KNRR.Y) Balance Sheet & Financial Health ...",
-     "snippet": "Knorr-Bremse has a total shareholder equity of €3.3B and total debt of €1.9B, ratio to 59.1%. from 66.5% to 59.1% over the past 5 years."
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-delivers-strong-compelling-h1-performance",
+     "title": "Knorr-Bremse Delivers Strong, Compelling H1 Performance",
+     "snippet": "| Order book (June 30) | 1,772 | 1,969 | -10.0% | 1,772 | 1,969 | -10.0% | | Revenues | 1,789 | 2,007 | -10.9% | 895 | 997 | -10.2% | | EBIT | 156 | 209 | -25.4% | 85 | 98 | -13.0% | | EBIT margin | 8.7% | 10.4% | -170 bp | 9.5% | 9.8% | -30 bp | | Operating EBIT | 176 | 223 | -20.8% | 92 | 112 | -…"
     },
     {
      "url": "https://www.investing.com/equities/knorr-bremse-financial-summary",
      "title": "ETR:KBX Financials | Knorr-Bremse AG - Investing.com",
-     "snippet": "| | | | | Cash from Investing | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -534.37 | -505 | -411 | -750 | -306 | | | | | | Cash from Financing | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -1,424.9 | -160.81 | -398 | 630 | -1,256 | | | | | | Net Change in Cash | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -91…"
+     "snippet": "The Knorr-Bremse EPS (TTM) is 3.64. Knorr-Bremse reported sales of The Knorr-Bremse EPS (TTM) is 3.64. Knorr-Bremse reported sales of 2,164.00, net income of 173.00, and EPS of 1.08 for the latest quarter., net income of 173.00, and EPS of 1.08 for the latest quarter. ### What was Knorr-Bremse's ne…"
+    },
+    {
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-on-course-for-success-with-higher-profit-and-profitability",
+     "title": "Knorr-Bremse on course for success with higher profit and profitability",
+     "snippet": "| Order book (Dec 31) | 1,787.7 | 1,831.6 | -2.4% | 1,787.7 | 1,831.6 | -2.4% | | Revenues | 3,503.5 | 3,841.8 | -8.8% | 881.2 | 919.3 | -4.1% | | EBIT | 318.6 | 349.9 | -8.9% | 90.3 | 70.4 | +28.3% | | EBIT margin | 9.1% | 9.1% | +/–0 bp | 10.2% | 7.7% | +250 bp | | Operating EBIT | 363.3 | 401.1…"
     }
    ]
   },
   {
    "type": "search",
-   "query": "Knorr-Bremse fine penalty lawsuit compliance violation",
+   "query": "Knorr-Bremse AG legal dispute fine regulatory investigation",
    "dimension": "legal/compliance",
    "results": [
     {
-     "url": "https://purchasing.knorr-bremse.com/media/direct-purchasing-rail/dsi/dsi-supplier-downloads/qaa-en.pdf",
-     "title": "Quality assurance agreement - purchasing.knorr-bremse.com",
-     "snippet": "The Supplier is obligated to pay a contractual penalty of 10,000 EUR to Knorr-Bremse for each culpable violation of statutory environmental protection regulations or Knorr-Bremse in-house standards."
+     "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
+     "title": "Rail Equipment Manufacturers No-Poach Agreements Antitrust Investigation",
+     "snippet": "Frank LLP has commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. On April 3, 2018, the United States Department of Justice announced that it has reached a settlement with Knorr-Bremse AG and Westingho…"
     },
     {
-     "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final",
-     "title": "Federal Register :: United States v. Knorr-Bremse AG and Westinghouse Air Brake Technologies Corporation; Proposed Final Judgment and Competitive Impact Statement",
-     "snippet": "At the same time the Complaint was filed, the United States also filed a Stipulation and Order and proposed Final Judgment, which would remedy the violation by enjoining the Defendants from entering into, maintaining, or enforcing any No-Poach Agreements, subject to limited exceptions. The proposed…"
+     "url": "https://www.lexisnexis.co.uk/legal/guidance/knorr-bremse-haldex-m-8222-archived",
+     "title": "Knorr-Bremse/Haldex (M.8222) [Archived] | Legal Guidance | LexisNexis",
+     "snippet": "| | | --- | | Outline | European Commission merger investigation into the proposed acquisition of Haldex by Knorr-Bremse (Case M.8222). The transaction involves horizontal overlaps in markets for commercial vehicle brake systems and components. | | Latest developments | The notification was formall…"
     },
     {
      "url": "https://www.justice.gov/opa/press-release/file/1048481/dl",
@@ -95,57 +99,56 @@
      "snippet": "in any investigation or litigation examining whether or alleging that the Defendant entered into a No-Poach Agreement with any other person in violation of Section 1 of the Sherman Act, 15 U.S.C. § 1. The United States and the Defendants have stipulated that the proposed Final Judgment may be enter…"
     },
     {
-     "url": "https://www.knorr-bremse.com/en/company/compliance",
-     "title": "Compliance – Integrity & Responsible Business Practices | Knorr-Bremse Group",
-     "snippet": "We are firmly committed to protecting those who raise concerns in good faith. Knorr-Bremse strictly prohibits any form of retaliation against individuals who, at the time of reporting, genuinely believe their report to be true. To learn more about how IntegrityVoice works—including what happens aft…"
+     "url": "https://www.reuters.com/article/us-haldex-ab-m-a-knorr-bremse-eu-idUSKBN1A91XR",
+     "title": "EU regulators to investigate Knorr-Bremse's bid for Haldex",
+     "snippet": "EU regulators said on Monday they would investigate car parts maker Knorr-Bremse's [STELLG.UL] bid for Swedish peer Haldex as concessions"
     },
     {
-     "url": "https://www.robinskaplan.com/newsroom/news/robins-kaplan-llp-files-lawsuit-alleging-major-rail-equipment-suppliers",
-     "title": "Robins Kaplan LLP Files Lawsuit Alleging Major Rail Equipment Suppliers Entered into Unlawful No-Poach Agreements | Robins Kaplan LLP Law Firm",
-     "snippet": "April 30, 2018 New York, NY—April 30, 2018—National trial firm Robins Kaplan LLP® has filed a proposed class action lawsuit in the U.S. District Court for the Western District of Pennsylvania alleging three of the world’s largest rail equipment suppliers entered into unlawful no-poach agreements to…"
+     "url": "https://joeharrington5201922.github.io/pdf/Bloomberg%20Law_08.28.18.pdf",
+     "title": "Knorr Bremse, Wabtec 'No-Poach' Case Triggers Wave of ...",
+     "snippet": "The class actions, which were filed in different parts of the country and consolidated into multidistrict litigation this month, seek monetary damages for any workers who may have been harmed by the companies’ alleged employment practices. The suits are part of a recent flurry of legal and regulato…"
     }
    ]
   },
   {
    "type": "search",
-   "query": "Knorr-Bremse strike labor dispute union grievance",
+   "query": "Knorr-Bremse AG strike labor dispute workforce",
    "dimension": "labor",
    "results": [
     {
-     "url": "https://timesofindia.indiatimes.com/city/chennai/germanys-knorr-bremse-to-invest-1907-crore-at-sriperumbudur/articleshow/125996265.cms",
-     "title": "Germany’s Knorr-Bremse to invest ₹1,907 crore at Sriperumbudur | Chennai News - The Times of India",
-     "snippet": "logo About usCreate Your Own AdTerms of Use and Grievance Redressal Policy Privacy policyAdvertise with usRSSNewsletterFeedbackePaperSitemapArchives Living and Entertainment CricbuzzLifestyleNewspaper SubscriptionFood NewsTVTimes PrimeTravel DestinationsWhats HotETimesTimes LifeTimes PetsMyLifeXP C…",
+     "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich",
+     "title": "Company History in the Third Reich – 1933 to 1945 | Knorr-Bremse Group",
+     "snippet": "That same month the number of foreigners employed at Knorr-Bremse's Berlin parent plant reached its wartime peak of 3,101 – or 42.3 percent of the entire workforce of 7,334. Among manual workers the proportion of foreigners was as high as 48.7 percent. At the relocation plants in the General-Govern…",
+     "publishedDate": "Wed, 28 Jan 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://www.igmetall.de/en/tarif/tarifrunden/leiharbeit/tarifrunde-leiharbeit-inflationsausgleichspraemie",
+     "title": "Protests in the Temporary Employment Sector",
+     "snippet": "## A Matter of Fairness Just before negotiations began on Thursday afternoon, 1,000 temporary workers demonstrated for their inflation adjustment bonus. They marched from “BMW Welt” to the Leonardo Royal Hotel Munich, where a final round of negotiations between IG Metall and the employers subsequen…",
+     "publishedDate": "Wed, 26 Aug 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://www.linkedin.com/posts/schunk-group_reliable-charging-infrastructure-is-a-key-activity-7480501452436713472-3j9q",
+     "title": "Reliable charging infrastructure is a key requirement for ...",
+     "snippet": "Knorr-Bremse AG. At UK Rail we will address the industry challenges such as demographic shifts, labor shortages in maintenance, and mounting pressure to"
+    },
+    {
+     "url": "https://ir.knorr-bremse.com/media/document/c7fadd13-bd21-4559-9931-56d61c206db5/assets/Knorr_Bremse_CorporateGovernanceStatement_2025.pdf?disposition=inline",
+     "title": "Corporate Governance Statement for the 2025 Fiscal Year",
+     "snippet": "of Deutsches Institut für Wirtschafts­ forschung (DIW) ■Member of the University Council, Bielefeld University Werner Ratzisberger Born in 1967 Full-time member of the Works Council of Knorr-Bremse Systeme für Nutzfahrzeuge GmbH 2006 2026 ■Member of the Executive Commit-tee ■Member of the Mediation…",
      "publishedDate": "Wed, 17 Dec 2025 00:00:00 GMT"
     },
     {
-     "url": "https://www.blackrock.com/za/individual/literature/annual-report/blackrock-global-index-funds-annual-report-en-31-mar-26.pdf",
-     "title": "Annual report and audited financial statements",
-     "snippet": "Materials AG 3.375% 17/10/2031 49,817 0.02 EUR 50,000 Heidelberg Materials AG 3.75% 31/5/2032^ 50,163 0.02 EUR 50,000 Hochtief AG 4.25% 31/5/2030^ 51,208 0.02 EUR 100,000 ING-DiBa AG 2.375% 13/9/2030 97,314 0.03 EUR 100,000 Investitionsbank Berlin 3.125% 13/9/2028 100,492 0.04 EUR 100,000 Investiti…",
-     "publishedDate": "Tue, 31 Mar 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://www.facebook.com/tapassinhaofficial/posts/why-are-workers-moving-towards-a-general-strike-why-are-the-workers-moving-towar/1444714947118481",
-     "title": "WHY ARE WORKERS MOVING TOWARDS A GENERAL ...",
-     "snippet": "According to the current Code, collective grievances of workers and their unions can be interpreted as 'organized crime' under Section 111 of the Bharatiya",
-     "publishedDate": "Sat, 07 Feb 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://report.telekom.com/annual-report-2025/_assets/downloads/entire-dtag-ar25.pdf",
-     "title": "Deutsche Telekom Annual Report 2025",
-     "snippet": "22 Dr. Reinhard Ploss Member of the Supervisory Board since April 5, 2023 Chairman of the Supervisory Board of Knorr-Bremse AG, Munich Former CEO of Infineon Technologies AG, Neubiberg Memberships of other supervisory boards required to be formed by law: Memberships of comparable supervisory bodies…",
-     "publishedDate": "Wed, 21 Jan 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://www.sdmts.com/sites/default/files/2026-09-17--pre-meeting-packet_6.pdf",
-     "title": "Board of Directors Agenda",
-     "snippet": "LLC Small Business G190-SAFETY/MED SUPPLIES 530.64 $ -$ -$ 4500077199 8/20/2026 Blue Angel International LLC Small Business G190-SAFETY/MED SUPPLIES 976.13 $ -$ -$ 4500077200 8/20/2026 TK Services Inc B250-BUS REPAIR PARTS 10,570.79 $ -$ -$ 4500077201 8/20/2026 Knorr Brake Company, LLC R220-RAIL/LR…",
-     "publishedDate": "Wed, 16 Sep 2026 19:00:00 GMT"
+     "url": "https://law.asia/china/top-firms-china-2026",
+     "title": "China Business Law Awards 2026 | Law.asia",
+     "snippet": "Fangda Partners excels in representing multinational manufacturers in complex labour disputes. The firm assisted Maxion Wheels (Nantong) in winning a RMB1.5 million (USD220,000) claim regarding wrongful termination, despite a relatively weak chain of evidence. It also represented Knorr Commercial V…",
+     "publishedDate": "Thu, 28 May 2026 00:00:00 GMT"
     }
    ]
   },
   {
    "type": "search",
-   "query": "Knorr-Bremse recall safety defect quality issue",
+   "query": "Knorr-Bremse AG product recall safety defect",
    "dimension": "safety/quality recalls",
    "results": [
     {
@@ -154,270 +157,19 @@
      "snippet": "Production Dates : JUL 06, 2020 - JUN 03, 2021 VIN Range 1 : Begin : 4RKYL82K3L9777627 End : 4RKYL82J0M9778016 Not sequential ✔ Vehicle 2 : 2019-2019 Nova Bus LFS Artic Vehicle Type : BUSES, MEDIUM & HEAVY VEHICLES Body Style : OTHER Power Train : DIESEL Descriptive Information : The recall populat…"
     },
     {
-     "url": "https://purchasing.knorr-bremse.com/media/direct-purchasing-rail/dsi/dsi-supplier-downloads/qaa-en.pdf",
-     "title": "Quality assurance agreement",
-     "snippet": "The Supplier is aware that the products of Knorr-Bremse are used across the world and have to meet the highest quality and safety standards. ... Recall"
-    },
-    {
      "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
      "title": "Brake Chamber Recall Affects 2090 Units",
      "snippet": "Nova Bus has announced a recall of certain ZF North America Knorr-Bresme 20/22-57 brake chambers due to a potential manufacturing defect."
-    },
-    {
-     "url": "https://sustainabilityreport.knorr-bremse.com/2022/social/index.html",
-     "title": "Social | KNORR-BREMSE",
-     "snippet": "Knorr-Bremse commits itself to product safety and quality in its vision, corporate values and Code of Conduct. Moreover, there are separate safety and quality policies for the two divisions that the sites must introduce. The permanent improvement of our product and system quality is a core topic he…"
     },
     {
      "url": "https://sustainabilityreport.knorr-bremse.com/2023/social/index.html",
      "title": "Social | KNORR-BREMSE",
-     "snippet": "Our products and systems are subject to high safety requirements arising from customer requirements, legal requirements and standards, and we carefully monitor compliance with these. To this end, Knorr‑Bremse makes use of extensive quality-planning, quality-assurance, and testing procedures. Knorr‑…"
-    }
-   ]
-  },
-  {
-   "type": "search",
-   "query": "Knorr-Bremse ESG environmental sustainability carbon emissions controversy",
-   "dimension": "ESG",
-   "results": [
-    {
-     "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-     "title": "Knorr-Bremse ESG & Sustainability Data | illuminem",
-     "snippet": "Noticeable High Severe Download Controversy Analysis KnorrBremse has faced multiple commercial vehicle and rail braking system product safety recalls including the 2023 European truck OEM customer recall, plus the contested governance dispute with founding Thiele family affecting strategic directio…"
+     "snippet": "Knorr‑Bremse seeks to fulfill its obligation to observe its products globally and uncover potential risks in the usage phase and, to this end, has implemented a product integrity process. The regional quality managers are responsible for active product monitoring through market observation, media r…"
     },
     {
-     "url": "https://sustainabilityreport.knorr-bremse.com/2023/appendix/downloads/en/Knorr-Bremse_Sustainability-Report-2023_Sustainability-Management.pdf",
-     "title": "[PDF] Sustainability Management - KNORR-BREMSE",
-     "snippet": "Our sustainability activities during the reporting period focused on the ongoing strengthening of our ESG organizational structure, the continuing implementation of our climate action projects, and the constant incorporation of sustainability into decision-making processes. For instance, the carbon…"
-    },
-    {
-     "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf",
-     "title": "knorr-bremse-sustainability-report-2023-2.pdf",
-     "snippet": "Furthermore, defined ESG criteria are integrated into property management. In terms of climate protec -tion, Knorr-Bremse has committed to a long-term target of net zero emissions (Scopes 1 to 3) by 2050. Moreover, expanded climate targets validated by the Science Based Target initiative (SBTi) wer…"
-    },
-    {
-     "url": "https://sustainabilityreport.knorr-bremse.com/2023/sustainability-management/index.html",
-     "title": "Sustainability Management | KNORR-BREMSE",
-     "snippet": "Our sustainability activities during the reporting period focused on the ongoing strengthening of our ESG organizational structure, the continuing implementation of our climate action projects, and the constant incorporation of sustainability into decision-making processes. For instance, the carbon…"
-    },
-    {
-     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-receives-prestigious-global-sustainability-impact-award",
-     "title": "Knorr-Bremse receives prestigious Global Sustainability Impact Award",
-     "snippet": "Knorr-Bremse is further committed to decarbonizing its supply chain by sourcing low-emission materials and promoting energy efficiency improvements in supplier production processes. Its product portfolio also helps customers to implement their own sustainable development goals through energy- and e…"
-    }
-   ]
-  },
-  {
-   "type": "search",
-   "query": "Knorr-Bremse cyber attack data breach ransomware",
-   "dimension": "cyber",
-   "results": [
-    {
-     "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele",
-     "title": "TheGentlemen Targets Danish Retailer Refako Autodele",
-     "snippet": "TheGentlemen ransomware hits Refako Autodele in Denmark, threatening sensitive data leak ... Knorr-Bremse, JOST, Dinex, and Exide. Customer reputation is",
-     "publishedDate": "Thu, 08 Oct 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://rail.knorr-bremse.com/media/local-content/kazakhstan/tc-of-sale-and-delivery-kazakhstan.pdf",
-     "title": "Terms and Conditions of Sale and Delivery for ...",
-     "snippet": "The Customer shall indemnify and hold Knorr-Bremse harmless from any claims, damages, costs, or expenses arising from a breach of this § 13 or from any",
-     "publishedDate": "Wed, 21 Jan 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://www.dsb.dk/globalassets/priser_og_zoner/2026/base-offering-circular-12-february-2026.pdf",
-     "title": "Base Offering Circular",
-     "snippet": "experience difficulty in getting to and from their intended destinations. Such events are largely unpredictable in terms of their frequency and the extent of the disruption that could be caused but the consequences could potentially be significant. Any such disruptions to the Issuer's ordinary oper…",
-     "publishedDate": "Thu, 12 Feb 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://netify.co.uk/sd-wan-sase-for-financial-services",
-     "title": "Financial Services SD-WAN & SASE: Evidence, UK and North America (2026) | Netify",
-     "snippet": "Does not prove: Knorr-Bremse is a manufacturing company, not a bank, insurer or other financial institution, so this cannot evidence any financial services column even though it names the Managed SD-WAN product. services.global.ntt· Checked 12 Sept 2026 FIN-355RejectedProvider-authoredOther Privacy…",
-     "publishedDate": "Tue, 15 Sep 2026 00:00:00 GMT"
-    },
-    {
-     "url": "https://www.opentext.com/media/ebook/enterprise-artificial-intelligence-building-trusted-ai-with-secure-data-ebook-en.pdf",
-     "title": "Enterprise Artificial Intelligence: Building Trusted AI in the Sovereign Cloud | OpenText",
-     "snippet": "data, the models make recommendations to optimize performance. This, in turn, generates new datasets that can continually and iteratively be improved. Data and Al Value Chain This approach is demonstrated in the following case study which describes how Knorr-Bremse keeps the wheels rolling with pre…",
-     "publishedDate": "Tue, 18 Nov 2025 04:10:31 GMT"
-    }
-   ]
-  },
-  {
-   "type": "search",
-   "query": "Knorr-Bremse sanctions export control Russia China trade restriction",
-   "dimension": "geopolitical/sanctions",
-   "results": [
-    {
-     "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
-     "title": "RUSSIA: Knorr-Bremse slams sanctions imposition - Just Auto",
-     "snippet": "“I am not the only one in Germany who has this position. I support the statement of President Putin – it is high time to stop these sanctions. I hope now everybody in Europe understands these sanctions have hurt Europe substantially. “If you look to the figures, within two years, 2014 and 2015, Ger…"
-    },
-    {
-     "url": "https://scholarlycommons.law.case.edu/cgi/viewcontent.cgi?article=2773&context=cuslj",
-     "title": "From Free Trade to Strategic Constraints: U.S.-Led Sanctionsand Export Controls Against Russia and China",
-     "snippet": "The strategic use of U.S.-led sanctions and export controls against Russia and China represents a significant shift from economic liberalization to a more constrained global trade landscape driven by national security interests. While these measures have been effective in limiting access to critica…"
-    },
-    {
-     "url": "https://rail.knorr-bremse.com/en/de/about-us/standard-terms-of-sales-and-delivery",
-     "title": "Sale and delivery conditions and terms | Knorr-Bremse",
-     "snippet": "3. Confidential Information does not include information (i) that was generally known or in the public domain or became so without Customer’s input, (ii) that was already in the possession of the Customer prior to the receipt from Knorr-Bremse, (iii) that was lawfully obtained from a third party, o…"
-    },
-    {
-     "url": "https://www.globaltradeandsanctionslaw.com/navigating-russia-sanctions-strategies-for-companies-to-mitigate-supply-chain-risks",
-     "title": "Navigating Russia Sanctions: Strategies for Companies to Mitigate Supply Chain Risks — Global Trade & Sanctions Law — October 6, 2022",
-     "snippet": "Overall, these export control restrictions have prevented Russian and Belarussian companies from accessing U.S. hardware, software and technology. There has also been an increased risk of non-U.S. made items now requiring a license for export to Russia or Belarus due to the expanded FDP rules. As s…"
-    },
-    {
-     "url": "https://www.csis.org/analysis/russias-turn-china-under-sanctions",
-     "title": "Russia’s Turn to China Under Sanctions: Sanctions Decay, Substitution Elasticity, and the Challenge of Sustaining Pressure",
-     "snippet": "Recent trade data shows both adaptation and friction. The Kyiv School of Economics (KSE) found that export controls introduced since 2022 reduced the value of Russia’s imports of Common High Priority goods—which covers components and equipment important to Russian weapons production—by more than ha…"
-    }
-   ]
-  },
-  {
-   "type": "status",
-   "text": "Assessing 34 sources for red flags…"
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "Brake chamber recall affecting 2,090 units due to potential manufacturing defect",
-    "severity": "high",
-    "dimension": "safety",
-    "detail": "Nova Bus announced a recall of certain ZF North America Knorr-Bremse 20/22-57 brake chambers due to a potential manufacturing defect.",
-    "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-    "supportUrls": [
-     "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF"
-    ],
-    "eventDate": "2024",
-    "status": "ongoing"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "NHTSA Part 573 Safety Recall Report 24V-559 for buses",
-    "severity": "high",
-    "dimension": "safety",
-    "detail": "Safety recall report covering production dates JUL 06, 2020 - JUN 03, 2021 for Nova Bus vehicles, including brake-related components.",
-    "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
-    "supportUrls": [
-     "https://thebrakereport.com/brake-chamber-recall-affects-2090-units"
-    ],
-    "eventDate": "2024",
-    "status": "ongoing"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "DOJ antitrust case over No-Poach Agreements with Westinghouse Air Brake Technologies",
-    "severity": "high",
-    "dimension": "compliance",
-    "detail": "United States v. Knorr-Bremse AG and Westinghouse Air Brake Technologies Corporation; proposed Final Judgment enjoining Defendants from entering into, maintaining, or enforcing any No-Poach Agreements in violation of Section 1 of the Sherman Act.",
-    "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final",
-    "supportUrls": [
-     "https://www.justice.gov/opa/press-release/file/1048481/dl"
-    ],
-    "eventDate": "2018",
-    "status": "resolved"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "NCLT India corporate insolvency case involving Knorr-Bremse India Private Limited",
-    "severity": "medium",
-    "dimension": "compliance",
-    "detail": "Knorr-Bremse India Private Limited listed as Respondent-Corporate Debtor in an NCLT order delivered on 19.04.2023.",
-    "url": "https://nclt.gov.in/gen_pdf.php?filepath=%2FEfile_Document%2Fncltdoc%2Fcasedoc%2F0404116035792022%2F04%2FOrder-Challenge%2F04_order-Challange_004_168310228387632963464521a4b1d661.pdf",
-    "supportUrls": [],
-    "eventDate": "2023-04",
-    "status": "resolved"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "S&P Global Ratings downgrade; EBITDA margin profile not expected to return to above-average over next 24 months",
-    "severity": "medium",
-    "dimension": "financial",
-    "detail": "Germany-based brake specialist Knorr-Bremse AG downgraded; not expected to return to its above-average EBITDA margin profile over the next 24 months.",
-    "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459",
-    "supportUrls": [],
-    "eventDate": null,
-    "status": "ongoing"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "Contested governance dispute with founding Thiele family affecting strategic direction",
-    "severity": "medium",
-    "dimension": "governance",
-    "detail": "Knorr-Bremse has faced a contested governance dispute with the founding Thiele family affecting strategic direction.",
-    "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-    "supportUrls": [],
-    "eventDate": null,
-    "status": "ongoing"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "Ransomware incident involving Knorr-Bremse customer data",
-    "severity": "medium",
-    "dimension": "digital",
-    "detail": "TheGentlemen ransomware hits Refako Autodele in Denmark, threatening sensitive data leak; Knorr-Bremse listed among affected customers.",
-    "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele",
-    "supportUrls": [],
-    "eventDate": null,
-    "status": "unknown"
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "2014-2015 Russia sanctions criticism",
-    "severity": "low",
-    "dimension": "geopolitical",
-    "detail": "Knorr-Bremse criticized sanctions imposition, stating sanctions imposed in 2014 and 2015 have hurt Europe substantially.",
-    "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
-    "supportUrls": [],
-    "eventDate": "2015",
-    "status": "resolved"
-   }
-  },
-  {
-   "type": "status",
-   "text": "Digging deeper into 3 red flags…"
-  },
-  {
-   "type": "dig",
-   "query": "Knorr-Bremse Brake chamber recall affecting 2,090 units due 2025 2026",
-   "reason": "Following up high-severity flag: \"Brake chamber recall affecting 2,090 units due to potential manufacturing defect\"",
-   "results": [
-    {
-     "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
-     "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
-     "snippet": "The firm will replace the brake chambers. Nova Bus (US) Inc. is recalling approximately 2,090 ZF North America Knorr-Bresme 20/22-57 brake chambers, with part number K038830N00, sold as replacement parts for certain buses. The brake chamber may have been improperly manufactured, which can result in…"
-    },
-    {
-     "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-     "title": "Brake Chamber Recall Affects 2090 Units",
-     "snippet": "Nova Bus has announced a recall of certain ZF North America Knorr-Bresme 20/22-57 brake chambers due to a potential manufacturing defect."
-    },
-    {
-     "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
-     "title": "Part 573 Safety Recall Report 25E048",
-     "snippet": "Country: United States Name: International - NAV Defense Address: 2255 Progress Dr Springfield OH, 45505 Country: United States Name: TW - KENNESAW Address: 1650 WESTFORK DR LITHIA SPRINGS GA, 30122 Country: United States Name: Volvo AB Prevost Car Inc Address: 201 South Ave South Plainfield NJ, 07…"
-    },
-    {
-     "url": "https://www.bendix.com/en/services-and-support/product-action-center",
-     "title": "Product Action Center",
-     "snippet": "# Product Action Center ### Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) Identification Guide - Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269)\\_available in English, French, and Spanish Language Technical Bulletin - Knorr-Bremse NG3 BS8485 Brake Chamber Recall (TCH-32-001)\\_available in Engl…"
+     "url": "https://rail.knorr-bremse.com/en/us/about-us/policies/safety-policy",
+     "title": "Product safety at Knorr-Bremse",
+     "snippet": "## Safety Is One of our Core Values We guarantee that Knorr-Bremse products comply with the statutory safety requirements. Our safety objective is to prevent any incident within rail operation caused by our products. We are committed to creating the organisational conditions needed to achieve this…"
     },
     {
      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
@@ -427,41 +179,239 @@
    ]
   },
   {
-   "type": "dig",
-   "query": "Knorr-Bremse NHTSA Part 573 Safety Recall Report 24V-559 2025 2026",
-   "reason": "Following up high-severity flag: \"NHTSA Part 573 Safety Recall Report 24V-559 for buses\"",
+   "type": "search",
+   "query": "Knorr-Bremse AG ESG sustainability rating environmental social governance",
+   "dimension": "ESG",
    "results": [
     {
-     "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
-     "title": "Part 573 Safety Recall Report 25E048",
-     "snippet": "Country: United States Name: International - NAV Defense Address: 2255 Progress Dr Springfield OH, 45505 Country: United States Name: TW - KENNESAW Address: 1650 WESTFORK DR LITHIA SPRINGS GA, 30122 Country: United States Name: Volvo AB Prevost Car Inc Address: 201 South Ave South Plainfield NJ, 07…"
+     "url": "https://sustainabilityreport.knorr-bremse.com/2023/appendix/downloads/en/Knorr-Bremse_Sustainability-Report-2023_Sustainability-Management.pdf",
+     "title": "[PDF] Sustainability Management - KNORR-BREMSE",
+     "snippet": "The ESG Approach ESG stands for environment, social and governance. It provides a struc-ture for the areas of a company’s sustainability management. The ESG approach is intended to be a tool to achieve sustainable business and company development and make a positive contribution to sustainable deve…"
     },
     {
-     "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
-     "title": "Part 573 Safety Recall Report 24V-559",
-     "snippet": "Description of Remedy : Description of Remedy Program : Owners will be notified. Vehicles will be recalled. Remedy program will be to inspect vehicles and replace the defective brake chamber. All costs associated with this corrective measure will be covered by Nova Bus. Pre-notification remedies wi…"
+     "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf",
+     "title": "knorr-bremse-sustainability-report-2023-2.pdf",
+     "snippet": "## ESG Ratings and Rankings DAX ®50 ESG Knorr -Bremse has been listed in the index since it started. It represents the top 50 companies in Germany based on their ESG performance, market capitalization and revenue. DAX ®50 ESG S&P Global Corporate Sustainability Assessment Knorr -Bremse scored 51 ou…"
     },
     {
-     "url": "https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E035-7637.pdf",
-     "title": "Part 573 Safety Recall Report 26E035",
-     "snippet": "Description of the cause: Identification of any warning that can occur: Component Manufacturer Tier of Supplier: Supplier Type: Name: Address: Country: Involved Components Component Name 1: 5th Generation ADS Component Description: 5th Generation Automated Driving System (ADS) Component Part Number…"
+     "url": "https://www.sustainabilityreports.com/knorr-bremse/2024/sustainability-figures",
+     "title": "Knorr-Bremse AG 2024 Sustainability Report - Free PDF",
+     "snippet": "Skip to content Knorr-Bremse AG2024 Sustainability Report Company: Knorr-Bremse AG Sector: Manufacturing Country: Germany Year: 2024 Type: Sustainability Report Pages: 12 # Sustainability Figures ## Overview The report provides Knorr-Bremse’s 2024 sustainability figures across environmental, social…"
     },
     {
-     "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V558-4830.PDF",
-     "title": "Part 573 Safety Recall Report 24V-558",
-     "snippet": "Page 2 Part 573 Safety Recall Report 24V-558 The information contained in this report was submitted pursuant to 49 CFR §573 FMVSS 1 : NR FMVSS 2 : NR Description of the Safety Risk : A brake chamber leak could lead to brakes being applied unwantedly. An unwanted application of the brakes may cause…"
+     "url": "https://sustainabilityreport.knorr-bremse.com/2023/sustainability-management/index.html",
+     "title": "Sustainability Management | KNORR-BREMSE",
+     "snippet": "#### The ESG Approach ESG stands for environment, social and governance. It provides a structure for the areas of a company’s sustainability management. The ESG approach is intended to be a tool to achieve sustainable business and company development and make a positive contribution to sustainable…"
     },
     {
-     "url": "https://blog.johndow.com/jdi_blog/u.s.-nhtsa-tpms-safety-recall-report-26v559",
-     "title": "U.S. NHTSA TPMS Safety Recall Report 26V559",
-     "snippet": "Timeline: Vehicle Identification Numbers (VINs) became searchable on September 9, 2026. Phased owner notification letters are scheduled to be mailed between September 29 and October 21, 2026. [...] Johndow ☰ Who We Are Our Core Principles JDI NEWS SDS SHEETS Careers Contact Us # U.S. NHTSA TPMS Saf…"
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-achieves-top-scores-in-international-sustainability-assessments",
+     "title": "Knorr-Bremse Achieves Top Scores in International Sustainability Assessments",
+     "snippet": "Knorr-Bremse AG, the global market and technology leader for braking systems and a leading supplier of other innovative solutions for the rail and commercial vehicle industries, has achieved significantly improved sustainability scores in two internationally renowned ratings compared to the previou…"
     }
    ]
   },
   {
+   "type": "search",
+   "query": "Knorr-Bremse AG data breach cybersecurity incident",
+   "dimension": "cyber",
+   "results": [
+    {
+     "url": "https://railway-news.com/event-exhibition/rail-cyber-resilience-summit-2026",
+     "title": "Rail Cyber Resilience Summit 2026 | Railway-News",
+     "snippet": "## Confirmed Speakers Confirmed speakers include: Martin Koop, Head of Railway Security, INCYDE GmbH Amelia Alder, Legal Counsel Cybersecurity, Knorr-Bremse Rail Vehicle Systems Ulrich Zackor, Head of OT Security, DB InfraGO AG Eddy Thesee, Vice President Cybersecurity, Alstom Vish Kalsapura, Princ…",
+     "publishedDate": "Mon, 22 Jun 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://s201.q4cdn.com/960975307/files/doc_financials/2025/ar/ALBEMARLE-CORP_2026_Proxy_Statement.pdf",
+     "title": "2026 DEF 14A - Definitive Proxy Statement",
+     "snippet": "The Company's cybersecurity program incorporates a zero-trust architecture based on the principles of least privilege, least functionality, and network segmentation throughout the landscape using a layered approach. Specific team functions are utilized to constantly scan and monitor our environment…",
+     "publishedDate": "Tue, 24 Mar 2026 20:25:43 GMT"
+    },
+    {
+     "url": "https://www.opentext.com/media/ebook/enterprise-artificial-intelligence-building-trusted-ai-with-secure-data-ebook-en.pdf",
+     "title": "Enterprise Artificial Intelligence: Building Trusted AI in the Sovereign Cloud | OpenText",
+     "snippet": "204 Internet of Things (IoT), 59, 64, 190, 200-201 Interoperability, 27, 96, 201, 203 Intranet, 25, 28-29, 34, 88 ISO 15489, 92 ISO/IEC 27001:2022, 75, 82, 193, 207 ISO/IEC 38505, 62 ISO/IEC 42001, 62, 66, 110, 170 iTAC Software AG, 63-64 # K Karlsruhe Institute of Technology (KIT), 133-134 Key Per…",
+     "publishedDate": "Tue, 18 Nov 2025 04:10:31 GMT"
+    },
+    {
+     "url": "https://www.facebook.com/suryavanshiventures/photos/ai-is-increasingly-becoming-part-of-the-technology-backbone-of-global-manufactur/1016646498033289",
+     "title": "Suryavanshi Ventures - Infosys",
+     "snippet": "... Bremse AG to modernise the company's enterprise IT systems through its Tech4Value programme. The scope includes end-to-end managed services across Knorr"
+    },
+    {
+     "url": "https://investor.cummins.com/sec-filings/annual-reports/content/0000026172-26-000009/0000026172-26-000009.pdf",
+     "title": "02/10/2026 - Cummins Inc.",
+     "snippet": "ITEM 1B. Unresolved Staff Comments None. ITEM 1C. Cybersecurity Material Cybersecurity Risks, Threats and Incidents To date, we have not experienced a cybersecurity incident that has materially impacted our business. The risks from cybersecurity threats, including as a result of any previous cybers…",
+     "publishedDate": "Tue, 10 Feb 2026 00:00:00 GMT"
+    }
+   ]
+  },
+  {
+   "type": "search",
+   "query": "Knorr-Bremse AG sanctions export control geopolitical risk",
+   "dimension": "geopolitical/sanctions",
+   "results": [
+    {
+     "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
+     "title": "RUSSIA: Knorr-Bremse slams sanctions imposition - Just Auto",
+     "snippet": "Skip to site menu Skip to page content JA News # RUSSIA: Knorr-Bremse slams sanctions imposition Knorr-Bremse has delivered a withering attack on the continued imposition of sanctions by the West on Russia, saying Germany alone has lost 50% of its exports to the country since their introduction. Ju…"
+    },
+    {
+     "url": "https://globalinvestigationsreview.com/guide/the-guide-sanctions/seventh-edition/article/navigating-the-crossfire-us-sanctions-export-controls-and-geopolitical-risk-in-the-asia-pacific",
+     "title": "The Guide to Sanctions - Seventh Edition - Navigating the crossfire: US sanctions, export controls and geopolitical risk in the Asia-Pacific - Global Investigations Review",
+     "snippet": "Because manufacturing in the region is deeply intertwined with US-origin inputs, tooling and intellectual property, these two mechanisms project US regulatory authority across the region, leaving firms exposed to US enforcement even where no US person or US dollars is directly involved in the under…"
+    },
+    {
+     "url": "https://sustainabilityreport.knorr-bremse.com/2022/appendix/downloads/en/Knorr-Bremse_Supplier_Code_of_Conduct_2017_en.pdf",
+     "title": "Supplier Code of Conduct",
+     "snippet": "8. Donations and sponsoring Donations and sponsoring are solely made on a voluntary basis and in accordance with applicable law. They are not to be used to obtain unlawful business advantages. SUPPLIER CODE OF CONDUCT 9. Data protection Suppliers must respect and comply with the applicable data pro…"
+    },
+    {
+     "url": "https://brownrudnick.com/practice/economic-sanctions-1",
+     "title": "Economic Sanctions & Export Controls",
+     "snippet": "As geopolitical tensions unfortunately increase around the world, businesses can expect economic sanctions and export controls to remain significant issues for"
+    },
+    {
+     "url": "https://valueandopportunity.com/2022/09/27/knorr-bremse-ag-german-mittelstandhidden-champion-with-a-few-issues",
+     "title": "Knorr Bremse AG: German Mittelstand”Hidden Champion” with a few issues | value and opportunity",
+     "snippet": "The main issues are as described above, that there seems to be “leadership vacuum” which, combined with the current sector specific and overall downturn (plus geopolitical risk) creates the risk that the business might suffer and might not be in a position to make the required adjustments quickly.…"
+    }
+   ]
+  },
+  {
+   "type": "search",
+   "query": "Knorr-Bremse AG news media coverage recent developments",
+   "dimension": "media",
+   "results": [
+    {
+     "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/knorr-bremse-stock-holds-steady-as-investors-eye-conference-and-recent/70143426",
+     "title": "Knorr-Bremse stock holds steady as investors eye conference and recent earnings",
+     "snippet": "## Recent trading and price levels According to an overview published on September 21, 2026, Knorr-Bremse AG spent the September 18, 2026 Xetra session between EUR 105.40 and EUR 107.60 and finished unchanged versus the prior close at EUR 105.70, while the MDAX slipped 0.70 percent to 31,172.22 poi…",
+     "publishedDate": "Mon, 21 Sep 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-fully-on-track-strong-rail-business-and-further-improvement-in-profitability",
+     "title": "Knorr-Bremse fully on track: Strong rail business and further improvement in profitability",
+     "snippet": "### Overview of Development in Both Divisions Rail Vehicle Systems Division (RVS): Order intake increased due to the persistently high demand in the global rail market, up a significant 13.5% to € 3,773 million (9M 2024: € 3,323 million) The order book increased to € 5,659 million (September 30, 20…",
+     "publishedDate": "Thu, 30 Oct 2025 00:00:00 GMT"
+    },
+    {
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-finalizes-purchase-of-duagon-enhancing-growth-of-its-global-rail-business",
+     "title": "Knorr-Bremse finalizes purchase of duagon, enhancing growth of its global rail business",
+     "snippet": "Post this release on X Munich, 07 January 2026 | 09:36 Europe/Amsterdam # Knorr-Bremse finalizes purchase of duagon, enhancing growth of its global rail business Summary By acquiring duagon, Knorr-Bremse will significantly expand its expertise in signaling technology as well as electronic and softw…",
+     "publishedDate": "Wed, 07 Jan 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-delivers-strong-second-quarter-results-and-launches-growth-beyond-strategy",
+     "title": "Knorr-Bremse delivers strong second-quarter results and launches “Growth Beyond” strategy",
+     "snippet": "Post this release on X 29 July 2026 | 17:42 Europe/Amsterdam # Knorr-Bremse delivers strong second-quarter results and launches “Growth Beyond” strategy Summary Primary objective of BOOST achieved in Q2 2026 with operating EBIT margin of 14.2% Order intake lifted to € 2.2 billion, record order book…",
+     "publishedDate": "Wed, 29 Jul 2026 00:00:00 GMT"
+    },
+    {
+     "url": "https://www.marketscreener.com/news/moody-s-keeps-knorr-bremse-ratings-on-improved-profitability-leading-market-position-ce785dd8d08dff2d",
+     "title": "Moody's Keeps Knorr-Bremse Ratings on Improved Profitability, Leading Market Position | MarketScreener",
+     "snippet": "| Sep. 18 | BofA Lifts Knorr-Bremse Price Objective Amid Expected Rail Division Growth Acceleration | MT | | Sep. 16 | After dispute: Frasers CEO Murray to become supervisory board chairman at Hugo Boss | DP | | Sep. 16 | Knorr-Bremse AG : JP Morgan reiterates its Neutral rating | ZD | | Aug. 18 |…",
+     "publishedDate": "Tue, 06 Oct 2026 10:23:27 GMT"
+    }
+   ]
+  },
+  {
+   "type": "status",
+   "text": "Assessing 40 sources for red flags with Nemotron 3.5 Super VL…"
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "Antitrust investigation and settlement regarding no-poach agreements with Wabtec",
+    "severity": "high",
+    "dimension": "compliance",
+    "detail": "Frank LLP commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. The U.S. Department of Justice announced a settlement with Knorr-Bremse AG and Westinghouse on April 3, 2018, concerning no-poach agreements in violation of Section 1 of the Sherman Act.",
+    "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
+    "supportUrls": [
+     "https://www.justice.gov/opa/press-release/file/1048481/dl",
+     "https://joeharrington5201922.github.io/pdf/Bloomberg%20Law_08.28.18.pdf"
+    ],
+    "eventDate": "2018-04",
+    "status": "resolved"
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "European Commission merger investigation into proposed acquisition of Haldex",
+    "severity": "medium",
+    "dimension": "compliance",
+    "detail": "European Commission merger investigation (Case M.8222) into the proposed acquisition of Haldex by Knorr-Bremse, involving horizontal overlaps in markets for commercial vehicle brake systems and components.",
+    "url": "https://www.lexisnexis.co.uk/legal/guidance/knorr-bremse-haldex-m-8222-archived",
+    "supportUrls": [
+     "https://www.reuters.com/article/us-haldex-ab-m-a-knorr-bremse-eu-idUSKBN1A91XR"
+    ],
+    "eventDate": null,
+    "status": "unknown"
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "NHTSA safety recall of Knorr-Bremse brake chambers (24V-559)",
+    "severity": "high",
+    "dimension": "safety",
+    "detail": "Part 573 Safety Recall Report 24V-559 involves Knorr-Bremse brake chambers on Nova Bus vehicles with production dates July 6, 2020 - June 3, 2021, due to a potential manufacturing defect.",
+    "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
+    "supportUrls": [
+     "https://thebrakereport.com/brake-chamber-recall-affects-2090-units"
+    ],
+    "eventDate": "2024",
+    "status": "resolved"
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "NHTSA recall of approximately 1,672 Knorr-Bremse brake chambers for potential air leaks",
+    "severity": "high",
+    "dimension": "safety",
+    "detail": "Bendix Commercial Vehicle Systems is recalling approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, sold as replacement parts for certain buses, due to improper manufacturing that can result in an air leak.",
+    "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
+    "supportUrls": [],
+    "eventDate": null,
+    "status": "unknown"
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "Knorr-Bremse criticism of Russia sanctions and export losses",
+    "severity": "medium",
+    "dimension": "geopolitical",
+    "detail": "Knorr-Bremse criticized continued Western sanctions on Russia, stating Germany alone lost 50% of its exports to the country since their introduction.",
+    "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
+    "supportUrls": [],
+    "eventDate": null,
+    "status": "unknown"
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "Historical use of forced labor during the Third Reich (1933-1945)",
+    "severity": "medium",
+    "dimension": "governance",
+    "detail": "Company history discloses that at the Berlin parent plant, the number of foreigners employed reached a wartime peak of 3,101 (42.3% of the workforce of 7,334), with manual workers at 48.7% foreigners, referencing the Third Reich period 1933-1945.",
+    "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich",
+    "supportUrls": [],
+    "eventDate": "1933",
+    "status": "resolved"
+   }
+  },
+  {
+   "type": "status",
+   "text": "Digging deeper into 3 red flags…"
+  },
+  {
    "type": "dig",
-   "query": "Knorr-Bremse DOJ antitrust case over No-Poach Agreements with 2025 2026",
-   "reason": "Following up high-severity flag: \"DOJ antitrust case over No-Poach Agreements with Westinghouse Air Brake Technologies\"",
+   "query": "Knorr-Bremse Antitrust investigation and settlement regarding no-poach agreements 2025 2026",
+   "reason": "Following up high-severity flag: \"Antitrust investigation and settlement regarding no-poach agreements with Wabtec\"",
    "results": [
     {
      "url": "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf",
@@ -469,34 +419,126 @@
      "snippet": "employees.” In connection with its announcement, AAG Delrahim stated that “[t]oday’s complaint is part of a broader investigation by the Antitrust Division into naked agreements not to compete for employees—generally referred to as no-poach agreements.” 65. Under the terms of the settlement, Wabtec…"
     },
     {
-     "url": "https://www.saverilawfirm.com/our-cases/rail-equipment-suppliers-investigation",
-     "title": "Rail Equipment Suppliers \"No Poach\" Litigation - Joseph Saveri Law Firm",
-     "snippet": "case # Rail Equipment Suppliers “No Poach” Litigation The Joseph Saveri Law Firm, LLP filed an antitrust class action complaint on behalf of individuals harmed by unlawful “no-poach” agreements between some of the world’s largest rail equipment suppliers: Knorr-Bremse AG, Westinghouse Air Brake Tec…"
+     "url": "https://www.pymnts.com/cpi-posts/wabtec-knorr-settle-railway-no-poach-suit-for-49m",
+     "title": "CPI | Wabtec, Knorr Settle Railway No-Poach Suit for $49M",
+     "snippet": "US DOJ Threatens Antitrust Investigation Into ABA Law School Rules Oct 15, 2026 by CPI Foley & Lardner Adds Former DOJ Antitrust Attorney in Washington Oct 15, 2026 by CPI China Tightens Airline Competition Rules as Industry Losses Mount Oct 15, 2026 by CPI Cartier Owner Richemont in Talks to Join…"
     },
     {
      "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
      "title": "Rail Equipment Manufacturers No-Poach Agreements Antitrust Investigation",
-     "snippet": "Frank LLP has commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. On April 3, 2018, the United States Department of Justice announced that it has reached a settlement with Knorr-Bremse AG and Westingho…"
-    },
-    {
-     "url": "https://www.justice.gov/atr/case-document/file/1048891/dl",
-     "title": "Competitive Impact Statement : U.S. v. Knorr-Bremse AG ...",
-     "snippet": "8 See Andrew C. Finch, Principal Deputy Asst. Att’y Gen., Antitrust Div., U.S. Dep’t of Justice, “Trump Antitrust Policy After One Year,” Remarks at the Heritage Foundation (Jan. 23, 2018), available at (“In October 2016, the Division issued guidance reminding the business community that no-poach a…"
+     "snippet": "Free Consultation: (800) 497-8076 Tap Here to Call Us Contact Us (800) 497-8076 info@frankllp.com Results Matter BEWARE SCAMS: A scammer has been using Frank LLP's name with a Colorado address. That is not us. No such law firm exists. Our firm is in New York and our attorneys NEVER call, email, or…"
     },
     {
      "url": "https://www.lit-antitrust.aoshearman.com/DOJ-Enters-Into-Settlement-Ending-No-Poach-Agreement",
      "title": "A&O Shearman | Antitrust Blog | DOJ Enters Into Settlement Ending No-Poach Agreements In The Rail Equipment Supplier Industry",
      "snippet": "The Complaint further alleged that the agreements were negotiated through constant communication between the defendants, including the use of letters, emails, and direct communications at trade meetings, and were well known to both senior executives at the parent companies, as well as by lower- and…"
+    },
+    {
+     "url": "https://www.railwaynopoach.com",
+     "title": "Railway No-Poach Settlements",
+     "snippet": "Settlements totaling $48.95 million have been reached with Knorr-Bremse AG, New York Air Brake LLC, Knorr Brake Company LLC, Bendix Commercial Vehicle"
+    }
+   ]
+  },
+  {
+   "type": "dig",
+   "query": "Knorr-Bremse NHTSA safety recall of brake chambers (24V-559) 2025 2026",
+   "reason": "Following up high-severity flag: \"NHTSA safety recall of Knorr-Bremse brake chambers (24V-559)\"",
+   "results": [
+    {
+     "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
+     "title": "Part 573 Safety Recall Report 25E048",
+     "snippet": "Country: United States Name: International - NAV Defense Address: 2255 Progress Dr Springfield OH, 45505 Country: United States Name: TW - KENNESAW Address: 1650 WESTFORK DR LITHIA SPRINGS GA, 30122 Country: United States Name: Volvo AB Prevost Car Inc Address: 201 South Ave South Plainfield NJ, 07…"
+    },
+    {
+     "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
+     "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
+     "snippet": "Bendix Commercial Vehicle Systems, LLC (Bendix) is recalling approximately 1,672 Knorr-Bresme 22/24-57 brake chambers, with part number K068622, sold as replacement parts for certain buses. The brake chamber may have been improperly manufactured, which can result in an air leak (NHTSA Recall Notice…"
+    },
+    {
+     "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
+     "title": "Part 573 Safety Recall Report 24V-559",
+     "snippet": "Description of Remedy : Description of Remedy Program : Owners will be notified. Vehicles will be recalled. Remedy program will be to inspect vehicles and replace the defective brake chamber. All costs associated with this corrective measure will be covered by Nova Bus. Pre-notification remedies wi…"
+    },
+    {
+     "url": "https://thebrakereport.com/bendix-recalls-faulty-brake-chambers",
+     "title": "Bendix Recalls Faulty Brake Chambers",
+     "snippet": "Manufactured by Knorr-Bremse in Germany, calls (NHTSA numbers 24V-558, 24V-559, and 25E-027)."
+    },
+    {
+     "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
+     "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
+     "snippet": "- Articles Articles - Law Firms Law Firms - Organizations Organizations # Products Liability Law Daily Wrap Up, NHTSA NEWS—MOTOR VEHICLE EQUIPMENT—Nova Bus recalls 2K brake chambers due to potential air leak, (Apr 28, 2025) Organizations Mentioned:Nova Bus (US) Inc. By Deja Rothschild The firm will…"
+    }
+   ]
+  },
+  {
+   "type": "dig",
+   "query": "Knorr-Bremse NHTSA recall of approximately 1,672 brake chambers 2025 2026",
+   "reason": "Following up high-severity flag: \"NHTSA recall of approximately 1,672 Knorr-Bremse brake chambers for potential air leaks\"",
+   "results": [
+    {
+     "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
+     "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
+     "snippet": "Bendix Commercial Vehicle Systems, LLC (Bendix) is recalling approximately 1,672 Knorr-Bresme 22/24-57 brake chambers, with part number K068622, sold as replacement parts for certain buses. The brake chamber may have been improperly manufactured, which can result in an air leak (NHTSA Recall Notice…"
+    },
+    {
+     "url": "https://www.bendix.com/en/services-and-support/product-action-center",
+     "title": "Product Action Center",
+     "snippet": "# Product Action Center ### Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) Identification Guide - Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269)\\_available in English, French, and Spanish Language Technical Bulletin - Knorr-Bremse NG3 BS8485 Brake Chamber Recall (TCH-32-001)\\_available in Engl…"
+    },
+    {
+     "url": "https://thebrakereport.com/bendix-recalls-faulty-brake-chambers",
+     "title": "Bendix Recalls Faulty Brake Chambers",
+     "snippet": "Bendix recalls 1,672 brake chambers due to air leaks that may cause parking brakes to drag, overheat, and risk fire; free replacements"
+    },
+    {
+     "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
+     "title": "Brake Chamber Recall Affects 2090 Units",
+     "snippet": "Nova Bus has announced a recall of certain ZF North America Knorr-Bresme 20/22-57 brake chambers due to a potential manufacturing defect."
+    },
+    {
+     "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF",
+     "title": "Part 573 Safety Recall Report 25E-027",
+     "snippet": "Description of the Cause : Brake chamber seal design. Identification of Any Warning that can Occur : There is no warning prior to occurrence. Page 2 Part 573 Safety Recall Report 25E-027 The information contained in this report was submitted pursuant to 49 CFR §573 Involved Components : Component N…"
     }
    ]
   },
   {
    "type": "redflag",
    "flag": {
-    "title": "Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025)",
+    "title": "NHTSA safety recall 25E048 involving Knorr-Bremse brake chambers",
     "severity": "high",
     "dimension": "safety",
-    "detail": "Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269) recall identified in Bendix Product Action Center with technical bulletin TCH-32-001.",
+    "detail": "NHTSA Part 573 Safety Recall Report 25E048 references Knorr-Bremse-related addresses and component involvement, indicating a 2025 safety recall affecting Knorr-Bremse brake chambers.",
+    "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
+    "supportUrls": [],
+    "eventDate": "2025",
+    "status": "ongoing",
+    "followedUp": true
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "NHTSA safety recall 25E-027 involving Knorr-Bremse brake chambers",
+    "severity": "high",
+    "dimension": "safety",
+    "detail": "NHTSA Part 573 Safety Recall Report 25E-027 concerns brake chamber seal design with no warning prior to occurrence, involving Knorr-Bremse components.",
+    "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF",
+    "supportUrls": [],
+    "eventDate": "2025",
+    "status": "ongoing",
+    "followedUp": true
+   }
+  },
+  {
+   "type": "redflag",
+   "flag": {
+    "title": "Bendix recall of Knorr-Bremse NG3 BS8485 brake chambers (2025)",
+    "severity": "high",
+    "dimension": "safety",
+    "detail": "Bendix Product Action Center lists a Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) with technical bulletin TCH-32-001.",
     "url": "https://www.bendix.com/en/services-and-support/product-action-center",
     "supportUrls": [],
     "eventDate": "2025",
@@ -507,265 +549,198 @@
   {
    "type": "redflag",
    "flag": {
-    "title": "Bendix recall of Knorr-Bremse 22/24-57 brake chambers (part K068622)",
+    "title": "Nova Bus recall of 2,090 Knorr-Bremse brake chambers",
     "severity": "high",
     "dimension": "safety",
-    "detail": "Bendix Commercial Vehicle Systems is recalling approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, sold as replacement parts for certain buses, due to potential air leak from improper manufacturing.",
-    "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
+    "detail": "Nova Bus announced a recall of certain ZF North America Knorr-Bremse 20/22-57 brake chambers due to a potential manufacturing defect affecting 2,090 units.",
+    "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
     "supportUrls": [],
-    "eventDate": "2025",
-    "status": "ongoing",
-    "followedUp": true
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "Nova Bus recall of ZF North America Knorr-Bremse 20/22-57 brake chambers (part K038830N00)",
-    "severity": "high",
-    "dimension": "safety",
-    "detail": "Nova Bus (US) Inc. is recalling approximately 2,090 ZF North America Knorr-Bremse 20/22-57 brake chambers, part number K038830N00, sold as replacement parts for certain buses, due to potential air leak from improper manufacturing.",
-    "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
-    "supportUrls": [
-     "https://thebrakereport.com/brake-chamber-recall-affects-2090-units"
-    ],
-    "eventDate": "2024",
-    "status": "resolved",
-    "followedUp": true
-   }
-  },
-  {
-   "type": "redflag",
-   "flag": {
-    "title": "Rail Equipment Suppliers No-Poach Litigation",
-    "severity": "medium",
-    "dimension": "compliance",
-    "detail": "Antitrust class action complaint alleging unlawful no-poach agreements between rail equipment suppliers including Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp.",
-    "url": "https://www.saverilawfirm.com/our-cases/rail-equipment-suppliers-investigation",
-    "supportUrls": [
-     "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
-     "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf"
-    ],
-    "eventDate": "2018",
-    "status": "resolved",
+    "eventDate": null,
+    "status": "unknown",
     "followedUp": true
    }
   },
   {
    "type": "status",
-   "text": "Scoring shadow profile on 18 dimensions and writing report…"
+   "text": "Scoring shadow profile on 18 dimensions with Nemotron 3.5 Super VL and writing report with Nemotron 3.5 Super VL…"
   },
   {
    "type": "status",
-   "text": "Done in 25s · 10 searches · 46 sources · coverage 53% of TRI weight."
+   "text": "Done in 22s · 11 searches · 49 sources · coverage 49% of TRI weight."
   },
   {
    "type": "report",
    "report": {
     "company": "Knorr-Bremse",
-    "researchedAt": "2026-10-18T13:06:42.918Z",
-    "summary": "Knorr-Bremse AG is a Munich-based German manufacturer of braking systems for rail and commercial vehicles. The company presents a moderate-to-high supplier risk profile driven by recurring safety-critical product recalls, a resolved antitrust no-poach settlement, and a credit rating downgrade indicating margin pressure. The most significant red flags are the 2024 and 2025 brake chamber recalls affecting thousands of bus units due to potential manufacturing defects and air leaks. Procurement buyers should enforce strict quality assurance agreements, verify recall remediation status for supplied parts, and monitor financial stability and compliance commitments.",
+    "researchedAt": "2026-10-18T13:34:46.378Z",
+    "summary": "Knorr-Bremse AG is a Munich-headquartered global leader in rail and commercial vehicle brake systems. The company presents an elevated supplier-risk profile driven by repeated 2024-2025 NHTSA safety recalls of brake chambers and a resolved 2018 U.S. Department of Justice antitrust settlement over no-poach agreements with Wabtec. Additional considerations include a European Commission merger investigation into the proposed Haldex acquisition, historical forced-labor use during the Third Reich, and criticism of Russia sanctions. Procurement buyers should prioritize product-safety verification, recall remediation status, and antitrust compliance before engagement.",
     "facts": [
      {
-      "text": "Knorr-Bremse Aktiengesellschaft is a German manufacturer of braking systems for rail and commercial vehicles headquartered in Munich, Germany, with an official website at knorr-bremse.com.",
-      "url": "https://www.knorr-bremse.com/en/company/compliance"
+      "text": "The U.S. Department of Justice announced a settlement with Knorr-Bremse AG and Westinghouse on April 3, 2018, concerning no-poach agreements in violation of Section 1 of the Sherman Act.",
+      "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves"
      },
      {
-      "text": "Nova Bus recalled approximately 2,090 ZF North America Knorr-Bremse 20/22-57 brake chambers, part number K038830N00, due to a potential manufacturing defect causing air leaks.",
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e"
+      "text": "The European Commission opened merger investigation Case M.8222 into Knorr-Bremse's proposed acquisition of Haldex, involving horizontal overlaps in commercial vehicle brake systems and components.",
+      "url": "https://www.lexisnexis.co.uk/legal/guidance/knorr-bremse-haldex-m-8222-archived"
      },
      {
-      "text": "Bendix Commercial Vehicle Systems recalled approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, due to potential air leaks from improper manufacturing.",
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af"
-     },
-     {
-      "text": "NHTSA Part 573 Safety Recall Report 24V-559 covers Nova Bus vehicles with production dates JUL 06, 2020 - JUN 03, 2021, including brake-related components.",
+      "text": "NHTSA Safety Recall Report 24V-559 involves Knorr-Bremse brake chambers on Nova Bus vehicles with production dates July 6, 2020 - June 3, 2021, due to a potential manufacturing defect.",
       "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF"
      },
      {
-      "text": "The U.S. Department of Justice reached a settlement with Knorr-Bremse AG and Westinghouse Air Brake Technologies Corporation enjoining them from entering into, maintaining, or enforcing no-poach agreements in violation of Section 1 of the Sherman Act.",
-      "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final"
+      "text": "Bendix is recalling approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, sold as replacement parts for certain buses, due to improper manufacturing that can result in an air leak.",
+      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af"
      },
      {
-      "text": "Knorr-Bremse India Private Limited was listed as Respondent-Corporate Debtor in an NCLT order delivered on 19.04.2023.",
-      "url": "https://nclt.gov.in/gen_pdf.php?filepath=%2FEfile_Document%2Fncltdoc%2Fcasedoc%2F0404116035792022%2F04%2FOrder-Challenge%2F04_order-Challange_004_168310228387632963464521a4b1d661.pdf"
+      "text": "NHTSA Part 573 Safety Recall Report 25E048 references Knorr-Bremse-related addresses and component involvement, indicating a 2025 safety recall affecting Knorr-Bremse brake chambers.",
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf"
      },
      {
-      "text": "S&P Global Ratings downgraded Knorr-Bremse AG and stated its EBITDA margin profile is not expected to return to above-average over the next 24 months.",
-      "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459"
+      "text": "NHTSA Part 573 Safety Recall Report 25E-027 concerns brake chamber seal design with no warning prior to occurrence, involving Knorr-Bremse components.",
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF"
      },
      {
-      "text": "Knorr-Bremse has committed to a long-term target of net zero emissions (Scopes 1 to 3) by 2050, with expanded climate targets validated by the Science Based Target initiative.",
-      "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf"
+      "text": "Knorr-Bremse's company history discloses that at the Berlin parent plant, the number of foreigners employed reached a wartime peak of 3,101 (42.3% of the workforce of 7,334) during the Third Reich period 1933-1945.",
+      "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich"
      }
     ],
     "unverified": [
      {
-      "text": "Knorr-Bremse faced a contested governance dispute with the founding Thiele family affecting strategic direction.",
-      "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse"
-     },
-     {
-      "text": "Knorr-Bremse was listed among affected customers in a ransomware incident involving Refako Autodele in Denmark.",
-      "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele"
-     },
-     {
-      "text": "Knorr-Bremse criticized Russia sanctions imposed in 2014 and 2015, stating they have hurt Europe substantially.",
+      "text": "Knorr-Bremse criticized continued Western sanctions on Russia, stating Germany alone lost 50% of its exports to the country since their introduction.",
       "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition"
      }
     ],
     "redFlags": [
      {
-      "title": "Brake chamber recall affecting 2,090 units due to potential manufacturing defect",
-      "severity": "high",
-      "dimension": "safety",
-      "detail": "Nova Bus announced a recall of certain ZF North America Knorr-Bremse 20/22-57 brake chambers due to a potential manufacturing defect.",
-      "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-      "supportUrls": [
-       "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
-       "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
-       "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-       "https://www.bendix.com/en/services-and-support/product-action-center"
-      ],
-      "eventDate": "2024",
-      "status": "ongoing",
-      "followedUp": true
-     },
-     {
-      "title": "NHTSA Part 573 Safety Recall Report 24V-559 for buses",
-      "severity": "high",
-      "dimension": "safety",
-      "detail": "Safety recall report covering production dates JUL 06, 2020 - JUN 03, 2021 for Nova Bus vehicles, including brake-related components.",
-      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
-      "supportUrls": [
-       "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-       "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
-       "https://purchasing.knorr-bremse.com/media/direct-purchasing-rail/dsi/dsi-supplier-downloads/qaa-en.pdf",
-       "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse"
-      ],
-      "eventDate": "2024",
-      "status": "ongoing",
-      "followedUp": true
-     },
-     {
-      "title": "DOJ antitrust case over No-Poach Agreements with Westinghouse Air Brake Technologies",
+      "title": "Antitrust investigation and settlement regarding no-poach agreements with Wabtec",
       "severity": "high",
       "dimension": "compliance",
-      "detail": "United States v. Knorr-Bremse AG and Westinghouse Air Brake Technologies Corporation; proposed Final Judgment enjoining Defendants from entering into, maintaining, or enforcing any No-Poach Agreements in violation of Section 1 of the Sherman Act.",
-      "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final",
+      "detail": "Frank LLP commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. The U.S. Department of Justice announced a settlement with Knorr-Bremse AG and Westinghouse on April 3, 2018, concerning no-poach agreements in violation of Section 1 of the Sherman Act.",
+      "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
       "supportUrls": [
        "https://www.justice.gov/opa/press-release/file/1048481/dl",
-       "https://www.justice.gov/atr/case-document/file/1048891/dl",
+       "https://joeharrington5201922.github.io/pdf/Bloomberg%20Law_08.28.18.pdf",
+       "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf",
+       "https://www.pymnts.com/cpi-posts/wabtec-knorr-settle-railway-no-poach-suit-for-49m",
        "https://www.lit-antitrust.aoshearman.com/DOJ-Enters-Into-Settlement-Ending-No-Poach-Agreement",
-       "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
-       "https://www.saverilawfirm.com/our-cases/rail-equipment-suppliers-investigation",
-       "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf"
+       "https://www.railwaynopoach.com"
       ],
-      "eventDate": "2018",
+      "eventDate": "2018-04",
       "status": "resolved",
       "followedUp": true
      },
      {
-      "title": "NCLT India corporate insolvency case involving Knorr-Bremse India Private Limited",
+      "title": "European Commission merger investigation into proposed acquisition of Haldex",
       "severity": "medium",
       "dimension": "compliance",
-      "detail": "Knorr-Bremse India Private Limited listed as Respondent-Corporate Debtor in an NCLT order delivered on 19.04.2023.",
-      "url": "https://nclt.gov.in/gen_pdf.php?filepath=%2FEfile_Document%2Fncltdoc%2Fcasedoc%2F0404116035792022%2F04%2FOrder-Challenge%2F04_order-Challange_004_168310228387632963464521a4b1d661.pdf",
-      "supportUrls": [],
-      "eventDate": "2023-04",
-      "status": "resolved"
-     },
-     {
-      "title": "S&P Global Ratings downgrade; EBITDA margin profile not expected to return to above-average over next 24 months",
-      "severity": "medium",
-      "dimension": "financial",
-      "detail": "Germany-based brake specialist Knorr-Bremse AG downgraded; not expected to return to its above-average EBITDA margin profile over the next 24 months.",
-      "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459",
-      "supportUrls": [],
+      "detail": "European Commission merger investigation (Case M.8222) into the proposed acquisition of Haldex by Knorr-Bremse, involving horizontal overlaps in markets for commercial vehicle brake systems and components.",
+      "url": "https://www.lexisnexis.co.uk/legal/guidance/knorr-bremse-haldex-m-8222-archived",
+      "supportUrls": [
+       "https://www.reuters.com/article/us-haldex-ab-m-a-knorr-bremse-eu-idUSKBN1A91XR",
+       "https://www.justice.gov/opa/press-release/file/1048481/dl"
+      ],
       "eventDate": null,
-      "status": "ongoing"
+      "status": "unknown"
      },
      {
-      "title": "Contested governance dispute with founding Thiele family affecting strategic direction",
-      "severity": "medium",
-      "dimension": "governance",
-      "detail": "Knorr-Bremse has faced a contested governance dispute with the founding Thiele family affecting strategic direction.",
-      "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-      "supportUrls": [],
-      "eventDate": "2023",
-      "status": "ongoing"
+      "title": "NHTSA safety recall of Knorr-Bremse brake chambers (24V-559)",
+      "severity": "high",
+      "dimension": "safety",
+      "detail": "Part 573 Safety Recall Report 24V-559 involves Knorr-Bremse brake chambers on Nova Bus vehicles with production dates July 6, 2020 - June 3, 2021, due to a potential manufacturing defect.",
+      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
+      "supportUrls": [
+       "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
+       "https://thebrakereport.com/bendix-recalls-faulty-brake-chambers",
+       "https://www.bendix.com/en/services-and-support/product-action-center"
+      ],
+      "eventDate": "2024",
+      "status": "resolved",
+      "followedUp": true
      },
      {
-      "title": "Ransomware incident involving Knorr-Bremse customer data",
+      "title": "NHTSA recall of approximately 1,672 Knorr-Bremse brake chambers for potential air leaks",
+      "severity": "high",
+      "dimension": "safety",
+      "detail": "Bendix Commercial Vehicle Systems is recalling approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, sold as replacement parts for certain buses, due to improper manufacturing that can result in an air leak.",
+      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
+      "supportUrls": [
+       "https://thebrakereport.com/bendix-recalls-faulty-brake-chambers",
+       "https://www.bendix.com/en/services-and-support/product-action-center"
+      ],
+      "eventDate": "2025",
+      "status": "unknown",
+      "followedUp": true
+     },
+     {
+      "title": "Knorr-Bremse criticism of Russia sanctions and export losses",
       "severity": "medium",
-      "dimension": "digital",
-      "detail": "TheGentlemen ransomware hits Refako Autodele in Denmark, threatening sensitive data leak; Knorr-Bremse listed among affected customers.",
-      "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele",
+      "dimension": "geopolitical",
+      "detail": "Knorr-Bremse criticized continued Western sanctions on Russia, stating Germany alone lost 50% of its exports to the country since their introduction.",
+      "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
       "supportUrls": [],
       "eventDate": null,
       "status": "unknown"
      },
      {
-      "title": "2014-2015 Russia sanctions criticism",
-      "severity": "low",
-      "dimension": "geopolitical",
-      "detail": "Knorr-Bremse criticized sanctions imposition, stating sanctions imposed in 2014 and 2015 have hurt Europe substantially.",
-      "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
+      "title": "Historical use of forced labor during the Third Reich (1933-1945)",
+      "severity": "medium",
+      "dimension": "governance",
+      "detail": "Company history discloses that at the Berlin parent plant, the number of foreigners employed reached a wartime peak of 3,101 (42.3% of the workforce of 7,334), with manual workers at 48.7% foreigners, referencing the Third Reich period 1933-1945.",
+      "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich",
       "supportUrls": [],
-      "eventDate": "2015",
+      "eventDate": "1933",
       "status": "resolved"
      },
      {
-      "title": "Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025)",
+      "title": "NHTSA safety recall 25E048 involving Knorr-Bremse brake chambers",
       "severity": "high",
       "dimension": "safety",
-      "detail": "Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269) recall identified in Bendix Product Action Center with technical bulletin TCH-32-001.",
+      "detail": "NHTSA Part 573 Safety Recall Report 25E048 references Knorr-Bremse-related addresses and component involvement, indicating a 2025 safety recall affecting Knorr-Bremse brake chambers.",
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
+      "supportUrls": [
+       "https://www.bendix.com/en/services-and-support/product-action-center"
+      ],
+      "eventDate": "2025",
+      "status": "ongoing",
+      "followedUp": true
+     },
+     {
+      "title": "NHTSA safety recall 25E-027 involving Knorr-Bremse brake chambers",
+      "severity": "high",
+      "dimension": "safety",
+      "detail": "NHTSA Part 573 Safety Recall Report 25E-027 concerns brake chamber seal design with no warning prior to occurrence, involving Knorr-Bremse components.",
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF",
+      "supportUrls": [
+       "https://www.bendix.com/en/services-and-support/product-action-center"
+      ],
+      "eventDate": "2025",
+      "status": "ongoing",
+      "followedUp": true
+     },
+     {
+      "title": "Bendix recall of Knorr-Bremse NG3 BS8485 brake chambers (2025)",
+      "severity": "high",
+      "dimension": "safety",
+      "detail": "Bendix Product Action Center lists a Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) with technical bulletin TCH-32-001.",
       "url": "https://www.bendix.com/en/services-and-support/product-action-center",
-      "supportUrls": [],
-      "eventDate": "2025",
-      "status": "ongoing",
-      "followedUp": true
-     },
-     {
-      "title": "Bendix recall of Knorr-Bremse 22/24-57 brake chambers (part K068622)",
-      "severity": "high",
-      "dimension": "safety",
-      "detail": "Bendix Commercial Vehicle Systems is recalling approximately 1,672 Knorr-Bremse 22/24-57 brake chambers, part number K068622, sold as replacement parts for certain buses, due to potential air leak from improper manufacturing.",
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
       "supportUrls": [
-       "https://www.bendix.com/en/services-and-support/product-action-center"
+       "https://www.railwaynopoach.com"
       ],
       "eventDate": "2025",
       "status": "ongoing",
       "followedUp": true
      },
      {
-      "title": "Nova Bus recall of ZF North America Knorr-Bremse 20/22-57 brake chambers (part K038830N00)",
+      "title": "Nova Bus recall of 2,090 Knorr-Bremse brake chambers",
       "severity": "high",
       "dimension": "safety",
-      "detail": "Nova Bus (US) Inc. is recalling approximately 2,090 ZF North America Knorr-Bremse 20/22-57 brake chambers, part number K038830N00, sold as replacement parts for certain buses, due to potential air leak from improper manufacturing.",
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
+      "detail": "Nova Bus announced a recall of certain ZF North America Knorr-Bremse 20/22-57 brake chambers due to a potential manufacturing defect affecting 2,090 units.",
+      "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
       "supportUrls": [
-       "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-       "https://netify.co.uk/sd-wan-sase-for-financial-services",
        "https://www.bendix.com/en/services-and-support/product-action-center"
       ],
-      "eventDate": "2024",
-      "status": "resolved",
-      "followedUp": true
-     },
-     {
-      "title": "Rail Equipment Suppliers No-Poach Litigation",
-      "severity": "medium",
-      "dimension": "compliance",
-      "detail": "Antitrust class action complaint alleging unlawful no-poach agreements between rail equipment suppliers including Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp.",
-      "url": "https://www.saverilawfirm.com/our-cases/rail-equipment-suppliers-investigation",
-      "supportUrls": [
-       "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
-       "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf",
-       "https://www.justice.gov/opa/press-release/file/1048481/dl"
-      ],
-      "eventDate": "2018",
-      "status": "resolved",
+      "eventDate": "2025",
+      "status": "unknown",
       "followedUp": true
      }
     ],
@@ -779,29 +754,29 @@
      },
      {
       "key": "financial",
-      "score": 35,
+      "score": 20,
       "confidence": "medium",
-      "rationale": "S&P Global Ratings downgrade with EBITDA margin profile not expected to return to above-average over next 24 months",
-      "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459",
-      "eventDate": null,
+      "rationale": "Strong profit margins and cash flow reported in company newsroom releases",
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-sees-higher-profit-margin-and-strong-cash-flow",
+      "eventDate": "2026",
       "status": "ongoing"
      },
      {
       "key": "quality",
-      "score": 40,
+      "score": 45,
       "confidence": "high",
-      "rationale": "Multiple brake chamber recalls due to potential manufacturing defects affecting thousands of units",
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
+      "rationale": "Multiple NHTSA safety recalls of Knorr-Bremse brake chambers in 2024 and 2025",
+      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
       "eventDate": "2024",
       "status": "ongoing"
      },
      {
       "key": "compliance",
-      "score": 30,
+      "score": 35,
       "confidence": "high",
-      "rationale": "DOJ antitrust case over No-Poach Agreements resolved with proposed Final Judgment in 2018",
-      "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final",
-      "eventDate": "2018",
+      "rationale": "DOJ antitrust settlement over no-poach agreements with Wabtec in 2018",
+      "url": "https://www.justice.gov/opa/press-release/file/1048481/dl",
+      "eventDate": "2018-04",
       "status": "resolved"
      },
      {
@@ -815,8 +790,8 @@
       "key": "safety",
       "score": 55,
       "confidence": "high",
-      "rationale": "Multiple high-severity brake chamber recalls in 2024 and 2025 due to potential manufacturing defects and air leaks",
-      "url": "https://www.bendix.com/en/services-and-support/product-action-center",
+      "rationale": "Multiple 2025 NHTSA recalls of Knorr-Bremse brake chambers for air leaks and seal defects",
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF",
       "eventDate": "2025",
       "status": "ongoing"
      },
@@ -829,28 +804,28 @@
      },
      {
       "key": "geopolitical",
-      "score": 15,
-      "confidence": "low",
-      "rationale": "2014-2015 Russia sanctions criticism, now resolved",
+      "score": 30,
+      "confidence": "medium",
+      "rationale": "Company criticism of Russia sanctions and reported 50% export loss to Russia",
       "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
-      "eventDate": "2015",
-      "status": "resolved"
+      "eventDate": null,
+      "status": "unknown"
      },
      {
       "key": "governance",
-      "score": 30,
+      "score": 25,
       "confidence": "medium",
-      "rationale": "Contested governance dispute with founding Thiele family affecting strategic direction",
-      "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-      "eventDate": "2023",
-      "status": "ongoing"
+      "rationale": "Historical forced labor use during the Third Reich period 1933-1945",
+      "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich",
+      "eventDate": "1933",
+      "status": "resolved"
      },
      {
       "key": "esg",
       "score": 20,
       "confidence": "medium",
-      "rationale": "ESG performance with net zero commitment by 2050 and SBTi validated targets, though product safety recalls noted",
-      "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf",
+      "rationale": "Listed in DAX 50 ESG index and achieved top scores in international sustainability assessments",
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-achieves-top-scores-in-international-sustainability-assessments",
       "eventDate": null,
       "status": "ongoing"
      },
@@ -870,12 +845,10 @@
      },
      {
       "key": "digital",
-      "score": 25,
-      "confidence": "medium",
-      "rationale": "Ransomware incident involving Knorr-Bremse customer data at Refako Autodele in Denmark",
-      "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele",
-      "eventDate": null,
-      "status": "unknown"
+      "score": null,
+      "confidence": null,
+      "rationale": "no evidence found",
+      "url": null
      },
      {
       "key": "political",
@@ -916,59 +889,14 @@
     "shadowTri": 33,
     "sources": [
      {
-      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
-      "title": "Part 573 Safety Recall Report 24V-559",
-      "snippet": "Production Dates : JUL 06, 2020 - JUN 03, 2021 VIN Range 1 : Begin : 4RKYL82K3L9777627 End : 4RKYL82J0M9778016 Not sequential ✔ Vehicle 2 : 2019-2019 Nova Bus LFS Artic Vehicle Type : BUSES, MEDIUM & HEAVY VEHICLES Body Style : OTHER Power Train : DIESEL Descriptive Information : The recall populat…"
+      "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
+      "title": "Rail Equipment Manufacturers No-Poach Agreements Antitrust Investigation",
+      "snippet": "Frank LLP has commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. On April 3, 2018, the United States Department of Justice announced that it has reached a settlement with Knorr-Bremse AG and Westingho…"
      },
      {
-      "url": "https://purchasing.knorr-bremse.com/media/direct-purchasing-rail/dsi/dsi-supplier-downloads/qaa-en.pdf",
-      "title": "Quality assurance agreement",
-      "snippet": "The Supplier is aware that the products of Knorr-Bremse are used across the world and have to meet the highest quality and safety standards. ... Recall"
-     },
-     {
-      "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
-      "title": "Brake Chamber Recall Affects 2090 Units",
-      "snippet": "Nova Bus has announced a recall of certain ZF North America Knorr-Bresme 20/22-57 brake chambers due to a potential manufacturing defect."
-     },
-     {
-      "url": "https://sustainabilityreport.knorr-bremse.com/2022/social/index.html",
-      "title": "Social | KNORR-BREMSE",
-      "snippet": "Knorr-Bremse commits itself to product safety and quality in its vision, corporate values and Code of Conduct. Moreover, there are separate safety and quality policies for the two divisions that the sites must introduce. The permanent improvement of our product and system quality is a core topic he…"
-     },
-     {
-      "url": "https://sustainabilityreport.knorr-bremse.com/2023/social/index.html",
-      "title": "Social | KNORR-BREMSE",
-      "snippet": "Our products and systems are subject to high safety requirements arising from customer requirements, legal requirements and standards, and we carefully monitor compliance with these. To this end, Knorr‑Bremse makes use of extensive quality-planning, quality-assurance, and testing procedures. Knorr‑…"
-     },
-     {
-      "url": "https://valueinvesting.io/KBX.DE/probability-of-bankruptcy",
-      "title": "KBX.DE Probability of Bankruptcy | Knorr Bremse AG ...",
-      "snippet": "The Probability of Bankruptcy of Knorr Bremse AG (KBX.DE) is 0% . This number represents the probability that KBX.DE will face financial distress in the next 24"
-     },
-     {
-      "url": "https://nclt.gov.in/gen_pdf.php?filepath=%2FEfile_Document%2Fncltdoc%2Fcasedoc%2F0404116035792022%2F04%2FOrder-Challenge%2F04_order-Challange_004_168310228387632963464521a4b1d661.pdf",
-      "title": "CP (IB) No. 325 of 2022 Anand Prakash Garg Vs. Knorr- ...",
-      "snippet": "Knorr-Bremse India Private Limited Through its Director, with its registered office at: 51/4, Delhi-Mathura Road, Village & P.O. Baghola Palwal, Haryana-121102 …Respondent-Corporate Debtor Order delivered on: 19.04.2023 Coram: Hon’ble Mr. Harnam Singh Thakur, Member (Judicial) Hon’ble Mr. Subrata K…"
-     },
-     {
-      "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/12866459",
-      "title": "German Brake Specialist Knorr-Bremse AG Downgrade",
-      "snippet": "Germany-based brake specialist Knorr-Bremse (KB) not to return to its above-average EBITDA margin profile over the next 24 months,"
-     },
-     {
-      "url": "https://simplywall.st/stocks/us/capital-goods/otc-knrr.y/knorr-bremse/health",
-      "title": "Knorr-Bremse (KNRR.Y) Balance Sheet & Financial Health ...",
-      "snippet": "Knorr-Bremse has a total shareholder equity of €3.3B and total debt of €1.9B, ratio to 59.1%. from 66.5% to 59.1% over the past 5 years."
-     },
-     {
-      "url": "https://www.investing.com/equities/knorr-bremse-financial-summary",
-      "title": "ETR:KBX Financials | Knorr-Bremse AG - Investing.com",
-      "snippet": "| | | | | Cash from Investing | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -534.37 | -505 | -411 | -750 | -306 | | | | | | Cash from Financing | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -1,424.9 | -160.81 | -398 | 630 | -1,256 | | | | | | Net Change in Cash | aa.aa | aa.aa | aa.aa | aa.aa | aa.aa | -91…"
-     },
-     {
-      "url": "https://www.federalregister.gov/documents/2018/04/16/2018-07840/united-states-v-knorr-bremse-ag-and-westinghouse-air-brake-technologies-corporation-proposed-final",
-      "title": "Federal Register :: United States v. Knorr-Bremse AG and Westinghouse Air Brake Technologies Corporation; Proposed Final Judgment and Competitive Impact Statement",
-      "snippet": "At the same time the Complaint was filed, the United States also filed a Stipulation and Order and proposed Final Judgment, which would remedy the violation by enjoining the Defendants from entering into, maintaining, or enforcing any No-Poach Agreements, subject to limited exceptions. The proposed…"
+      "url": "https://www.lexisnexis.co.uk/legal/guidance/knorr-bremse-haldex-m-8222-archived",
+      "title": "Knorr-Bremse/Haldex (M.8222) [Archived] | Legal Guidance | LexisNexis",
+      "snippet": "| | | --- | | Outline | European Commission merger investigation into the proposed acquisition of Haldex by Knorr-Bremse (Case M.8222). The transaction involves horizontal overlaps in markets for commercial vehicle brake systems and components. | | Latest developments | The notification was formall…"
      },
      {
       "url": "https://www.justice.gov/opa/press-release/file/1048481/dl",
@@ -976,139 +904,59 @@
       "snippet": "in any investigation or litigation examining whether or alleging that the Defendant entered into a No-Poach Agreement with any other person in violation of Section 1 of the Sherman Act, 15 U.S.C. § 1. The United States and the Defendants have stipulated that the proposed Final Judgment may be enter…"
      },
      {
-      "url": "https://www.knorr-bremse.com/en/company/compliance",
-      "title": "Compliance – Integrity & Responsible Business Practices | Knorr-Bremse Group",
-      "snippet": "We are firmly committed to protecting those who raise concerns in good faith. Knorr-Bremse strictly prohibits any form of retaliation against individuals who, at the time of reporting, genuinely believe their report to be true. To learn more about how IntegrityVoice works—including what happens aft…"
+      "url": "https://www.reuters.com/article/us-haldex-ab-m-a-knorr-bremse-eu-idUSKBN1A91XR",
+      "title": "EU regulators to investigate Knorr-Bremse's bid for Haldex",
+      "snippet": "EU regulators said on Monday they would investigate car parts maker Knorr-Bremse's [STELLG.UL] bid for Swedish peer Haldex as concessions"
      },
      {
-      "url": "https://www.robinskaplan.com/newsroom/news/robins-kaplan-llp-files-lawsuit-alleging-major-rail-equipment-suppliers",
-      "title": "Robins Kaplan LLP Files Lawsuit Alleging Major Rail Equipment Suppliers Entered into Unlawful No-Poach Agreements | Robins Kaplan LLP Law Firm",
-      "snippet": "April 30, 2018 New York, NY—April 30, 2018—National trial firm Robins Kaplan LLP® has filed a proposed class action lawsuit in the U.S. District Court for the Western District of Pennsylvania alleging three of the world’s largest rail equipment suppliers entered into unlawful no-poach agreements to…"
+      "url": "https://joeharrington5201922.github.io/pdf/Bloomberg%20Law_08.28.18.pdf",
+      "title": "Knorr Bremse, Wabtec 'No-Poach' Case Triggers Wave of ...",
+      "snippet": "The class actions, which were filed in different parts of the country and consolidated into multidistrict litigation this month, seek monetary damages for any workers who may have been harmed by the companies’ alleged employment practices. The suits are part of a recent flurry of legal and regulato…"
      },
      {
-      "url": "https://timesofindia.indiatimes.com/city/chennai/germanys-knorr-bremse-to-invest-1907-crore-at-sriperumbudur/articleshow/125996265.cms",
-      "title": "Germany’s Knorr-Bremse to invest ₹1,907 crore at Sriperumbudur | Chennai News - The Times of India",
-      "snippet": "logo About usCreate Your Own AdTerms of Use and Grievance Redressal Policy Privacy policyAdvertise with usRSSNewsletterFeedbackePaperSitemapArchives Living and Entertainment CricbuzzLifestyleNewspaper SubscriptionFood NewsTVTimes PrimeTravel DestinationsWhats HotETimesTimes LifeTimes PetsMyLifeXP C…",
-      "publishedDate": "Wed, 17 Dec 2025 00:00:00 GMT"
+      "url": "https://finance.yahoo.com/quote/KBX.DE/key-statistics",
+      "title": "Knorr-Bremse AG (KBX.DE) Valuation Measures & Financial Statistics",
+      "snippet": "### Financial Highlights ### Fiscal Year | | | --- | | Fiscal Year Ends | 12/31/2025 | | Most Recent Quarter (mrq) | 6/30/2026 | ### Profitability | | | --- | | Profit Margin | 7.28% | | Operating Margin (ttm) | 13.49% | ### Management Effectiveness | | | --- | | Return on Assets (ttm) | 7.09% | |…"
      },
      {
-      "url": "https://www.blackrock.com/za/individual/literature/annual-report/blackrock-global-index-funds-annual-report-en-31-mar-26.pdf",
-      "title": "Annual report and audited financial statements",
-      "snippet": "Materials AG 3.375% 17/10/2031 49,817 0.02 EUR 50,000 Heidelberg Materials AG 3.75% 31/5/2032^ 50,163 0.02 EUR 50,000 Hochtief AG 4.25% 31/5/2030^ 51,208 0.02 EUR 100,000 ING-DiBa AG 2.375% 13/9/2030 97,314 0.03 EUR 100,000 Investitionsbank Berlin 3.125% 13/9/2028 100,492 0.04 EUR 100,000 Investiti…",
-      "publishedDate": "Tue, 31 Mar 2026 00:00:00 GMT"
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-sees-higher-profit-margin-and-strong-cash-flow",
+      "title": "Knorr-Bremse Sees Higher Profit Margin and Strong Cash Flow",
+      "snippet": "Frank Markus Weber, Chief Financial Officer of Knorr-Bremse AG: “We were able to achieve further pleasing revenue growth in the last three months. At € 1.9 billion, this represents an increase of 8% on the same quarter last year. Our greater profitability stems from the successful implementation of…"
      },
      {
-      "url": "https://www.facebook.com/tapassinhaofficial/posts/why-are-workers-moving-towards-a-general-strike-why-are-the-workers-moving-towar/1444714947118481",
-      "title": "WHY ARE WORKERS MOVING TOWARDS A GENERAL ...",
-      "snippet": "According to the current Code, collective grievances of workers and their unions can be interpreted as 'organized crime' under Section 111 of the Bharatiya",
-      "publishedDate": "Sat, 07 Feb 2026 00:00:00 GMT"
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-delivers-strong-compelling-h1-performance",
+      "title": "Knorr-Bremse Delivers Strong, Compelling H1 Performance",
+      "snippet": "| Order book (June 30) | 1,772 | 1,969 | -10.0% | 1,772 | 1,969 | -10.0% | | Revenues | 1,789 | 2,007 | -10.9% | 895 | 997 | -10.2% | | EBIT | 156 | 209 | -25.4% | 85 | 98 | -13.0% | | EBIT margin | 8.7% | 10.4% | -170 bp | 9.5% | 9.8% | -30 bp | | Operating EBIT | 176 | 223 | -20.8% | 92 | 112 | -…"
      },
      {
-      "url": "https://report.telekom.com/annual-report-2025/_assets/downloads/entire-dtag-ar25.pdf",
-      "title": "Deutsche Telekom Annual Report 2025",
-      "snippet": "22 Dr. Reinhard Ploss Member of the Supervisory Board since April 5, 2023 Chairman of the Supervisory Board of Knorr-Bremse AG, Munich Former CEO of Infineon Technologies AG, Neubiberg Memberships of other supervisory boards required to be formed by law: Memberships of comparable supervisory bodies…",
-      "publishedDate": "Wed, 21 Jan 2026 00:00:00 GMT"
+      "url": "https://www.investing.com/equities/knorr-bremse-financial-summary",
+      "title": "ETR:KBX Financials | Knorr-Bremse AG - Investing.com",
+      "snippet": "The Knorr-Bremse EPS (TTM) is 3.64. Knorr-Bremse reported sales of The Knorr-Bremse EPS (TTM) is 3.64. Knorr-Bremse reported sales of 2,164.00, net income of 173.00, and EPS of 1.08 for the latest quarter., net income of 173.00, and EPS of 1.08 for the latest quarter. ### What was Knorr-Bremse's ne…"
      },
      {
-      "url": "https://www.sdmts.com/sites/default/files/2026-09-17--pre-meeting-packet_6.pdf",
-      "title": "Board of Directors Agenda",
-      "snippet": "LLC Small Business G190-SAFETY/MED SUPPLIES 530.64 $ -$ -$ 4500077199 8/20/2026 Blue Angel International LLC Small Business G190-SAFETY/MED SUPPLIES 976.13 $ -$ -$ 4500077200 8/20/2026 TK Services Inc B250-BUS REPAIR PARTS 10,570.79 $ -$ -$ 4500077201 8/20/2026 Knorr Brake Company, LLC R220-RAIL/LR…",
-      "publishedDate": "Wed, 16 Sep 2026 19:00:00 GMT"
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-on-course-for-success-with-higher-profit-and-profitability",
+      "title": "Knorr-Bremse on course for success with higher profit and profitability",
+      "snippet": "| Order book (Dec 31) | 1,787.7 | 1,831.6 | -2.4% | 1,787.7 | 1,831.6 | -2.4% | | Revenues | 3,503.5 | 3,841.8 | -8.8% | 881.2 | 919.3 | -4.1% | | EBIT | 318.6 | 349.9 | -8.9% | 90.3 | 70.4 | +28.3% | | EBIT margin | 9.1% | 9.1% | +/–0 bp | 10.2% | 7.7% | +250 bp | | Operating EBIT | 363.3 | 401.1…"
      },
      {
-      "url": "https://www.dexpose.io/thegentlemen-targets-danish-retailer-refako-autodele",
-      "title": "TheGentlemen Targets Danish Retailer Refako Autodele",
-      "snippet": "TheGentlemen ransomware hits Refako Autodele in Denmark, threatening sensitive data leak ... Knorr-Bremse, JOST, Dinex, and Exide. Customer reputation is",
-      "publishedDate": "Thu, 08 Oct 2026 00:00:00 GMT"
+      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V559-8397.PDF",
+      "title": "Part 573 Safety Recall Report 24V-559",
+      "snippet": "Production Dates : JUL 06, 2020 - JUN 03, 2021 VIN Range 1 : Begin : 4RKYL82K3L9777627 End : 4RKYL82J0M9778016 Not sequential ✔ Vehicle 2 : 2019-2019 Nova Bus LFS Artic Vehicle Type : BUSES, MEDIUM & HEAVY VEHICLES Body Style : OTHER Power Train : DIESEL Descriptive Information : The recall populat…"
      },
      {
-      "url": "https://rail.knorr-bremse.com/media/local-content/kazakhstan/tc-of-sale-and-delivery-kazakhstan.pdf",
-      "title": "Terms and Conditions of Sale and Delivery for ...",
-      "snippet": "The Customer shall indemnify and hold Knorr-Bremse harmless from any claims, damages, costs, or expenses arising from a breach of this § 13 or from any",
-      "publishedDate": "Wed, 21 Jan 2026 00:00:00 GMT"
+      "url": "https://thebrakereport.com/brake-chamber-recall-affects-2090-units",
+      "title": "Brake Chamber Recall Affects 2090 Units",
+      "snippet": "Nova Bus has announced a recall of certain ZF North America Knorr-Bresme 20/22-57 brake chambers due to a potential manufacturing defect."
      },
      {
-      "url": "https://www.dsb.dk/globalassets/priser_og_zoner/2026/base-offering-circular-12-february-2026.pdf",
-      "title": "Base Offering Circular",
-      "snippet": "experience difficulty in getting to and from their intended destinations. Such events are largely unpredictable in terms of their frequency and the extent of the disruption that could be caused but the consequences could potentially be significant. Any such disruptions to the Issuer's ordinary oper…",
-      "publishedDate": "Thu, 12 Feb 2026 00:00:00 GMT"
+      "url": "https://sustainabilityreport.knorr-bremse.com/2023/social/index.html",
+      "title": "Social | KNORR-BREMSE",
+      "snippet": "Knorr‑Bremse seeks to fulfill its obligation to observe its products globally and uncover potential risks in the usage phase and, to this end, has implemented a product integrity process. The regional quality managers are responsible for active product monitoring through market observation, media r…"
      },
      {
-      "url": "https://netify.co.uk/sd-wan-sase-for-financial-services",
-      "title": "Financial Services SD-WAN & SASE: Evidence, UK and North America (2026) | Netify",
-      "snippet": "Does not prove: Knorr-Bremse is a manufacturing company, not a bank, insurer or other financial institution, so this cannot evidence any financial services column even though it names the Managed SD-WAN product. services.global.ntt· Checked 12 Sept 2026 FIN-355RejectedProvider-authoredOther Privacy…",
-      "publishedDate": "Tue, 15 Sep 2026 00:00:00 GMT"
-     },
-     {
-      "url": "https://www.opentext.com/media/ebook/enterprise-artificial-intelligence-building-trusted-ai-with-secure-data-ebook-en.pdf",
-      "title": "Enterprise Artificial Intelligence: Building Trusted AI in the Sovereign Cloud | OpenText",
-      "snippet": "data, the models make recommendations to optimize performance. This, in turn, generates new datasets that can continually and iteratively be improved. Data and Al Value Chain This approach is demonstrated in the following case study which describes how Knorr-Bremse keeps the wheels rolling with pre…",
-      "publishedDate": "Tue, 18 Nov 2025 04:10:31 GMT"
-     },
-     {
-      "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
-      "title": "RUSSIA: Knorr-Bremse slams sanctions imposition - Just Auto",
-      "snippet": "“I am not the only one in Germany who has this position. I support the statement of President Putin – it is high time to stop these sanctions. I hope now everybody in Europe understands these sanctions have hurt Europe substantially. “If you look to the figures, within two years, 2014 and 2015, Ger…"
-     },
-     {
-      "url": "https://scholarlycommons.law.case.edu/cgi/viewcontent.cgi?article=2773&context=cuslj",
-      "title": "From Free Trade to Strategic Constraints: U.S.-Led Sanctionsand Export Controls Against Russia and China",
-      "snippet": "The strategic use of U.S.-led sanctions and export controls against Russia and China represents a significant shift from economic liberalization to a more constrained global trade landscape driven by national security interests. While these measures have been effective in limiting access to critica…"
-     },
-     {
-      "url": "https://rail.knorr-bremse.com/en/de/about-us/standard-terms-of-sales-and-delivery",
-      "title": "Sale and delivery conditions and terms | Knorr-Bremse",
-      "snippet": "3. Confidential Information does not include information (i) that was generally known or in the public domain or became so without Customer’s input, (ii) that was already in the possession of the Customer prior to the receipt from Knorr-Bremse, (iii) that was lawfully obtained from a third party, o…"
-     },
-     {
-      "url": "https://www.globaltradeandsanctionslaw.com/navigating-russia-sanctions-strategies-for-companies-to-mitigate-supply-chain-risks",
-      "title": "Navigating Russia Sanctions: Strategies for Companies to Mitigate Supply Chain Risks — Global Trade & Sanctions Law — October 6, 2022",
-      "snippet": "Overall, these export control restrictions have prevented Russian and Belarussian companies from accessing U.S. hardware, software and technology. There has also been an increased risk of non-U.S. made items now requiring a license for export to Russia or Belarus due to the expanded FDP rules. As s…"
-     },
-     {
-      "url": "https://www.csis.org/analysis/russias-turn-china-under-sanctions",
-      "title": "Russia’s Turn to China Under Sanctions: Sanctions Decay, Substitution Elasticity, and the Challenge of Sustaining Pressure",
-      "snippet": "Recent trade data shows both adaptation and friction. The Kyiv School of Economics (KSE) found that export controls introduced since 2022 reduced the value of Russia’s imports of Common High Priority goods—which covers components and equipment important to Russian weapons production—by more than ha…"
-     },
-     {
-      "url": "https://www.data.illuminem.com/company/f2d887e0_knorr-bremse",
-      "title": "Knorr-Bremse ESG & Sustainability Data | illuminem",
-      "snippet": "Noticeable High Severe Download Controversy Analysis KnorrBremse has faced multiple commercial vehicle and rail braking system product safety recalls including the 2023 European truck OEM customer recall, plus the contested governance dispute with founding Thiele family affecting strategic directio…"
-     },
-     {
-      "url": "https://sustainabilityreport.knorr-bremse.com/2023/appendix/downloads/en/Knorr-Bremse_Sustainability-Report-2023_Sustainability-Management.pdf",
-      "title": "[PDF] Sustainability Management - KNORR-BREMSE",
-      "snippet": "Our sustainability activities during the reporting period focused on the ongoing strengthening of our ESG organizational structure, the continuing implementation of our climate action projects, and the constant incorporation of sustainability into decision-making processes. For instance, the carbon…"
-     },
-     {
-      "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf",
-      "title": "knorr-bremse-sustainability-report-2023-2.pdf",
-      "snippet": "Furthermore, defined ESG criteria are integrated into property management. In terms of climate protec -tion, Knorr-Bremse has committed to a long-term target of net zero emissions (Scopes 1 to 3) by 2050. Moreover, expanded climate targets validated by the Science Based Target initiative (SBTi) wer…"
-     },
-     {
-      "url": "https://sustainabilityreport.knorr-bremse.com/2023/sustainability-management/index.html",
-      "title": "Sustainability Management | KNORR-BREMSE",
-      "snippet": "Our sustainability activities during the reporting period focused on the ongoing strengthening of our ESG organizational structure, the continuing implementation of our climate action projects, and the constant incorporation of sustainability into decision-making processes. For instance, the carbon…"
-     },
-     {
-      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-receives-prestigious-global-sustainability-impact-award",
-      "title": "Knorr-Bremse receives prestigious Global Sustainability Impact Award",
-      "snippet": "Knorr-Bremse is further committed to decarbonizing its supply chain by sourcing low-emission materials and promoting energy efficiency improvements in supplier production processes. Its product portfolio also helps customers to implement their own sustainable development goals through energy- and e…"
-     },
-     {
-      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
-      "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
-      "snippet": "The firm will replace the brake chambers. Nova Bus (US) Inc. is recalling approximately 2,090 ZF North America Knorr-Bresme 20/22-57 brake chambers, with part number K038830N00, sold as replacement parts for certain buses. The brake chamber may have been improperly manufactured, which can result in…"
-     },
-     {
-      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
-      "title": "Part 573 Safety Recall Report 25E048",
-      "snippet": "Country: United States Name: International - NAV Defense Address: 2255 Progress Dr Springfield OH, 45505 Country: United States Name: TW - KENNESAW Address: 1650 WESTFORK DR LITHIA SPRINGS GA, 30122 Country: United States Name: Volvo AB Prevost Car Inc Address: 201 South Ave South Plainfield NJ, 07…"
-     },
-     {
-      "url": "https://www.bendix.com/en/services-and-support/product-action-center",
-      "title": "Product Action Center",
-      "snippet": "# Product Action Center ### Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) Identification Guide - Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269)\\_available in English, French, and Spanish Language Technical Bulletin - Knorr-Bremse NG3 BS8485 Brake Chamber Recall (TCH-32-001)\\_available in Engl…"
+      "url": "https://rail.knorr-bremse.com/en/us/about-us/policies/safety-policy",
+      "title": "Product safety at Knorr-Bremse",
+      "snippet": "## Safety Is One of our Core Values We guarantee that Knorr-Bremse products comply with the statutory safety requirements. Our safety objective is to prevent any incident within rail operation caused by our products. We are committed to creating the organisational conditions needed to achieve this…"
      },
      {
       "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-bendix-recalls-brake-chambers-for-potential-air-leaks/lld01218cde26ee5d47c19875e6026201c0af",
@@ -1116,24 +964,152 @@
       "snippet": "Bendix Commercial Vehicle Systems, LLC (Bendix) is recalling approximately 1,672 Knorr-Bresme 22/24-57 brake chambers, with part number K068622, sold as replacement parts for certain buses. The brake chamber may have been improperly manufactured, which can result in an air leak (NHTSA Recall Notice…"
      },
      {
+      "url": "https://www.knorr-bremse.com/en/company/history/knorr-bremse-in-the-third-reich",
+      "title": "Company History in the Third Reich – 1933 to 1945 | Knorr-Bremse Group",
+      "snippet": "That same month the number of foreigners employed at Knorr-Bremse's Berlin parent plant reached its wartime peak of 3,101 – or 42.3 percent of the entire workforce of 7,334. Among manual workers the proportion of foreigners was as high as 48.7 percent. At the relocation plants in the General-Govern…",
+      "publishedDate": "Wed, 28 Jan 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://www.igmetall.de/en/tarif/tarifrunden/leiharbeit/tarifrunde-leiharbeit-inflationsausgleichspraemie",
+      "title": "Protests in the Temporary Employment Sector",
+      "snippet": "## A Matter of Fairness Just before negotiations began on Thursday afternoon, 1,000 temporary workers demonstrated for their inflation adjustment bonus. They marched from “BMW Welt” to the Leonardo Royal Hotel Munich, where a final round of negotiations between IG Metall and the employers subsequen…",
+      "publishedDate": "Wed, 26 Aug 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://www.linkedin.com/posts/schunk-group_reliable-charging-infrastructure-is-a-key-activity-7480501452436713472-3j9q",
+      "title": "Reliable charging infrastructure is a key requirement for ...",
+      "snippet": "Knorr-Bremse AG. At UK Rail we will address the industry challenges such as demographic shifts, labor shortages in maintenance, and mounting pressure to"
+     },
+     {
+      "url": "https://ir.knorr-bremse.com/media/document/c7fadd13-bd21-4559-9931-56d61c206db5/assets/Knorr_Bremse_CorporateGovernanceStatement_2025.pdf?disposition=inline",
+      "title": "Corporate Governance Statement for the 2025 Fiscal Year",
+      "snippet": "of Deutsches Institut für Wirtschafts­ forschung (DIW) ■Member of the University Council, Bielefeld University Werner Ratzisberger Born in 1967 Full-time member of the Works Council of Knorr-Bremse Systeme für Nutzfahrzeuge GmbH 2006 2026 ■Member of the Executive Commit-tee ■Member of the Mediation…",
+      "publishedDate": "Wed, 17 Dec 2025 00:00:00 GMT"
+     },
+     {
+      "url": "https://law.asia/china/top-firms-china-2026",
+      "title": "China Business Law Awards 2026 | Law.asia",
+      "snippet": "Fangda Partners excels in representing multinational manufacturers in complex labour disputes. The firm assisted Maxion Wheels (Nantong) in winning a RMB1.5 million (USD220,000) claim regarding wrongful termination, despite a relatively weak chain of evidence. It also represented Knorr Commercial V…",
+      "publishedDate": "Thu, 28 May 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://railway-news.com/event-exhibition/rail-cyber-resilience-summit-2026",
+      "title": "Rail Cyber Resilience Summit 2026 | Railway-News",
+      "snippet": "## Confirmed Speakers Confirmed speakers include: Martin Koop, Head of Railway Security, INCYDE GmbH Amelia Alder, Legal Counsel Cybersecurity, Knorr-Bremse Rail Vehicle Systems Ulrich Zackor, Head of OT Security, DB InfraGO AG Eddy Thesee, Vice President Cybersecurity, Alstom Vish Kalsapura, Princ…",
+      "publishedDate": "Mon, 22 Jun 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://s201.q4cdn.com/960975307/files/doc_financials/2025/ar/ALBEMARLE-CORP_2026_Proxy_Statement.pdf",
+      "title": "2026 DEF 14A - Definitive Proxy Statement",
+      "snippet": "The Company's cybersecurity program incorporates a zero-trust architecture based on the principles of least privilege, least functionality, and network segmentation throughout the landscape using a layered approach. Specific team functions are utilized to constantly scan and monitor our environment…",
+      "publishedDate": "Tue, 24 Mar 2026 20:25:43 GMT"
+     },
+     {
+      "url": "https://www.opentext.com/media/ebook/enterprise-artificial-intelligence-building-trusted-ai-with-secure-data-ebook-en.pdf",
+      "title": "Enterprise Artificial Intelligence: Building Trusted AI in the Sovereign Cloud | OpenText",
+      "snippet": "204 Internet of Things (IoT), 59, 64, 190, 200-201 Interoperability, 27, 96, 201, 203 Intranet, 25, 28-29, 34, 88 ISO 15489, 92 ISO/IEC 27001:2022, 75, 82, 193, 207 ISO/IEC 38505, 62 ISO/IEC 42001, 62, 66, 110, 170 iTAC Software AG, 63-64 # K Karlsruhe Institute of Technology (KIT), 133-134 Key Per…",
+      "publishedDate": "Tue, 18 Nov 2025 04:10:31 GMT"
+     },
+     {
+      "url": "https://www.facebook.com/suryavanshiventures/photos/ai-is-increasingly-becoming-part-of-the-technology-backbone-of-global-manufactur/1016646498033289",
+      "title": "Suryavanshi Ventures - Infosys",
+      "snippet": "... Bremse AG to modernise the company's enterprise IT systems through its Tech4Value programme. The scope includes end-to-end managed services across Knorr"
+     },
+     {
+      "url": "https://investor.cummins.com/sec-filings/annual-reports/content/0000026172-26-000009/0000026172-26-000009.pdf",
+      "title": "02/10/2026 - Cummins Inc.",
+      "snippet": "ITEM 1B. Unresolved Staff Comments None. ITEM 1C. Cybersecurity Material Cybersecurity Risks, Threats and Incidents To date, we have not experienced a cybersecurity incident that has materially impacted our business. The risks from cybersecurity threats, including as a result of any previous cybers…",
+      "publishedDate": "Tue, 10 Feb 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/knorr-bremse-stock-holds-steady-as-investors-eye-conference-and-recent/70143426",
+      "title": "Knorr-Bremse stock holds steady as investors eye conference and recent earnings",
+      "snippet": "## Recent trading and price levels According to an overview published on September 21, 2026, Knorr-Bremse AG spent the September 18, 2026 Xetra session between EUR 105.40 and EUR 107.60 and finished unchanged versus the prior close at EUR 105.70, while the MDAX slipped 0.70 percent to 31,172.22 poi…",
+      "publishedDate": "Mon, 21 Sep 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-fully-on-track-strong-rail-business-and-further-improvement-in-profitability",
+      "title": "Knorr-Bremse fully on track: Strong rail business and further improvement in profitability",
+      "snippet": "### Overview of Development in Both Divisions Rail Vehicle Systems Division (RVS): Order intake increased due to the persistently high demand in the global rail market, up a significant 13.5% to € 3,773 million (9M 2024: € 3,323 million) The order book increased to € 5,659 million (September 30, 20…",
+      "publishedDate": "Thu, 30 Oct 2025 00:00:00 GMT"
+     },
+     {
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-finalizes-purchase-of-duagon-enhancing-growth-of-its-global-rail-business",
+      "title": "Knorr-Bremse finalizes purchase of duagon, enhancing growth of its global rail business",
+      "snippet": "Post this release on X Munich, 07 January 2026 | 09:36 Europe/Amsterdam # Knorr-Bremse finalizes purchase of duagon, enhancing growth of its global rail business Summary By acquiring duagon, Knorr-Bremse will significantly expand its expertise in signaling technology as well as electronic and softw…",
+      "publishedDate": "Wed, 07 Jan 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-delivers-strong-second-quarter-results-and-launches-growth-beyond-strategy",
+      "title": "Knorr-Bremse delivers strong second-quarter results and launches “Growth Beyond” strategy",
+      "snippet": "Post this release on X 29 July 2026 | 17:42 Europe/Amsterdam # Knorr-Bremse delivers strong second-quarter results and launches “Growth Beyond” strategy Summary Primary objective of BOOST achieved in Q2 2026 with operating EBIT margin of 14.2% Order intake lifted to € 2.2 billion, record order book…",
+      "publishedDate": "Wed, 29 Jul 2026 00:00:00 GMT"
+     },
+     {
+      "url": "https://www.marketscreener.com/news/moody-s-keeps-knorr-bremse-ratings-on-improved-profitability-leading-market-position-ce785dd8d08dff2d",
+      "title": "Moody's Keeps Knorr-Bremse Ratings on Improved Profitability, Leading Market Position | MarketScreener",
+      "snippet": "| Sep. 18 | BofA Lifts Knorr-Bremse Price Objective Amid Expected Rail Division Growth Acceleration | MT | | Sep. 16 | After dispute: Frasers CEO Murray to become supervisory board chairman at Hugo Boss | DP | | Sep. 16 | Knorr-Bremse AG : JP Morgan reiterates its Neutral rating | ZD | | Aug. 18 |…",
+      "publishedDate": "Tue, 06 Oct 2026 10:23:27 GMT"
+     },
+     {
+      "url": "https://www.just-auto.com/news/russia-knorr-bremse-slams-sanctions-imposition",
+      "title": "RUSSIA: Knorr-Bremse slams sanctions imposition - Just Auto",
+      "snippet": "Skip to site menu Skip to page content JA News # RUSSIA: Knorr-Bremse slams sanctions imposition Knorr-Bremse has delivered a withering attack on the continued imposition of sanctions by the West on Russia, saying Germany alone has lost 50% of its exports to the country since their introduction. Ju…"
+     },
+     {
+      "url": "https://globalinvestigationsreview.com/guide/the-guide-sanctions/seventh-edition/article/navigating-the-crossfire-us-sanctions-export-controls-and-geopolitical-risk-in-the-asia-pacific",
+      "title": "The Guide to Sanctions - Seventh Edition - Navigating the crossfire: US sanctions, export controls and geopolitical risk in the Asia-Pacific - Global Investigations Review",
+      "snippet": "Because manufacturing in the region is deeply intertwined with US-origin inputs, tooling and intellectual property, these two mechanisms project US regulatory authority across the region, leaving firms exposed to US enforcement even where no US person or US dollars is directly involved in the under…"
+     },
+     {
+      "url": "https://sustainabilityreport.knorr-bremse.com/2022/appendix/downloads/en/Knorr-Bremse_Supplier_Code_of_Conduct_2017_en.pdf",
+      "title": "Supplier Code of Conduct",
+      "snippet": "8. Donations and sponsoring Donations and sponsoring are solely made on a voluntary basis and in accordance with applicable law. They are not to be used to obtain unlawful business advantages. SUPPLIER CODE OF CONDUCT 9. Data protection Suppliers must respect and comply with the applicable data pro…"
+     },
+     {
+      "url": "https://brownrudnick.com/practice/economic-sanctions-1",
+      "title": "Economic Sanctions & Export Controls",
+      "snippet": "As geopolitical tensions unfortunately increase around the world, businesses can expect economic sanctions and export controls to remain significant issues for"
+     },
+     {
+      "url": "https://valueandopportunity.com/2022/09/27/knorr-bremse-ag-german-mittelstandhidden-champion-with-a-few-issues",
+      "title": "Knorr Bremse AG: German Mittelstand”Hidden Champion” with a few issues | value and opportunity",
+      "snippet": "The main issues are as described above, that there seems to be “leadership vacuum” which, combined with the current sector specific and overall downturn (plus geopolitical risk) creates the risk that the business might suffer and might not be in a position to make the required adjustments quickly.…"
+     },
+     {
+      "url": "https://sustainabilityreport.knorr-bremse.com/2023/appendix/downloads/en/Knorr-Bremse_Sustainability-Report-2023_Sustainability-Management.pdf",
+      "title": "[PDF] Sustainability Management - KNORR-BREMSE",
+      "snippet": "The ESG Approach ESG stands for environment, social and governance. It provides a struc-ture for the areas of a company’s sustainability management. The ESG approach is intended to be a tool to achieve sustainable business and company development and make a positive contribution to sustainable deve…"
+     },
+     {
+      "url": "https://purchasing.knorr-bremse.com/media/sustainable-purchasing/2024-08-07-scoc/knorr-bremse-sustainability-report-2023-2.pdf",
+      "title": "knorr-bremse-sustainability-report-2023-2.pdf",
+      "snippet": "## ESG Ratings and Rankings DAX ®50 ESG Knorr -Bremse has been listed in the index since it started. It represents the top 50 companies in Germany based on their ESG performance, market capitalization and revenue. DAX ®50 ESG S&P Global Corporate Sustainability Assessment Knorr -Bremse scored 51 ou…"
+     },
+     {
+      "url": "https://www.sustainabilityreports.com/knorr-bremse/2024/sustainability-figures",
+      "title": "Knorr-Bremse AG 2024 Sustainability Report - Free PDF",
+      "snippet": "Skip to content Knorr-Bremse AG2024 Sustainability Report Company: Knorr-Bremse AG Sector: Manufacturing Country: Germany Year: 2024 Type: Sustainability Report Pages: 12 # Sustainability Figures ## Overview The report provides Knorr-Bremse’s 2024 sustainability figures across environmental, social…"
+     },
+     {
+      "url": "https://sustainabilityreport.knorr-bremse.com/2023/sustainability-management/index.html",
+      "title": "Sustainability Management | KNORR-BREMSE",
+      "snippet": "#### The ESG Approach ESG stands for environment, social and governance. It provides a structure for the areas of a company’s sustainability management. The ESG approach is intended to be a tool to achieve sustainable business and company development and make a positive contribution to sustainable…"
+     },
+     {
+      "url": "https://newsroom.knorr-bremse.com/en/knorr-bremse-achieves-top-scores-in-international-sustainability-assessments",
+      "title": "Knorr-Bremse Achieves Top Scores in International Sustainability Assessments",
+      "snippet": "Knorr-Bremse AG, the global market and technology leader for braking systems and a leading supplier of other innovative solutions for the rail and commercial vehicle industries, has achieved significantly improved sustainability scores in two internationally renowned ratings compared to the previou…"
+     },
+     {
       "url": "https://www.classaction.org/media/carruth-v-knorr-bremse-ag-et-al.pdf",
       "title": "Carruth v. Knorr-Bremse AG et al",
       "snippet": "employees.” In connection with its announcement, AAG Delrahim stated that “[t]oday’s complaint is part of a broader investigation by the Antitrust Division into naked agreements not to compete for employees—generally referred to as no-poach agreements.” 65. Under the terms of the settlement, Wabtec…"
      },
      {
-      "url": "https://www.saverilawfirm.com/our-cases/rail-equipment-suppliers-investigation",
-      "title": "Rail Equipment Suppliers \"No Poach\" Litigation - Joseph Saveri Law Firm",
-      "snippet": "case # Rail Equipment Suppliers “No Poach” Litigation The Joseph Saveri Law Firm, LLP filed an antitrust class action complaint on behalf of individuals harmed by unlawful “no-poach” agreements between some of the world’s largest rail equipment suppliers: Knorr-Bremse AG, Westinghouse Air Brake Tec…"
-     },
-     {
-      "url": "https://www.frankllp.com/resources/investigations/rail-equipment-manufacturers-no-poach-agreements-antitrust-inves",
-      "title": "Rail Equipment Manufacturers No-Poach Agreements Antitrust Investigation",
-      "snippet": "Frank LLP has commenced an investigation of Knorr-Bremse AG and Westinghouse Air Brake Technologies Corp. concerning possible violations of federal antitrust laws. On April 3, 2018, the United States Department of Justice announced that it has reached a settlement with Knorr-Bremse AG and Westingho…"
-     },
-     {
-      "url": "https://www.justice.gov/atr/case-document/file/1048891/dl",
-      "title": "Competitive Impact Statement : U.S. v. Knorr-Bremse AG ...",
-      "snippet": "8 See Andrew C. Finch, Principal Deputy Asst. Att’y Gen., Antitrust Div., U.S. Dep’t of Justice, “Trump Antitrust Policy After One Year,” Remarks at the Heritage Foundation (Jan. 23, 2018), available at (“In October 2016, the Division issued guidance reminding the business community that no-poach a…"
+      "url": "https://www.pymnts.com/cpi-posts/wabtec-knorr-settle-railway-no-poach-suit-for-49m",
+      "title": "CPI | Wabtec, Knorr Settle Railway No-Poach Suit for $49M",
+      "snippet": "US DOJ Threatens Antitrust Investigation Into ABA Law School Rules Oct 15, 2026 by CPI Foley & Lardner Adds Former DOJ Antitrust Attorney in Washington Oct 15, 2026 by CPI China Tightens Airline Competition Rules as Industry Losses Mount Oct 15, 2026 by CPI Cartier Owner Richemont in Talks to Join…"
      },
      {
       "url": "https://www.lit-antitrust.aoshearman.com/DOJ-Enters-Into-Settlement-Ending-No-Poach-Agreement",
@@ -1141,21 +1117,43 @@
       "snippet": "The Complaint further alleged that the agreements were negotiated through constant communication between the defendants, including the use of letters, emails, and direct communications at trade meetings, and were well known to both senior executives at the parent companies, as well as by lower- and…"
      },
      {
-      "url": "https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E035-7637.pdf",
-      "title": "Part 573 Safety Recall Report 26E035",
-      "snippet": "Description of the cause: Identification of any warning that can occur: Component Manufacturer Tier of Supplier: Supplier Type: Name: Address: Country: Involved Components Component Name 1: 5th Generation ADS Component Description: 5th Generation Automated Driving System (ADS) Component Part Number…"
+      "url": "https://www.railwaynopoach.com",
+      "title": "Railway No-Poach Settlements",
+      "snippet": "Settlements totaling $48.95 million have been reached with Knorr-Bremse AG, New York Air Brake LLC, Knorr Brake Company LLC, Bendix Commercial Vehicle"
      },
      {
-      "url": "https://static.nhtsa.gov/odi/rcl/2024/RCLRPT-24V558-4830.PDF",
-      "title": "Part 573 Safety Recall Report 24V-558",
-      "snippet": "Page 2 Part 573 Safety Recall Report 24V-558 The information contained in this report was submitted pursuant to 49 CFR §573 FMVSS 1 : NR FMVSS 2 : NR Description of the Safety Risk : A brake chamber leak could lead to brakes being applied unwantedly. An unwanted application of the brakes may cause…"
+      "url": "https://www.bendix.com/en/services-and-support/product-action-center",
+      "title": "Product Action Center",
+      "snippet": "# Product Action Center ### Knorr-Bremse NG3 BS8485 Brake Chamber Recall (2025) Identification Guide - Knorr-Bremse NG3 BS8485 Brake Chamber (BW8269)\\_available in English, French, and Spanish Language Technical Bulletin - Knorr-Bremse NG3 BS8485 Brake Chamber Recall (TCH-32-001)\\_available in Engl…"
      },
      {
-      "url": "https://blog.johndow.com/jdi_blog/u.s.-nhtsa-tpms-safety-recall-report-26v559",
-      "title": "U.S. NHTSA TPMS Safety Recall Report 26V559",
-      "snippet": "Timeline: Vehicle Identification Numbers (VINs) became searchable on September 9, 2026. Phased owner notification letters are scheduled to be mailed between September 29 and October 21, 2026. [...] Johndow ☰ Who We Are Our Core Principles JDI NEWS SDS SHEETS Careers Contact Us # U.S. NHTSA TPMS Saf…"
+      "url": "https://thebrakereport.com/bendix-recalls-faulty-brake-chambers",
+      "title": "Bendix Recalls Faulty Brake Chambers",
+      "snippet": "Bendix recalls 1,672 brake chambers due to air leaks that may cause parking brakes to drag, overheat, and risk fire; free replacements"
+     },
+     {
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E027-7033.PDF",
+      "title": "Part 573 Safety Recall Report 25E-027",
+      "snippet": "Description of the Cause : Brake chamber seal design. Identification of Any Warning that can Occur : There is no warning prior to occurrence. Page 2 Part 573 Safety Recall Report 25E-027 The information contained in this report was submitted pursuant to 49 CFR §573 Involved Components : Component N…"
+     },
+     {
+      "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25E048-6886.pdf",
+      "title": "Part 573 Safety Recall Report 25E048",
+      "snippet": "Country: United States Name: International - NAV Defense Address: 2255 Progress Dr Springfield OH, 45505 Country: United States Name: TW - KENNESAW Address: 1650 WESTFORK DR LITHIA SPRINGS GA, 30122 Country: United States Name: Volvo AB Prevost Car Inc Address: 201 South Ave South Plainfield NJ, 07…"
+     },
+     {
+      "url": "https://www.vitallaw.com/news/nhtsa-news-motor-vehicle-equipment-nova-bus-recalls-2k-brake-chambers-due-to-potential-air-leak/lld01bcf6c8829f0d4302ab0a8b6f05a44a8e",
+      "title": "NHTSA NEWS—MOTOR VEHICLE... | VitalLaw.com",
+      "snippet": "- Articles Articles - Law Firms Law Firms - Organizations Organizations # Products Liability Law Daily Wrap Up, NHTSA NEWS—MOTOR VEHICLE EQUIPMENT—Nova Bus recalls 2K brake chambers due to potential air leak, (Apr 28, 2025) Organizations Mentioned:Nova Bus (US) Inc. By Deja Rothschild The firm will…"
      }
-    ]
+    ],
+    "models": {
+     "plan": "Nemotron 3.5 Lightning",
+     "assess": "Nemotron 3.5 Super VL",
+     "dig": "Nemotron 3.5 Super VL",
+     "shadow": "Nemotron 3.5 Super VL",
+     "report": "Nemotron 3.5 Super VL"
+    }
    }
   }
  ]
