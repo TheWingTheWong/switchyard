@@ -17,7 +17,7 @@ export function ShadowProfile({ report, supplier }: { report: ResearchReport; su
     const s = byKey.get(d.key);
     return {
       dim: d.label + (s?.score == null ? " (n/a)" : ""),
-      shadow: s?.score ?? 0,
+      shadow: s?.score ?? null, // no evidence → gap, never plotted as "0 = no risk"
       dataset: supplier ? scoreOf(supplier, d.key) : undefined,
     };
   });
@@ -58,12 +58,14 @@ export function ShadowProfile({ report, supplier }: { report: ResearchReport; su
               {supplier && (
                 <Radar name={`${supplier.id} (dataset)`} dataKey="dataset" stroke="var(--chart-2)" fill="var(--chart-2)" fillOpacity={0.08} strokeDasharray="4 3" isAnimationActive={false} />
               )}
-              <Radar name={`${report.company} (shadow)`} dataKey="shadow" stroke="var(--chart-1)" fill="var(--chart-1)" fillOpacity={0.12} strokeWidth={2} isAnimationActive={false} />
+              <Radar name={`${report.company} (shadow, evidence only)`} dataKey="shadow" legendType="circle" stroke="var(--chart-1)" strokeWidth={0} fill="none" isAnimationActive={false}
+                dot={(p: { cx?: number; cy?: number; index?: number; payload?: { shadow?: number | null } }) =>
+                  p.payload?.shadow == null ? <g key={`gap-${p.index}`} /> : <circle key={`pt-${p.index}`} cx={p.cx} cy={p.cy} r={4} fill="var(--chart-1)" stroke="var(--sheet)" strokeWidth={1} />} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 12 }} />
             </RadarChart>
           </ResponsiveContainer>
-          <div className="text-[11px] text-muted text-center">Dimensions marked (n/a) had no evidence and are plotted at 0.</div>
+          <div className="text-[11px] text-muted text-center">Shadow scores are plotted as points only where evidence exists. Dimensions marked (n/a) are left blank: no evidence ≠ no risk.</div>
         </div>
 
         <table className="w-full text-[12px] border-collapse">
@@ -85,7 +87,7 @@ export function ShadowProfile({ report, supplier }: { report: ResearchReport; su
                   <td className="py-1 pr-2 whitespace-nowrap">{d.label}</td>
                   <td className="py-1 pr-2">{none ? "—" : <LevelTag score={s!.score!} />}</td>
                   <td className="py-1 pr-2">{s?.confidence ?? "—"}</td>
-                  <td className="py-1 pr-2">{none ? <em>no evidence found</em> : s!.rationale}</td>
+                  <td className="py-1 pr-2">{none ? <em>no evidence found</em> : <>{s!.rationale || "See source."}{s!.eventDate || (s!.status && s!.status !== "unknown") ? <span className="text-muted text-[11px]"> · {[s!.eventDate, s!.status !== "unknown" ? s!.status : null].filter(Boolean).join(" · ")}</span> : null}</>}</td>
                   <td className="py-1 max-w-[140px] truncate">
                     {s?.url ? <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-[var(--line)] hover:text-stamp">{host(s.url)}</a> : "—"}
                   </td>

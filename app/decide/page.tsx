@@ -6,6 +6,7 @@ import { explainScore, exposure, fmtEur, hiddenRisk, level } from "@/lib/engine"
 import { runChecks } from "@/lib/challenge";
 import { SCORE_BY_KEY } from "@/lib/schema";
 import { useStore } from "@/lib/store";
+import { EvidenceHeadline } from "@/components/EvidenceAdjust";
 import { Loading, PageHeader } from "@/components/Shell";
 import { LevelTag } from "@/components/LevelTag";
 import { Waterfall } from "@/components/Waterfall";
@@ -21,7 +22,7 @@ const OPEN_CHECKS = [
 
 export default function Decide() {
   const ds = useDataset();
-  const { replaceId, shortlist, pickId, research, challenge, memo, setMemo, audit, log, reset } = useStore();
+  const { evidence, replaceId, shortlist, pickId, research, challenge, memo, setMemo, audit, log, reset } = useStore();
   const [busy, setBusy] = useState(false);
   const list = useMemo(() => (ds ? shortlist.map((id) => ds.byId.get(id)!).filter(Boolean).sort((a, b) => a.tri - b.tri) : []), [ds, shortlist]);
   if (!ds) return <Loading />;
@@ -49,6 +50,14 @@ export default function Decide() {
       shortlistSize: list.length,
       checks: checks.map((c) => ({ check: c.label, pass: c.pass, detail: c.detail })),
       robustness: `#1 in ${rob.wins} of ${rob.total} priority scenarios`,
+      evidenceAdjustment: evidence ? {
+        appliedTo: evidence.supplierId, company: evidence.company,
+        assumption: `Buyer assumes ${evidence.supplierId} is ${evidence.company} (dataset is anonymised)`,
+        dataAsOf: evidence.asOf, officialTri: evidence.officialTri, evidenceAdjustedTri: evidence.adjustedTri,
+        note: "Official TRI unchanged; evidence-adjusted is a separate number. Only evidence after the as-of date is counted.",
+        counted: evidence.rows.filter((r) => r.counted).map((r) => `${r.label}: ${r.internal} → ${r.adjusted} (${r.reason})`),
+        notCountedHistory: evidence.rows.filter((r) => !r.counted && r.shadow != null).map((r) => `${r.label}: ${r.reason}`),
+      } : null,
       externalResearch: research ? { company: research.company, summary: research.summary, redFlags: research.redFlags.map((f) => `${f.severity}: ${f.title}`), shadowTri: research.shadowTri } : null,
     };
     const r = await fetch("/api/memo", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(facts) }).then((r) => r.json()).catch(() => ({ text: null }));
@@ -133,6 +142,20 @@ export default function Decide() {
               </ul>
             </div>
           ) : <p className="text-muted">No external research attached. <Link className="underline no-print" href="/verify">Run Verify</Link>.</p>}
+          {evidence && (
+            <div className="mt-3 border-t border-line pt-2">
+              <h3 className="font-semibold text-[13px]">External evidence adjustment</h3>
+              <div className="my-1"><EvidenceHeadline official={evidence.officialTri} adjusted={evidence.adjustedTri} size="sm" /></div>
+              <p className="text-[12px] text-muted">Assumption: <span className="num">{evidence.supplierId}</span> is {evidence.company}. Data as-of {evidence.asOf}: only evidence after that date is counted. The official TRI is unchanged.{evidence.supplierId !== pick.id ? ` Note: applied to ${evidence.supplierId}, not the current pick.` : ""}</p>
+              <ul className="mt-1 text-[12px]">
+                {evidence.rows.filter((r) => r.counted).map((r) => <li key={r.key}><span className="font-medium">{r.label}</span> <span className="num">{r.internal} → {r.adjusted}</span> ({r.reason}){r.url && <> — <a className="underline break-all" href={r.url} target="_blank" rel="noreferrer">{r.url}</a></>}</li>)}
+                {evidence.rows.every((r) => !r.counted) && <li className="text-muted">No evidence newer than the as-of date; no dimension moved.</li>}
+              </ul>
+              {evidence.rows.some((r) => !r.counted && r.shadow != null) && (
+                <p className="text-[11.5px] text-muted mt-1">History (not counted): {evidence.rows.filter((r) => !r.counted && r.shadow != null).map((r) => `${r.label} — ${r.reason}${r.eventDate ? ` (${r.eventDate})` : ""}`).join("; ")}.</p>
+              )}
+            </div>
+          )}
         </section>
 
         <section>

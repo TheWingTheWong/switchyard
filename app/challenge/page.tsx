@@ -2,17 +2,18 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useDataset } from "@/lib/data-client";
-import { PRESETS, rank, type Weights } from "@/lib/engine";
+import { PRESETS, adjustedSupplier, rank, type Weights } from "@/lib/engine";
 import { runChecks } from "@/lib/challenge";
 import { OFFICIAL_WEIGHTS, SCORES } from "@/lib/schema";
 import { useStore } from "@/lib/store";
 import { Loading, PageHeader } from "@/components/Shell";
 import { LevelTag } from "@/components/LevelTag";
 import { Stamp } from "@/components/Stamp";
+import { EvidenceHeadline } from "@/components/EvidenceAdjust";
 
 export default function Challenge() {
   const ds = useDataset();
-  const { shortlist, pickId, setPick, replaceId, presetId, setPreset, customWeights, setCustomWeights, challenge, setChallenge, log } = useStore();
+  const { evidence, shortlist, pickId, setPick, replaceId, presetId, setPreset, customWeights, setCustomWeights, challenge, setChallenge, log } = useStore();
   const [critique, setCritique] = useState<string | null>(challenge?.critique ?? null);
   const [busy, setBusy] = useState(false);
   // Critique belongs to one pick: clear it when the pick changes.
@@ -22,6 +23,13 @@ export default function Challenge() {
   const pick = ds && pickId ? ds.byId.get(pickId) : undefined;
   const replace = ds?.byId.get(replaceId);
   const result = useMemo(() => (pick && list.length ? runChecks(pick, replace, list) : null), [pick, replace, list]);
+  // Evidence applied to this pick: re-run the checks on an adjusted copy (rest of the shortlist stays official).
+  const ev = evidence && pick && evidence.supplierId === pick.id ? evidence : null;
+  const evResult = useMemo(() => {
+    if (!ev || !pick) return null;
+    const adj = adjustedSupplier(pick, ev);
+    return runChecks(adj, replace, list.map((s) => (s.id === pick.id ? adj : s)));
+  }, [ev, pick, replace, list]);
   const weights: Weights = customWeights ?? PRESETS.find((p) => p.id === presetId)?.weights ?? OFFICIAL_WEIGHTS;
   const ranked = useMemo(() => (list.length ? rank(list, weights) : []), [list, weights]);
 
@@ -69,6 +77,37 @@ export default function Challenge() {
         sub={<>{pick.name} · TRI <span className="num">{pick.tri}</span> · {passed} of {result.checks.length} checks passed · #1 in <span className="num">{result.rob.wins}</span> of {result.rob.total} priority scenarios.</>}>
         <Link href="/verify" className="btn btn-primary">Verify a real company →</Link>
       </PageHeader>
+
+      {ev && evResult && (() => {
+        const leader = (r: typeof result) => {
+          const counts = new Map<string, number>();
+          r.rob.scenarios.forEach((x) => counts.set(x.leaderId, (counts.get(x.leaderId) ?? 0) + 1));
+          return [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+        };
+        const flips = evResult.checks.filter((c) => c.pass !== result.checks.find((o) => o.id === c.id)?.pass);
+        const [newLeader, newWins] = leader(evResult);
+        const changes = flips.length > 0 || newLeader !== leader(result)[0];
+        return (
+          <div className={`mb-5 border-2 px-4 py-3 ${changes ? "border-[var(--risk-critical)] bg-[color-mix(in_oklab,var(--risk-critical)_6%,var(--sheet))]" : "border-stamp bg-stamp-tint"}`}>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="display text-[18px]">{changes ? "Evidence changes the decision" : "Evidence applied — pick still holds"}</div>
+              <div className="ml-auto"><EvidenceHeadline official={ev.officialTri} adjusted={ev.adjustedTri} size="sm" /></div>
+            </div>
+            <div className="text-[12.5px] text-muted mt-1">Assumption: {pick.id} is {ev.company} · evidence after {ev.asOf} only · {ev.rows.filter((r) => r.counted).length} dimensions moved · official TRI unchanged.</div>
+            {flips.length > 0 && (
+              <ul className="mt-2 text-[13px] space-y-0.5">
+                {flips.map((c) => <li key={c.id}><span className={`num font-bold ${c.pass ? "text-[var(--pass)]" : "text-[var(--risk-critical)]"}`}>{c.pass ? "FAIL → PASS" : "PASS → FAIL"}</span> {c.label} — <span className="text-muted">{c.detail}</span></li>)}
+              </ul>
+            )}
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px]">
+              <span>With evidence: #1 in <span className="num">{evResult.rob.wins}</span> of {evResult.rob.total} scenarios · {evResult.checks.filter((c) => c.pass).length}/{evResult.checks.length} checks pass.</span>
+              {newLeader !== pick.id && (
+                <button className="btn btn-primary ml-auto" onClick={() => { log("Challenge", `Pick changed ${pick.id} → ${newLeader} after evidence (${newWins}/${evResult.rob.total} scenarios)`); setPick(newLeader); }}>Switch pick to {newLeader}</button>
+              )}
+            </div>
+          </div>
+        );
+      })()}
 
       <div className="grid gap-6 @min-[900px]:grid-cols-2 items-start">
         <section className="min-w-0">

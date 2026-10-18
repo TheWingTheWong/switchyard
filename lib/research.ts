@@ -4,7 +4,7 @@ import { llm, MODEL, parseJson } from "./llm";
 import { SCORES, SCORE_KEYS, type ScoreKey } from "./schema";
 import { partialTri } from "./engine";
 import type {
-  Confidence, RedFlag, ResearchEvent, ResearchReport, Severity, ShadowScore, Source,
+  Confidence, EventStatus, RedFlag, ResearchEvent, ResearchReport, Severity, ShadowScore, Source,
 } from "./research-types";
 
 // ---------- Budget ----------
@@ -60,11 +60,19 @@ async function chatJson<T>(system: string, user: string, maxTokens = 3000): Prom
 const asSeverity = (s: unknown): Severity => (s === "high" || s === "medium" || s === "low" ? s : "low");
 const asConfidence = (s: unknown): Confidence | null =>
   s === "high" || s === "medium" || s === "low" ? s : null;
+const asStatus = (s: unknown): EventStatus => (s === "ongoing" || s === "resolved" ? s : "unknown");
+/** Accept only "YYYY" or "YYYY-MM" between 1990 and next year; anything else → null (never invented). */
+const asEventDate = (d: unknown): string | null => {
+  const m = String(d ?? "").trim().match(/^(\d{4})(-(0[1-9]|1[0-2]))?$/);
+  if (!m) return null;
+  const y = Number(m[1]);
+  return y >= 1990 && y <= new Date().getFullYear() + 1 ? m[0] : null;
+};
 const asKey = (k: unknown): ScoreKey | null =>
   typeof k === "string" && (SCORE_KEYS as string[]).includes(k) ? (k as ScoreKey) : null;
 
 function compact(sources: Source[], max = 40): string {
-  return sources.slice(0, max).map((s, i) => `[${i + 1}] ${clip(s.title, 120)}\nURL: ${s.url}\n${s.snippet ?? ""}`).join("\n\n");
+  return sources.slice(0, max).map((s, i) => `[${i + 1}] ${clip(s.title, 120)}\nURL: ${s.url}${s.publishedDate ? `\nPublished: ${s.publishedDate.slice(0, 10)}` : ""}\n${s.snippet ?? ""}`).join("\n\n");
 }
 
 const DIM_LIST = SCORES.map((s) => `${s.key}: ${s.label} — ${s.description}`).join("\n");
@@ -88,6 +96,7 @@ export async function* runResearch(company: string): AsyncGenerator<ResearchEven
       url: r.url,
       title: clean(r.title || r.url),
       snippet: clip(clean(r.content || ""), SNIPPET),
+      ...(r.publishedDate ? { publishedDate: String(r.publishedDate) } : {}),
     }));
     for (const s of out) if (!seen.has(s.url)) seen.set(s.url, s);
     return out;
@@ -151,6 +160,8 @@ JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query"
         dimension: asKey(f.dimension),
         detail: clip(clean(String(f.detail ?? "")), 500),
         url,
+        eventDate: asEventDate(f.eventDate),
+        status: asStatus(f.status),
       });
     }
     return out;
@@ -163,7 +174,10 @@ ${compact(sources)}
 Identify supplier-risk RED FLAGS for this company only (ignore results about other companies). Only report issues supported by a result above; cite its exact URL. Severity: high = material threat to supply continuity, legal/financial standing or safety; medium = notable concern; low = minor. ${extra}
 "dimension" must be one of these keys or null:
 ${SCORE_KEYS.join(", ")}
-JSON shape: {"flags": [{"title": string, "severity": "low"|"medium"|"high", "dimension": string|null, "detail": string, "url": string}]}
+For each flag also extract WHEN the underlying event happened and whether it is still live:
+- "eventDate": "YYYY-MM" or "YYYY" of the event itself (e.g. the year of the settlement or recall), taken from the snippet text. The article's "Published" date is only a hint: an article published in 2025 about a 2018 settlement has eventDate "2018". If the snippet does not say, use null. Never guess.
+- "status": "ongoing" (still open, unresolved, recent recall/investigation/strike), "resolved" (settled, fined and closed, completed), or "unknown".
+JSON shape: {"flags": [{"title": string, "severity": "low"|"medium"|"high", "dimension": string|null, "detail": string, "url": string, "eventDate": string|null, "status": "ongoing"|"resolved"|"unknown"}]}
 Return at most 8 flags. If none, return {"flags": []}.`;
 
   if (seen.size) {
@@ -220,7 +234,7 @@ Return at most 8 flags. If none, return {"flags": []}.`;
   // ---- 5 + 6. Shadow profile and report (in parallel) ----
   yield { type: "status", text: "Scoring shadow profile on 18 dimensions and writing report…" };
   const all = [...seen.values()];
-  const flagText = flags.map((f) => `- [${f.severity}] ${f.title} (${f.dimension ?? "n/a"}): ${f.detail} <${f.url}>`).join("\n") || "(none)";
+  const flagText = flags.map((f) => `- [${f.severity}] ${f.title} (${f.dimension ?? "n/a"}; event ${f.eventDate ?? "date unknown"}; ${f.status ?? "unknown"}): ${f.detail} <${f.url}>`).join("\n") || "(none)";
 
   const shadowP = chatJson<{ scores?: Record<string, unknown>[] }>(
     "You are a supplier-risk analyst scoring a real company on a fixed 18-dimension risk model. You never guess: no evidence means null.",
@@ -235,7 +249,7 @@ ${flagText}
 Evidence:
 ${compact(all, 45)}
 
-For EACH of the 18 keys return {"key", "score": integer 0-100 or null, "confidence": "low"|"medium"|"high"|null, "rationale": one short sentence, "url": exact evidence URL from above or null}.
+For EACH of the 18 keys return {"key", "score": integer 0-100 or null, "confidence": "low"|"medium"|"high"|null, "rationale": one short sentence naming the evidence (never empty when a score is given), "url": exact evidence URL from above or null, "eventDate": "YYYY-MM" or "YYYY" of the main supporting event (not the article date) or null if unknown, "status": "ongoing"|"resolved"|"unknown"}.
 If no result above provides evidence for a dimension, use score null, confidence null, url null, rationale "no evidence found". Do not reuse an unrelated URL just to fill a dimension.
 JSON shape: {"scores": [ ...18 items... ]}`,
     4000,
@@ -269,12 +283,19 @@ JSON shape: {"summary": string, "facts": [{"text": string, "url": string}], "unv
     if (!s || !Number.isFinite(n) || !seen.has(url)) {
       return { key, score: null, confidence: null, rationale: "no evidence found", url: null };
     }
+    // Linked red flag: same URL, else same dimension. Used to fill date/status/rationale gaps.
+    const flag = flags.find((f) => f.url === url) ?? flags.find((f) => f.dimension === key);
+    const rationale = clip(clean(String(s.rationale ?? "")), 300);
+    const eventDate = asEventDate(s.eventDate) ?? (flag?.url === url ? flag.eventDate ?? null : null);
+    const status = asStatus(s.status) !== "unknown" ? asStatus(s.status) : flag?.url === url ? flag.status ?? "unknown" : "unknown";
     return {
       key,
       score: Math.max(0, Math.min(100, Math.round(n))),
       confidence: asConfidence(s.confidence) ?? "low",
-      rationale: clip(clean(String(s.rationale ?? "")), 300),
+      rationale: rationale && !/^no evidence/i.test(rationale) ? rationale : flag ? `Based on: ${flag.title}` : "See source.",
       url,
+      eventDate,
+      status,
     };
   });
   if (!shadowRaw) yield { type: "error", text: "Shadow profile scoring failed; all dimensions marked no evidence." };

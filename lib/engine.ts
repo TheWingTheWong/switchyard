@@ -1,5 +1,6 @@
 // All math lives here. Shared by client (UI) and server (chat tools, research, memo).
 // The LLM never computes numbers — it calls these functions and explains the results.
+import { TIER_FACTOR, hostOf, sourceTier, type SourceTier } from "./sources";
 import {
   SCORES, SCORE_KEYS, OFFICIAL_WEIGHTS, LEVEL_RANGES,
   type Level, type ScoreKey, type Supplier,
@@ -247,4 +248,154 @@ export function partialTri(scores: Partial<Record<ScoreKey, number | null>>): { 
     if (v != null) { sum += v * d.weight; tot += d.weight; }
   }
   return { value: tot ? round(sum / tot, 0) : null, coverage: round(tot, 2) };
+}
+
+// ---------- Evidence-adjusted risk ----------
+// Moves internal sub-scores toward the web "shadow" scores, but only by evidence that is
+// (a) newer than the data as-of date (older evidence is likely already in the internal scores),
+// (b) recent, (c) still live, and (d) proportional to the analyst's confidence.
+// The official TRI is never modified; this produces a separate, labelled second number.
+
+export type EvidenceStatus = "ongoing" | "resolved" | "unknown";
+export type EvidenceConfidence = "low" | "medium" | "high";
+
+export interface EvidenceInput {
+  key: ScoreKey;
+  score: number | null;
+  confidence: EvidenceConfidence | null;
+  eventDate?: string | null;
+  status?: EvidenceStatus;
+  url: string | null;
+  rationale?: string;
+  /** Other verified URLs supporting the same dimension (e.g. red flags on it) — for corroboration. */
+  supportUrls?: string[];
+  /** True when the evidence rests only on claims the report lists as unverified. */
+  unverified?: boolean;
+}
+
+export interface EvidenceRow {
+  key: ScoreKey; label: string; weight: number;
+  internal: number; shadow: number | null;
+  confidence: EvidenceConfidence | null; eventDate: string | null; status: EvidenceStatus;
+  trust: number; recency: number; statusFactor: number; sourceTier: SourceTier; tierFactor: number; sourceDomains: string[]; factor: number;
+  adjusted: number; delta: number;
+  counted: boolean; reason: string; url: string | null;
+}
+
+export interface EvidenceAdjustment {
+  supplierId: string; asOf: string;
+  rows: EvidenceRow[];
+  officialTri: number; adjustedTri: number; deltaTri: number;
+}
+
+export const EVIDENCE_TRUST: Record<EvidenceConfidence, number> = { high: 0.5, medium: 0.3, low: 0.15 };
+export const EVIDENCE_STATUS: Record<EvidenceStatus, number> = { ongoing: 1, resolved: 0.5, unknown: 0.75 };
+export const UNKNOWN_DATE_RECENCY = 0.25;
+
+/** "YYYY-MM" → first of that month; "YYYY" → 1 July (mid-year). null if unparseable. */
+export function parseEventDate(d: string | null | undefined): Date | null {
+  const m = String(d ?? "").match(/^(\d{4})(?:-(\d{2}))?/);
+  if (!m) return null;
+  const y = Number(m[1]), mo = m[2] ? Number(m[2]) - 1 : 6;
+  if (y < 1900 || mo < 0 || mo > 11) return null;
+  return new Date(Date.UTC(y, mo, 1));
+}
+
+/** Last day of the stated period ("2025" → 31 Dec 2025, "2025-03" → 31 Mar 2025). Used for the as-of test:
+ *  evidence only counts as "already reflected" if its whole stated period lies before the as-of date. */
+export function eventPeriodEnd(d: string | null | undefined): Date | null {
+  const m = String(d ?? "").match(/^(\d{4})(?:-(\d{2}))?/);
+  if (!m || !parseEventDate(d)) return null;
+  const y = Number(m[1]);
+  return m[2] ? new Date(Date.UTC(y, Number(m[2]), 0)) : new Date(Date.UTC(y, 11, 31));
+}
+
+/** Recency factor by age of the event relative to `today`. */
+export function recencyFactor(event: Date, today: Date): number {
+  const years = (today.getTime() - event.getTime()) / (365.25 * 24 * 3600 * 1000);
+  if (years < 1) return 1;
+  if (years < 3) return 0.5;
+  if (years < 5) return 0.25;
+  return 0;
+}
+
+/** Default data as-of date: today minus 12 months, as YYYY-MM-DD. */
+export function defaultAsOf(today = new Date()): string {
+  const d = new Date(Date.UTC(today.getUTCFullYear() - 1, today.getUTCMonth(), today.getUTCDate()));
+  return d.toISOString().slice(0, 10);
+}
+
+/** Best credible tier among the evidence URL and corroborating URLs (distinct domains). ≥2 credible domains → max tier, no penalty. */
+export function evidenceTier(e: Pick<EvidenceInput, "url" | "supportUrls">, company?: string): { tier: SourceTier; domains: string[] } {
+  const byDomain = new Map<string, SourceTier>();
+  for (const u of [e.url, ...(e.supportUrls ?? [])]) {
+    const h = hostOf(u);
+    if (!h) continue;
+    const t = sourceTier(u, company);
+    if (!byDomain.has(h) || t < byDomain.get(h)!) byDomain.set(h, t);
+  }
+  const credible = [...byDomain.entries()].filter(([, t]) => t < 3);
+  if (!credible.length) return { tier: 3, domains: [hostOf(e.url)].filter(Boolean) };
+  return { tier: Math.min(...credible.map(([, t]) => t)) as SourceTier, domains: credible.map(([h]) => h) };
+}
+
+export function evidenceAdjust(s: Supplier, evidence: EvidenceInput[], asOf: string, today = new Date(), company?: string): EvidenceAdjustment {
+  const byKey = new Map(evidence.map((e) => [e.key, e]));
+  const asOfDate = new Date(asOf);
+  const rows: EvidenceRow[] = SCORES.map((d, i) => {
+    const internal = s.s[i];
+    const e = byKey.get(d.key);
+    const status: EvidenceStatus = e?.status === "ongoing" || e?.status === "resolved" ? e.status : "unknown";
+    const base = {
+      key: d.key, label: d.label, weight: d.weight, internal,
+      shadow: e?.score ?? null, confidence: e?.confidence ?? null, eventDate: e?.eventDate ?? null, status,
+      url: e?.url ?? null, trust: 0, recency: 0, statusFactor: EVIDENCE_STATUS[status], sourceTier: 3 as SourceTier, tierFactor: 0, sourceDomains: [] as string[], factor: 0,
+      adjusted: internal, delta: 0,
+    };
+    if (!e || e.score == null) return { ...base, counted: false, reason: "no evidence" };
+    const trust = EVIDENCE_TRUST[e.confidence ?? "low"];
+    const { tier, domains } = evidenceTier(e, company);
+    const src = { sourceTier: tier, tierFactor: TIER_FACTOR[tier], sourceDomains: domains };
+    if (e.unverified) return { ...base, ...src, trust, counted: false, reason: "unverified — not counted" };
+    const date = parseEventDate(e.eventDate);
+    const end = eventPeriodEnd(e.eventDate);
+    if (end && end < asOfDate) {
+      return { ...base, ...src, trust, counted: false, reason: "before data as-of date — likely already reflected" };
+    }
+    const recency = date ? recencyFactor(date, today) : UNKNOWN_DATE_RECENCY;
+    if (recency === 0) return { ...base, ...src, trust, counted: false, reason: "older than 5 years" };
+    if (tier === 3) return { ...base, ...src, trust, recency, counted: false, reason: `source tier 3 (${domains[0] || "unknown"}) — not counted` };
+    const factor = trust * recency * base.statusFactor * src.tierFactor;
+    const adjusted = Math.max(0, Math.min(100, Math.round(internal + factor * (e.score - internal))));
+    const why = [date ? e.eventDate : "date unknown", status, `${e.confidence ?? "low"} confidence`,
+      `source tier ${tier}${domains.length >= 2 ? ` (corroborated by ${domains.length} domains)` : ` (${domains[0]})`}`].join(" · ");
+    return { ...base, ...src, trust, recency, factor: round(factor, 4), adjusted, delta: adjusted - internal, counted: true, reason: why };
+  });
+  // Σ weight × adjusted, expressed as official TRI + Σ weight × Δ so a zero adjustment reproduces the official TRI exactly
+  // (the reported TRI is itself the rounded weighted sum; this avoids ±1 rounding noise).
+  const deltaSum = rows.reduce((a, r) => a + r.weight * r.delta, 0);
+  const adjustedTri = Math.max(0, Math.min(100, Math.round(s.tri + deltaSum)));
+  return { supplierId: s.id, asOf, rows, officialTri: s.tri, adjustedTri, deltaTri: adjustedTri - s.tri };
+}
+
+/** Copy of a supplier with evidence-adjusted sub-scores and TRI (the dataset is never mutated). */
+export function adjustedSupplier(s: Supplier, adj: Pick<EvidenceAdjustment, "rows" | "adjustedTri">): Supplier {
+  const byKey = new Map(adj.rows.map((r) => [r.key, r.adjusted]));
+  return { ...s, s: SCORES.map((d, i) => byKey.get(d.key) ?? s.s[i]), tri: adj.adjustedTri };
+}
+
+/** Build evidence inputs from a research report: unverified-only URLs are flagged, red flags on the same dimension corroborate. */
+export function evidenceInputsFromReport(r: {
+  shadow: { key: ScoreKey; score: number | null; confidence: EvidenceConfidence | null; eventDate?: string | null; status?: EvidenceStatus; url: string | null; rationale?: string }[];
+  redFlags: { dimension: ScoreKey | null; url: string }[];
+  facts: { url: string }[];
+  unverified: { url?: string }[];
+}): EvidenceInput[] {
+  const verified = new Set(r.facts.map((f) => f.url));
+  const unverifiedOnly = new Set(r.unverified.map((u) => u.url).filter((u): u is string => !!u && !verified.has(u)));
+  return r.shadow.map((s) => ({
+    key: s.key, score: s.score, confidence: s.confidence, eventDate: s.eventDate ?? null, status: s.status ?? "unknown", url: s.url, rationale: s.rationale,
+    unverified: !!s.url && unverifiedOnly.has(s.url),
+    supportUrls: r.redFlags.filter((f) => f.dimension === s.key && f.url !== s.url && !unverifiedOnly.has(f.url)).map((f) => f.url),
+  }));
 }

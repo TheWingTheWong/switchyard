@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/Shell";
 import { ResearchLog } from "@/components/ResearchLog";
 import { ShadowProfile } from "@/components/ShadowProfile";
+import { EvidenceAdjust } from "@/components/EvidenceAdjust";
 import { Stamp } from "@/components/Stamp";
 import { useStore } from "@/lib/store";
 import { useDataset } from "@/lib/data-client";
@@ -166,6 +167,8 @@ function Report({ report, supplier }: { report: ResearchReport; supplier: Parame
       </div>
 
       <ShadowProfile report={report} supplier={supplier} />
+
+      {supplier && <EvidenceAdjust report={report} supplier={supplier} />}
 
       <details className="card p-4">
         <summary className="cursor-pointer font-semibold text-stamp">All sources ({report.sources.length})</summary>

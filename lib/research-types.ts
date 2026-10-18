@@ -2,10 +2,15 @@ import type { ScoreKey } from "./schema";
 
 export type Severity = "low" | "medium" | "high";
 export type Confidence = "low" | "medium" | "high";
+/** Whether the underlying event is still live. Older cached runs lack it → treat as "unknown". */
+export type EventStatus = "ongoing" | "resolved" | "unknown";
 
-export interface Source { url: string; title: string; snippet?: string; }
+export interface Source { url: string; title: string; snippet?: string; publishedDate?: string; }
 
-export interface RedFlag { title: string; severity: Severity; dimension: ScoreKey | null; detail: string; url: string; followedUp?: boolean; }
+export interface RedFlag { title: string; severity: Severity; dimension: ScoreKey | null; detail: string; url: string; followedUp?: boolean;
+  eventDate?: string | null; // "YYYY-MM" or "YYYY" of the event itself (not the article), null if unknown
+  status?: EventStatus;
+}
 
 export interface ShadowScore {
   key: ScoreKey;
@@ -13,6 +18,8 @@ export interface ShadowScore {
   confidence: Confidence | null;
   rationale: string;
   url: string | null;
+  eventDate?: string | null; // date of the main supporting evidence
+  status?: EventStatus;
 }
 
 export interface ResearchReport {
