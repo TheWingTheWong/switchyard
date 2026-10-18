@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { evidenceAdjust, evidenceInputsFromReport } from "@/lib/engine";
 import type { ResearchReport } from "@/lib/research-types";
 import type { Supplier } from "@/lib/schema";
+import { EvidenceVerdict } from "@/components/EvidenceVerdict";
 import { useStore } from "@/lib/store";
 import { LevelTag } from "./LevelTag";
 
@@ -57,6 +58,11 @@ export function EvidenceAdjust({ report, supplier }: { report: ResearchReport; s
         </button>
         {applied && <button className="linkish text-[12px]" onClick={() => setEvidence(null)}>remove</button>}
       </div>
+      {evidence && evidence.supplierId !== supplier.id && (
+        <div className="mb-3 border-2 border-stamp bg-stamp-tint px-4 py-2 text-[13px]">
+          Evidence was applied to <span className="num">{evidence.supplierId}</span> — re-apply to the new pick?
+        </div>
+      )}
 
       <table className="tbl tbl-tight text-[12px]">
         <thead><tr><th>Dimension</th><th className="r">Internal</th><th className="r">Shadow</th><th className="r">Adjusted</th><th className="r">Δ</th><th>Why</th><th>Source</th></tr></thead>
@@ -92,6 +98,7 @@ export function EvidenceAdjust({ report, supplier }: { report: ResearchReport; s
         Source (decided in code from the domain): tier 1 regulator / filing / company 1.0 · tier 2 reputable / trade press 0.7 · unrated 0.35 · social media / blogs / law-firm ads 0; corroborating sources → best tier. Unverified claims 0.
         Evidence-adjusted TRI uses the official weights. {adj.rows.filter((r) => r.shadow == null).length} dimensions had no evidence and keep their internal score.
       </div>
+      {applied && <div className="mt-4"><EvidenceVerdict links /></div>}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 // Deterministic challenge checks on the buyer's pick. Pure functions over engine results.
-import { hiddenRisk, level, robustness, scoreOf, type EvidenceAdjustment, type Robustness } from "./engine";
+import { hiddenRisk, level, robustness, round, scoreOf, type EvidenceAdjustment, type Robustness } from "./engine";
 import { SCORE_BY_KEY, type Supplier } from "./schema";
 
 export interface Check { id: string; label: string; pass: boolean; detail: string; }
@@ -25,7 +25,7 @@ export function runChecks(pick: Supplier, replace: Supplier | undefined, list: S
     {
       id: "better", label: "Clearly better than the supplier being replaced",
       pass: !!replace && replace.tri - pick.tri >= 20,
-      detail: replace ? `TRI ${pick.tri} vs ${replace.tri} (${replace.tri - pick.tri} points lower).` : "No supplier to replace selected.",
+      detail: replace ? `TRI ${pick.tri} vs ${replace.tri} (${round(replace.tri - pick.tri, 1)} points lower).` : "No supplier to replace selected.",
     },
     {
       id: "delivery", label: "Delivery performance ≥ 90%",
