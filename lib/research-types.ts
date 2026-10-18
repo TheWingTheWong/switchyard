@@ -9,6 +9,7 @@ export interface Source { url: string; title: string; snippet?: string; publishe
 
 export interface RedFlag { title: string; severity: Severity; dimension: ScoreKey | null; detail: string; url: string; followedUp?: boolean;
   eventDate?: string | null; // "YYYY-MM" or "YYYY" of the event itself (not the article), null if unknown
+  supportUrls?: string[]; // other search-result URLs that support this flag (validated), for corroboration
   status?: EventStatus;
 }
 

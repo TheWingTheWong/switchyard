@@ -1,6 +1,6 @@
 // All math lives here. Shared by client (UI) and server (chat tools, research, memo).
 // The LLM never computes numbers — it calls these functions and explains the results.
-import { TIER_FACTOR, hostOf, sourceTier, type SourceTier } from "./sources";
+import { TIER_FACTOR, TIER_RANK, hostOf, sourceTier, tierLabel, type SourceTier } from "./sources";
 import {
   SCORES, SCORE_KEYS, OFFICIAL_WEIGHTS, LEVEL_RANGES,
   type Level, type ScoreKey, type Supplier,
@@ -251,46 +251,67 @@ export function partialTri(scores: Partial<Record<ScoreKey, number | null>>): { 
 }
 
 // ---------- Evidence-adjusted risk ----------
-// Moves internal sub-scores toward the web "shadow" scores, but only by evidence that is
-// (a) newer than the data as-of date (older evidence is likely already in the internal scores),
-// (b) recent, (c) still live, and (d) proportional to the analyst's confidence.
+// Adverse-only and conservative. A sub-score may only move UP, toward the web "shadow" score, and only when
+// at least one RED FLAG on that dimension is counted: verified, from a credible (or corroborated) source,
+// and dated after the data as-of date (older evidence is likely already in the internal scores).
+// Positive evidence never raises risk, and nothing ever moves down.
 // The official TRI is never modified; this produces a separate, labelled second number.
 
 export type EvidenceStatus = "ongoing" | "resolved" | "unknown";
 export type EvidenceConfidence = "low" | "medium" | "high";
+export type EvidenceSeverity = "low" | "medium" | "high";
+
+export interface FlagInput {
+  title: string; severity: EvidenceSeverity; dimension: ScoreKey | null;
+  eventDate?: string | null; status?: EvidenceStatus;
+  url: string; supportUrls?: string[];
+  /** True when every URL behind the flag appears only among the report's unverified claims. */
+  unverified?: boolean;
+}
 
 export interface EvidenceInput {
   key: ScoreKey;
-  score: number | null;
+  score: number | null; // shadow score (target), null = no evidence
   confidence: EvidenceConfidence | null;
-  eventDate?: string | null;
-  status?: EvidenceStatus;
   url: string | null;
   rationale?: string;
-  /** Other verified URLs supporting the same dimension (e.g. red flags on it) — for corroboration. */
-  supportUrls?: string[];
-  /** True when the evidence rests only on claims the report lists as unverified. */
-  unverified?: boolean;
+  /** Red flags backing this dimension (incl. its corroboration group, e.g. safety ↔ quality). */
+  flags?: FlagInput[];
+}
+
+export interface FlagAssessment {
+  flag: FlagInput;
+  counted: boolean; reason: string;
+  tier: SourceTier; domains: string[]; corroborated: boolean;
+  recency: number; statusFactor: number; severityFactor: number;
 }
 
 export interface EvidenceRow {
   key: ScoreKey; label: string; weight: number;
   internal: number; shadow: number | null;
   confidence: EvidenceConfidence | null; eventDate: string | null; status: EvidenceStatus;
-  trust: number; recency: number; statusFactor: number; sourceTier: SourceTier; tierFactor: number; sourceDomains: string[]; factor: number;
+  severityFactor: number; confidenceFactor: number; recency: number; statusFactor: number;
+  sourceTier: SourceTier | null; tierFactor: number; sourceDomains: string[]; factor: number;
   adjusted: number; delta: number;
   counted: boolean; reason: string; url: string | null;
+  flagTitle: string | null;
 }
 
 export interface EvidenceAdjustment {
   supplierId: string; asOf: string;
   rows: EvidenceRow[];
   officialTri: number; adjustedTri: number; deltaTri: number;
+  /** Counted, high-severity, still-active red flags — the Challenge check fails on any of these. */
+  activeHighFlags: { title: string; url: string; domain: string; dimension: ScoreKey | null; eventDate: string | null; status: EvidenceStatus }[];
 }
 
-export const EVIDENCE_TRUST: Record<EvidenceConfidence, number> = { high: 0.5, medium: 0.3, low: 0.15 };
+export const EVIDENCE_SEVERITY: Record<EvidenceSeverity, number> = { high: 0.6, medium: 0.35, low: 0.15 };
+export const EVIDENCE_CONFIDENCE: Record<EvidenceConfidence, number> = { high: 1, medium: 0.85, low: 0.6 };
 export const EVIDENCE_STATUS: Record<EvidenceStatus, number> = { ongoing: 1, resolved: 0.5, unknown: 0.75 };
 export const UNKNOWN_DATE_RECENCY = 0.25;
+/** Dimensions that share evidence (a recall is both a safety and a quality event). */
+export const EVIDENCE_GROUPS: ScoreKey[][] = [["safety", "quality"]];
+export const evidenceGroup = (k: ScoreKey): ScoreKey[] => EVIDENCE_GROUPS.find((g) => g.includes(k)) ?? [k];
 
 /** "YYYY-MM" → first of that month; "YYYY" → 1 July (mid-year). null if unparseable. */
 export function parseEventDate(d: string | null | undefined): Date | null {
@@ -325,57 +346,85 @@ export function defaultAsOf(today = new Date()): string {
   return d.toISOString().slice(0, 10);
 }
 
-/** Best credible tier among the evidence URL and corroborating URLs (distinct domains). ≥2 credible domains → max tier, no penalty. */
-export function evidenceTier(e: Pick<EvidenceInput, "url" | "supportUrls">, company?: string): { tier: SourceTier; domains: string[] } {
+/** Best tier among URLs (one vote per domain). Corroborated = ≥2 distinct non-blocked domains. */
+export function evidenceTier(urls: (string | null | undefined)[], company?: string): { tier: SourceTier; domains: string[]; corroborated: boolean } {
   const byDomain = new Map<string, SourceTier>();
-  for (const u of [e.url, ...(e.supportUrls ?? [])]) {
+  for (const u of urls) {
     const h = hostOf(u);
     if (!h) continue;
     const t = sourceTier(u, company);
-    if (!byDomain.has(h) || t < byDomain.get(h)!) byDomain.set(h, t);
+    if (!byDomain.has(h) || TIER_RANK[t] > TIER_RANK[byDomain.get(h)!]) byDomain.set(h, t);
   }
-  const credible = [...byDomain.entries()].filter(([, t]) => t < 3);
-  if (!credible.length) return { tier: 3, domains: [hostOf(e.url)].filter(Boolean) };
-  return { tier: Math.min(...credible.map(([, t]) => t)) as SourceTier, domains: credible.map(([h]) => h) };
+  const usable = [...byDomain.entries()].filter(([, t]) => t !== "blocked").sort((a, b) => TIER_RANK[b[1]] - TIER_RANK[a[1]]);
+  if (!usable.length) return { tier: "blocked", domains: [...byDomain.keys()], corroborated: false };
+  return { tier: usable[0][1], domains: usable.map(([h]) => h), corroborated: usable.length >= 2 };
+}
+
+/** Decide whether one red flag counts, and with which factors. Pure; order of tests = order of reasons shown. */
+export function assessFlag(f: FlagInput, asOf: string, today: Date, company?: string, extraUrls: (string | null)[] = []): FlagAssessment {
+  const status: EvidenceStatus = f.status === "ongoing" || f.status === "resolved" ? f.status : "unknown";
+  const { tier, domains, corroborated } = evidenceTier([f.url, ...(f.supportUrls ?? []), ...extraUrls], company);
+  const base = { flag: f, tier, domains, corroborated, statusFactor: EVIDENCE_STATUS[status], severityFactor: EVIDENCE_SEVERITY[f.severity] ?? 0.15, recency: 0 };
+  if (f.unverified) return { ...base, counted: false, reason: "unverified — not counted" };
+  const end = eventPeriodEnd(f.eventDate);
+  if (end && end < new Date(asOf)) return { ...base, counted: false, reason: "before data as-of date — likely already reflected" };
+  const date = parseEventDate(f.eventDate);
+  const recency = date ? recencyFactor(date, today) : UNKNOWN_DATE_RECENCY;
+  if (recency === 0) return { ...base, recency, counted: false, reason: "older than 5 years" };
+  if (tier === "blocked") return { ...base, recency, counted: false, reason: `blocked source (${domains[0] ?? hostOf(f.url)}) — not counted` };
+  return { ...base, recency, counted: true, reason: "counted" };
 }
 
 export function evidenceAdjust(s: Supplier, evidence: EvidenceInput[], asOf: string, today = new Date(), company?: string): EvidenceAdjustment {
   const byKey = new Map(evidence.map((e) => [e.key, e]));
-  const asOfDate = new Date(asOf);
   const rows: EvidenceRow[] = SCORES.map((d, i) => {
     const internal = s.s[i];
     const e = byKey.get(d.key);
-    const status: EvidenceStatus = e?.status === "ongoing" || e?.status === "resolved" ? e.status : "unknown";
-    const base = {
+    const base: EvidenceRow = {
       key: d.key, label: d.label, weight: d.weight, internal,
-      shadow: e?.score ?? null, confidence: e?.confidence ?? null, eventDate: e?.eventDate ?? null, status,
-      url: e?.url ?? null, trust: 0, recency: 0, statusFactor: EVIDENCE_STATUS[status], sourceTier: 3 as SourceTier, tierFactor: 0, sourceDomains: [] as string[], factor: 0,
-      adjusted: internal, delta: 0,
+      shadow: e?.score ?? null, confidence: e?.confidence ?? null, eventDate: null, status: "unknown",
+      severityFactor: 0, confidenceFactor: EVIDENCE_CONFIDENCE[e?.confidence ?? "low"], recency: 0, statusFactor: 0,
+      sourceTier: null, tierFactor: 0, sourceDomains: [], factor: 0,
+      adjusted: internal, delta: 0, counted: false, reason: "no evidence", url: e?.url ?? null, flagTitle: null,
     };
-    if (!e || e.score == null) return { ...base, counted: false, reason: "no evidence" };
-    const trust = EVIDENCE_TRUST[e.confidence ?? "low"];
-    const { tier, domains } = evidenceTier(e, company);
-    const src = { sourceTier: tier, tierFactor: TIER_FACTOR[tier], sourceDomains: domains };
-    if (e.unverified) return { ...base, ...src, trust, counted: false, reason: "unverified — not counted" };
-    const date = parseEventDate(e.eventDate);
-    const end = eventPeriodEnd(e.eventDate);
-    if (end && end < asOfDate) {
-      return { ...base, ...src, trust, counted: false, reason: "before data as-of date — likely already reflected" };
+    if (!e || e.score == null) return base;
+    const flags = e.flags ?? [];
+    if (!flags.length) return { ...base, reason: "no adverse evidence — positive evidence never raises risk" };
+    // Evaluate every backing flag; corroboration may use the shadow URL too.
+    const assessed = flags.map((f) => assessFlag(f, asOf, today, company, [e.url]));
+    const factorOf = (a: FlagAssessment) => a.severityFactor * base.confidenceFactor * a.recency * a.statusFactor * TIER_FACTOR[a.tier];
+    const counted = assessed.filter((a) => a.counted).sort((a, b) => factorOf(b) - factorOf(a));
+    if (!counted.length) {
+      const top = assessed[0];
+      return { ...base, eventDate: top.flag.eventDate ?? null, status: top.flag.status ?? "unknown", url: top.flag.url, flagTitle: top.flag.title, sourceTier: top.tier, sourceDomains: top.domains, reason: top.reason };
     }
-    const recency = date ? recencyFactor(date, today) : UNKNOWN_DATE_RECENCY;
-    if (recency === 0) return { ...base, ...src, trust, counted: false, reason: "older than 5 years" };
-    if (tier === 3) return { ...base, ...src, trust, recency, counted: false, reason: `source tier 3 (${domains[0] || "unknown"}) — not counted` };
-    const factor = trust * recency * base.statusFactor * src.tierFactor;
+    const a = counted[0];
+    const meta = {
+      eventDate: a.flag.eventDate ?? null, status: (a.flag.status ?? "unknown") as EvidenceStatus, url: a.flag.url, flagTitle: a.flag.title,
+      severityFactor: a.severityFactor, recency: a.recency, statusFactor: a.statusFactor,
+      sourceTier: a.tier, tierFactor: TIER_FACTOR[a.tier], sourceDomains: a.domains,
+    };
+    if (e.score <= internal) return { ...base, ...meta, reason: "shadow not above internal — scores never move down" };
+    const factor = factorOf(a);
     const adjusted = Math.max(0, Math.min(100, Math.round(internal + factor * (e.score - internal))));
-    const why = [date ? e.eventDate : "date unknown", status, `${e.confidence ?? "low"} confidence`,
-      `source tier ${tier}${domains.length >= 2 ? ` (corroborated by ${domains.length} domains)` : ` (${domains[0]})`}`].join(" · ");
-    return { ...base, ...src, trust, recency, factor: round(factor, 4), adjusted, delta: adjusted - internal, counted: true, reason: why };
+    const why = [`${a.flag.severity} red flag`, a.flag.eventDate ?? "date unknown", a.flag.status ?? "unknown", `${e.confidence ?? "low"} confidence`,
+      `${tierLabel(a.tier)}${a.corroborated ? `, corroborated by ${a.domains.length} domains` : ` (${a.domains[0]})`}`].join(" · ");
+    return { ...base, ...meta, factor: round(factor, 4), adjusted, delta: adjusted - internal, counted: true, reason: why };
   });
   // Σ weight × adjusted, expressed as official TRI + Σ weight × Δ so a zero adjustment reproduces the official TRI exactly
   // (the reported TRI is itself the rounded weighted sum; this avoids ±1 rounding noise).
   const deltaSum = rows.reduce((a, r) => a + r.weight * r.delta, 0);
   const adjustedTri = Math.max(0, Math.min(100, Math.round(s.tri + deltaSum)));
-  return { supplierId: s.id, asOf, rows, officialTri: s.tri, adjustedTri, deltaTri: adjustedTri - s.tri };
+
+  // Active credible high-severity flags (independent of the average): counted, high, ongoing/unknown,
+  // and credible = tier 1/2 or corroborated by ≥2 domains.
+  const seen = new Set<string>();
+  const activeHighFlags = evidence.flatMap((e) => e.flags ?? [])
+    .filter((f) => { const k = f.title + f.url; if (seen.has(k)) return false; seen.add(k); return f.severity === "high"; })
+    .map((f) => ({ f, a: assessFlag(f, asOf, today, company) }))
+    .filter(({ f, a }) => a.counted && f.status !== "resolved" && (a.tier === "1" || a.tier === "2" || a.corroborated))
+    .map(({ f, a }) => ({ title: f.title, url: f.url, domain: a.domains[0] ?? hostOf(f.url), dimension: f.dimension, eventDate: f.eventDate ?? null, status: (f.status ?? "unknown") as EvidenceStatus }));
+  return { supplierId: s.id, asOf, rows, officialTri: s.tri, adjustedTri, deltaTri: adjustedTri - s.tri, activeHighFlags };
 }
 
 /** Copy of a supplier with evidence-adjusted sub-scores and TRI (the dataset is never mutated). */
@@ -384,18 +433,25 @@ export function adjustedSupplier(s: Supplier, adj: Pick<EvidenceAdjustment, "row
   return { ...s, s: SCORES.map((d, i) => byKey.get(d.key) ?? s.s[i]), tri: adj.adjustedTri };
 }
 
-/** Build evidence inputs from a research report: unverified-only URLs are flagged, red flags on the same dimension corroborate. */
+/** Build evidence inputs from a research report. Flags back their dimension and its group (safety ↔ quality);
+ *  a flag is unverified when every URL behind it appears only among the report's unverified claims. */
 export function evidenceInputsFromReport(r: {
-  shadow: { key: ScoreKey; score: number | null; confidence: EvidenceConfidence | null; eventDate?: string | null; status?: EvidenceStatus; url: string | null; rationale?: string }[];
-  redFlags: { dimension: ScoreKey | null; url: string }[];
+  shadow: { key: ScoreKey; score: number | null; confidence: EvidenceConfidence | null; url: string | null; rationale?: string }[];
+  redFlags: { title: string; severity: EvidenceSeverity; dimension: ScoreKey | null; url: string; supportUrls?: string[]; eventDate?: string | null; status?: EvidenceStatus }[];
   facts: { url: string }[];
   unverified: { url?: string }[];
 }): EvidenceInput[] {
   const verified = new Set(r.facts.map((f) => f.url));
   const unverifiedOnly = new Set(r.unverified.map((u) => u.url).filter((u): u is string => !!u && !verified.has(u)));
-  return r.shadow.map((s) => ({
-    key: s.key, score: s.score, confidence: s.confidence, eventDate: s.eventDate ?? null, status: s.status ?? "unknown", url: s.url, rationale: s.rationale,
-    unverified: !!s.url && unverifiedOnly.has(s.url),
-    supportUrls: r.redFlags.filter((f) => f.dimension === s.key && f.url !== s.url && !unverifiedOnly.has(f.url)).map((f) => f.url),
-  }));
+  const flags: FlagInput[] = r.redFlags.map((f) => {
+    const urls = [f.url, ...(f.supportUrls ?? [])];
+    return { ...f, unverified: urls.every((u) => unverifiedOnly.has(u)) };
+  });
+  return r.shadow.map((s) => {
+    const group = evidenceGroup(s.key);
+    return {
+      key: s.key, score: s.score, confidence: s.confidence, url: s.url, rationale: s.rationale,
+      flags: flags.filter((f) => f.dimension != null && group.includes(f.dimension)),
+    };
+  });
 }

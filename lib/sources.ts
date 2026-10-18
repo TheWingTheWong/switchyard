@@ -1,19 +1,31 @@
 // Deterministic source credibility. Decided in code from the URL's domain, never by the LLM.
-// Tier 1 (1.0): regulators, government, courts, exchanges/filings, the company's own domains.
-// Tier 2 (0.7): reputable news and trade press.
-// Tier 3 (0):   everything else — shown, never counted.
+// Tier 1 (1.0):      regulators, government, courts, exchanges/regulated disclosures, the company's own domains.
+// Tier 2 (0.7):      reputable news and trade press.
+// Unrated (0.35):    any other domain — counts a little.
+// Blocked (0):       social media, blogs, plaintiff/law-firm marketing, SEO aggregators — shown, never counted.
 
-export type SourceTier = 1 | 2 | 3;
-export const TIER_FACTOR: Record<SourceTier, number> = { 1: 1, 2: 0.7, 3: 0 };
+export type SourceTier = "1" | "2" | "unrated" | "blocked";
+export const TIER_FACTOR: Record<SourceTier, number> = { "1": 1, "2": 0.7, unrated: 0.35, blocked: 0 };
+/** Higher = more credible; used to pick the best tier among corroborating URLs. */
+export const TIER_RANK: Record<SourceTier, number> = { "1": 3, "2": 2, unrated: 1, blocked: 0 };
 
 const TIER1 = [
-  "nhtsa.gov", "federalregister.gov", "justice.gov", "sec.gov", "europa.eu", "uscourts.gov", "gov.uk",
-  "bundesanzeiger.de", "unternehmensregister.de", "bafin.de", "bundeskartellamt.de", "eba.europa.eu",
+  "nhtsa.gov", "federalregister.gov", "justice.gov", "sec.gov", "europa.eu", "uscourts.gov", "gov.uk", "gov.au",
+  "bundesanzeiger.de", "unternehmensregister.de", "bafin.de", "bundeskartellamt.de",
   "deutsche-boerse.com", "boerse-frankfurt.de", "londonstockexchange.com", "euronext.com", "annualreports.com",
+  "eqs-news.com",
 ];
 const TIER2 = [
   "reuters.com", "bloomberg.com", "ft.com", "handelsblatt.com", "freightwaves.com", "railwaygazette.com",
   "railjournal.com", "just-auto.com", "apnews.com", "bbc.co.uk", "bbc.com", "wsj.com", "heise.de",
+  "vitallaw.com", "business-humanrights.org", "worktruckonline.com", "fleetowner.com", "pymnts.com",
+  "baltimoresun.com", "thebrakereport.com", "railtarget.eu", "trains.com", "progressiverailroading.com",
+];
+const BLOCKED = [
+  "linkedin.com", "facebook.com", "x.com", "twitter.com", "reddit.com", "medium.com", "substack.com",
+  "youtube.com", "tiktok.com",
+  "classaction.org", "hausfeld.com", "lieffcabraser.com", "saverilawfirm.com", "frankllp.com", "topclassactions.com",
+  "easylemon.com", "dealroom.co", "fundslibrary.co.uk",
 ];
 
 export function hostOf(url: string | null | undefined): string {
@@ -32,10 +44,12 @@ function isCompanyDomain(host: string, company?: string): boolean {
 
 export function sourceTier(url: string | null | undefined, company?: string): SourceTier {
   const host = hostOf(url);
-  if (!host) return 3;
-  if (/\.gov$|\.gov\.[a-z]{2}$|\.gouv\.fr$|\.bund\.de$/.test(host) || TIER1.some((d) => matches(host, d)) || isCompanyDomain(host, company)) return 1;
-  if (TIER2.some((d) => matches(host, d))) return 2;
-  return 3;
+  if (!host) return "blocked";
+  if (BLOCKED.some((d) => matches(host, d))) return "blocked";
+  if (/\.gov$|\.gov\.[a-z]{2}$|\.gouv\.fr$|\.bund\.de$/.test(host) || host.startsWith("ir.") || TIER1.some((d) => matches(host, d)) || isCompanyDomain(host, company)) return "1";
+  if (TIER2.some((d) => matches(host, d))) return "2";
+  return "unrated";
 }
 
-export const tierLabel = (t: SourceTier) => (t === 1 ? "regulator / filing / company" : t === 2 ? "reputable press" : "not credible enough");
+export const tierLabel = (t: SourceTier) =>
+  t === "1" ? "tier 1 (regulator / filing / company)" : t === "2" ? "tier 2 (reputable / trade press)" : t === "unrated" ? "unrated source" : "blocked source";

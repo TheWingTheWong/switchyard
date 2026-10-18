@@ -1,10 +1,11 @@
 // Deterministic challenge checks on the buyer's pick. Pure functions over engine results.
-import { hiddenRisk, level, robustness, scoreOf, type Robustness } from "./engine";
+import { hiddenRisk, level, robustness, scoreOf, type EvidenceAdjustment, type Robustness } from "./engine";
 import { SCORE_BY_KEY, type Supplier } from "./schema";
 
 export interface Check { id: string; label: string; pass: boolean; detail: string; }
 
-export function runChecks(pick: Supplier, replace: Supplier | undefined, list: Supplier[]): { checks: Check[]; rob: Robustness } {
+/** activeFlags: pass only when research evidence is applied to this pick — adds the evidence check. */
+export function runChecks(pick: Supplier, replace: Supplier | undefined, list: Supplier[], activeFlags?: EvidenceAdjustment["activeHighFlags"]): { checks: Check[]; rob: Robustness } {
   const hr = hiddenRisk(pick);
   const rob = robustness(pick.id, list);
   const lowestTri = [...list].sort((a, b) => a.tri - b.tri)[0];
@@ -41,6 +42,13 @@ export function runChecks(pick: Supplier, replace: Supplier | undefined, list: S
       pass: lowestTri?.id === pick.id,
       detail: lowestTri?.id === pick.id ? "Yes." : `${lowestTri?.id} has a lower TRI (${lowestTri?.tri}).`,
     },
+    ...(activeFlags ? [{
+      id: "redflag", label: "No active credible high-severity red flag",
+      pass: activeFlags.length === 0,
+      detail: activeFlags.length
+        ? `${activeFlags.map((f) => `${f.title} (${f.domain}${f.eventDate ? `, ${f.eventDate}` : ""}, ${f.status})`).join("; ")}. Independent of the average: the TRI barely moves, this check doesn't.`
+        : "No high-severity red flag that is verified, credible, after the as-of date and still active.",
+    }] : []),
   ];
   return { checks, rob };
 }

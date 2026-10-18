@@ -28,7 +28,7 @@ export default function Challenge() {
   const evResult = useMemo(() => {
     if (!ev || !pick) return null;
     const adj = adjustedSupplier(pick, ev);
-    return runChecks(adj, replace, list.map((s) => (s.id === pick.id ? adj : s)));
+    return runChecks(adj, replace, list.map((s) => (s.id === pick.id ? adj : s)), ev.activeHighFlags ?? []);
   }, [ev, pick, replace, list]);
   const weights: Weights = customWeights ?? PRESETS.find((p) => p.id === presetId)?.weights ?? OFFICIAL_WEIGHTS;
   const ranked = useMemo(() => (list.length ? rank(list, weights) : []), [list, weights]);
@@ -84,7 +84,8 @@ export default function Challenge() {
           r.rob.scenarios.forEach((x) => counts.set(x.leaderId, (counts.get(x.leaderId) ?? 0) + 1));
           return [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
         };
-        const flips = evResult.checks.filter((c) => c.pass !== result.checks.find((o) => o.id === c.id)?.pass);
+        // A check that only exists with evidence (the red-flag check) counts as a flip when it fails.
+        const flips = evResult.checks.filter((c) => c.pass !== (result.checks.find((o) => o.id === c.id)?.pass ?? true));
         const [newLeader, newWins] = leader(evResult);
         const changes = flips.length > 0 || newLeader !== leader(result)[0];
         return (
@@ -93,7 +94,7 @@ export default function Challenge() {
               <div className="display text-[18px]">{changes ? "Evidence changes the decision" : "Evidence applied — pick still holds"}</div>
               <div className="ml-auto"><EvidenceHeadline official={ev.officialTri} adjusted={ev.adjustedTri} size="sm" /></div>
             </div>
-            <div className="text-[12.5px] text-muted mt-1">Assumption: {pick.id} is {ev.company} · evidence after {ev.asOf} only · {ev.rows.filter((r) => r.counted).length} dimensions moved · official TRI unchanged.</div>
+            <div className="text-[12.5px] text-muted mt-1">Assumption: {pick.id} is {ev.company} · evidence after {ev.asOf} only · {ev.rows.filter((r) => r.counted).length} dimensions moved · official TRI unchanged. The average barely moves; the red-flag check doesn&apos;t.</div>
             {flips.length > 0 && (
               <ul className="mt-2 text-[13px] space-y-0.5">
                 {flips.map((c) => <li key={c.id}><span className={`num font-bold ${c.pass ? "text-[var(--pass)]" : "text-[var(--risk-critical)]"}`}>{c.pass ? "FAIL → PASS" : "PASS → FAIL"}</span> {c.label} — <span className="text-muted">{c.detail}</span></li>)}

@@ -36,7 +36,7 @@ export default function Decide() {
       </div>
     );
   }
-  const { checks, rob } = runChecks(pick, replace, list);
+  const { checks, rob } = runChecks(pick, replace, list, evidence?.supplierId === pick.id ? evidence.activeHighFlags ?? [] : undefined);
   const ePick = explainScore(pick);
   const eRep = explainScore(replace);
   const hr = hiddenRisk(pick);
@@ -57,6 +57,7 @@ export default function Decide() {
         note: "Official TRI unchanged; evidence-adjusted is a separate number. Only evidence after the as-of date is counted.",
         counted: evidence.rows.filter((r) => r.counted).map((r) => `${r.label}: ${r.internal} → ${r.adjusted} (${r.reason})`),
         notCountedHistory: evidence.rows.filter((r) => !r.counted && r.shadow != null).map((r) => `${r.label}: ${r.reason}`),
+        activeCredibleHighSeverityRedFlags: (evidence.activeHighFlags ?? []).map((f) => `${f.title} (${f.domain}, ${f.eventDate ?? "date unknown"}, ${f.status})`),
       } : null,
       externalResearch: research ? { company: research.company, summary: research.summary, redFlags: research.redFlags.map((f) => `${f.severity}: ${f.title}`), shadowTri: research.shadowTri } : null,
     };

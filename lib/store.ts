@@ -2,12 +2,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { OPENING_CASE_ID, SHORTLIST_CAP } from "./schema";
-import { defaultAsOf, type EvidenceRow, type FilterCriteria, type Weights } from "./engine";
+import { defaultAsOf, type EvidenceAdjustment, type EvidenceRow, type FilterCriteria, type Weights } from "./engine";
 import type { ResearchReport } from "./research-types";
 
 export interface AuditEntry { at: string; step: string; text: string; }
 /** Research evidence applied to one dataset supplier (the buyer's assumption that the row is that company). */
-export interface AppliedEvidence { supplierId: string; company: string; asOf: string; rows: EvidenceRow[]; officialTri: number; adjustedTri: number; appliedAt: string; }
+export interface AppliedEvidence { supplierId: string; company: string; asOf: string; rows: EvidenceRow[]; officialTri: number; adjustedTri: number; activeHighFlags?: EvidenceAdjustment["activeHighFlags"]; appliedAt: string; }
 
 export interface ChallengeResult { pickId: string; hidden: { flag: boolean; criticalDims: string[] }; wins: number; total: number; critique?: string; }
 

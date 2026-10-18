@@ -68,6 +68,21 @@ const asEventDate = (d: unknown): string | null => {
   const y = Number(m[1]);
   return y >= 1990 && y <= new Date().getFullYear() + 1 ? m[0] : null;
 };
+const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+/** Deterministic event-date hint from a source: publish date, "Month YYYY" in the title, or /YYYY/ in the URL. */
+function dateFromSource(src: Source | undefined): string | null {
+  if (!src) return null;
+  const pub = asEventDate(src.publishedDate?.slice(0, 7));
+  if (pub) return pub;
+  const m = src.title.toLowerCase().match(new RegExp(`\\b(${MONTHS.join("|")})\\s+(20\\d{2})\\b`));
+  if (m) return asEventDate(`${m[2]}-${String(MONTHS.indexOf(m[1]) + 1).padStart(2, "0")}`);
+  const y = src.url.match(/\/(20\d{2})\//);
+  return y ? asEventDate(y[1]) : null;
+}
+
+const STOP = new Set(["about", "after", "against", "agreement", "agreements", "company", "concerns", "failure", "issues", "potential", "regarding", "related", "report", "reports", "units", "which", "their", "there", "these", "while", "with"]);
+const keyWords = (t: string, exclude: Set<string>) => new Set((t.toLowerCase().match(/[a-z]{5,}/g) ?? []).filter((w) => !STOP.has(w) && !exclude.has(w)));
+
 const asKey = (k: unknown): ScoreKey | null =>
   typeof k === "string" && (SCORE_KEYS as string[]).includes(k) ? (k as ScoreKey) : null;
 
@@ -160,7 +175,11 @@ JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query"
         dimension: asKey(f.dimension),
         detail: clip(clean(String(f.detail ?? "")), 500),
         url,
-        eventDate: asEventDate(f.eventDate),
+        supportUrls: (Array.isArray(f.supportUrls) ? f.supportUrls : [])
+          .map((u) => (typeof u === "string" ? u.trim() : ""))
+          .filter((u, i, a) => u && u !== url && seen.has(u) && a.indexOf(u) === i).slice(0, 8),
+        // LLM date first; else the article's publish date (YYYY-MM) as a conservative fallback.
+        eventDate: asEventDate(f.eventDate) ?? asEventDate(seen.get(url)?.publishedDate?.slice(0, 7)),
         status: asStatus(f.status),
       });
     }
@@ -175,9 +194,11 @@ Identify supplier-risk RED FLAGS for this company only (ignore results about oth
 "dimension" must be one of these keys or null:
 ${SCORE_KEYS.join(", ")}
 For each flag also extract WHEN the underlying event happened and whether it is still live:
-- "eventDate": "YYYY-MM" or "YYYY" of the event itself (e.g. the year of the settlement or recall), taken from the snippet text. The article's "Published" date is only a hint: an article published in 2025 about a 2018 settlement has eventDate "2018". If the snippet does not say, use null. Never guess.
+- "eventDate": "YYYY-MM" or "YYYY" of the event itself (e.g. the year of the settlement or recall). Read it from the title, URL or snippet: "Recalls … December 2025" → "2025-12"; a recall report URL containing /2025/ → "2025". The article's "Published" date is only a hint: an article published in 2025 about a 2018 settlement has eventDate "2018". If nothing says, use null. Never guess.
 - "status": "ongoing" (still open, unresolved, recent recall/investigation/strike), "resolved" (settled, fined and closed, completed), or "unknown".
-JSON shape: {"flags": [{"title": string, "severity": "low"|"medium"|"high", "dimension": string|null, "detail": string, "url": string, "eventDate": string|null, "status": "ongoing"|"resolved"|"unknown"}]}
+- "supportUrls": EVERY other URL from the results above that reports the same issue (e.g. a regulator's recall notice plus news articles about it). Exact URLs only; [] if none.
+Only ADVERSE findings are red flags. Positive news (strong results, good ratings, security programmes) is never a red flag.
+JSON shape: {"flags": [{"title": string, "severity": "low"|"medium"|"high", "dimension": string|null, "detail": string, "url": string, "supportUrls": string[], "eventDate": string|null, "status": "ongoing"|"resolved"|"unknown"}]}
 Return at most 8 flags. If none, return {"flags": []}.`;
 
   if (seen.size) {
@@ -228,6 +249,30 @@ Return at most 8 flags. If none, return {"flags": []}.`;
       } catch (e) {
         yield { type: "error", text: `Follow-up assessment failed: ${(e as Error).message}` };
       }
+    }
+  }
+
+  // ---- Corroboration + dates, in code (not by the LLM) ----
+  // A collected source corroborates a flag if it names the company and shares ≥2 key words with the flag title
+  // (e.g. a regulator's recall notice and a trade-press article about the same brake-chamber recall).
+  const companyWords = keyWords(name, new Set());
+  const companySlug = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const mentionsCompany = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "").includes(companySlug);
+  for (const f of flags) {
+    const fw = keyWords(f.title, companyWords);
+    const extra = [...seen.values()].filter((src) => {
+      if (src.url === f.url || f.supportUrls?.includes(src.url)) return false;
+      const text = `${src.title} ${src.snippet ?? ""}`;
+      if (!mentionsCompany(text)) return false;
+      const sw = keyWords(text, companyWords);
+      return [...fw].filter((w) => sw.has(w)).length >= 2;
+    }).map((src) => src.url);
+    f.supportUrls = [...(f.supportUrls ?? []), ...extra].slice(0, 8);
+    if (!f.eventDate) {
+      // Own source first; otherwise the EARLIEST dated corroborating source (conservative for recency).
+      const own = dateFromSource(seen.get(f.url));
+      const others = (f.supportUrls ?? []).map((u) => dateFromSource(seen.get(u))).filter((d): d is string => !!d).sort();
+      f.eventDate = own ?? others[0] ?? null;
     }
   }
 
