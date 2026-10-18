@@ -143,7 +143,8 @@ JSON shape: {"disambiguation": string, "queries": [{"dimension": string, "query"
     for (const f of arr as Record<string, unknown>[]) {
       const url = typeof f?.url === "string" ? f.url.trim() : "";
       if (!seen.has(url)) continue; // must cite a URL we actually retrieved
-      if (flags.some((x) => x.url === url && x.title === f.title)) continue;
+      const key = String(f?.title ?? "").toLowerCase().slice(0, 24);
+      if ([...flags, ...out].some((x) => x.url === url || x.title.toLowerCase().slice(0, 24) === key)) continue;
       out.push({
         title: clip(clean(String(f.title ?? "Red flag")), 140),
         severity: asSeverity(f.severity),

@@ -15,14 +15,26 @@ export function stripThink(s: string | null | undefined): string {
   return (s ?? "").replace(/<think>[\s\S]*?<\/think>/g, "").trim();
 }
 
-/** Extract the first JSON object/array from an LLM reply. */
+/** Extract the first complete JSON object/array from an LLM reply (balanced-bracket scan, string-aware). */
 export function parseJson<T>(s: string): T | null {
   const t = stripThink(s).replace(/```(?:json)?/g, "");
-  const start = t.search(/[[{]/);
-  if (start < 0) return null;
-  const open = t[start], close = open === "{" ? "}" : "]";
-  const end = t.lastIndexOf(close);
-  try { return JSON.parse(t.slice(start, end + 1)) as T; } catch { return null; }
+  for (let start = t.search(/[[{]/); start >= 0 && start < t.length; ) {
+    let depth = 0, inStr = false, esc = false;
+    for (let i = start; i < t.length; i++) {
+      const c = t[i];
+      if (inStr) { if (esc) esc = false; else if (c === "\\") esc = true; else if (c === '"') inStr = false; continue; }
+      if (c === '"') inStr = true;
+      else if (c === "{" || c === "[") depth++;
+      else if (c === "}" || c === "]") {
+        if (--depth === 0) {
+          try { return JSON.parse(t.slice(start, i + 1)) as T; } catch { break; }
+        }
+      }
+    }
+    const next = t.slice(start + 1).search(/[[{]/);
+    start = next < 0 ? -1 : start + 1 + next;
+  }
+  return null;
 }
 
 /** One-shot prose completion (thinking disabled for speed). */
