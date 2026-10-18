@@ -68,7 +68,27 @@ Server (Next.js on Railway)
  └─ middleware.ts  jury login (HTTP Basic Auth)
 ```
 
-**AI models** — all on **Nebius Token Factory**: NVIDIA **Nemotron 3.5 Super VL** for the assistant, red-flag assessment, shadow scoring, critique and memo; **Nemotron 3.5 Lightning** for fast research planning. Web search via **Tavily**.
+### How the AI is used
+
+Every AI step runs on NVIDIA **Nemotron** models via **Nebius Token Factory**; web search uses **Tavily**. The AI reads, plans and explains — it never produces a number.
+
+| Step | Model | What the AI does | What stays deterministic (code) |
+|---|---|---|---|
+| Ask SWITCHYARD (chat) | Nemotron 3.5 Super VL | Picks tools (`explainScore`, `compareSuppliers`, `filterSuppliers`, …) and explains the results in plain language | Every number and every chart card comes from the engine's tool output |
+| Research: planning | Nemotron 3.5 **Lightning** | Identifies the legal entity, writes one search per risk area | Search budget (≤ 12 searches, 90 s) |
+| Research: red flags & dig deeper | Nemotron 3.5 Super VL | Reads search results, raises dated red flags, follows the serious ones with new searches | Every cited URL must come from the actual search results; dates are also parsed from report and docket IDs in code |
+| Research: shadow profile | Nemotron 3.5 Super VL | Scores the real company on the 18 dimensions, with a source per score or "no evidence" | Its risk index is computed by the engine with the official weights |
+| Apply evidence | — | none | Entire adjustment: as-of date, recency, ongoing/resolved, severity, source credibility tier by domain |
+| Challenge critique, memo summary | Nemotron 3.5 Super VL | Writes short prose from a facts object we pass in | All checks, rankings and memo sections |
+
+The routing (Lightning for planning, Super VL for reasoning) was chosen by A/B test. Nemotron 3 Ultra was also tested for the reasoning steps; it was slower and found fewer red flags, so it is off (switchable via `LLM_MODEL_REASON`). If a model fails or returns invalid output, the step retries once on Super VL; if the AI is unavailable, the engine, challenge checks and memo sections still work.
+
+### Notes for the jury
+
+- **Login:** the live app is behind HTTP Basic Auth; credentials are in the submission form.
+- **Verify:** a live research run takes about 25–30 s and streams each step, including which model is working. **Load cached run** replays a real Knorr-Bremse run in a few seconds and is labelled as cached.
+- **Any real company works** in Verify (e.g. Alstom, Wabtec, Stadler). Applying it to a dataset supplier is an explicit, labelled assumption, because the dataset is anonymised.
+- **State is per browser.** Your shortlist and pick persist while you click around; **Start a new decision** on the Decide page resets everything. The source data is never modified.
 
 | Path | Purpose |
 |---|---|
