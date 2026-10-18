@@ -32,5 +32,17 @@ export async function complete(system: string, user: string, maxTokens = 600): P
     messages: [{ role: "system", content: system }, { role: "user", content: user }],
     ...({ chat_template_kwargs: { enable_thinking: false } } as object), // Nebius/vLLM extension
   });
-  return stripThink(res.choices[0].message.content);
+  return dedupeSentences(stripThink(res.choices[0].message.content));
+}
+
+/** Nemotron occasionally repeats its whole answer; cut at the restart and drop repeated sentences. */
+function dedupeSentences(t: string): string {
+  const head = t.slice(0, 24);
+  const again = head.length === 24 ? t.indexOf(head, 24) : -1;
+  if (again > 0) t = t.slice(0, again);
+  const seen = new Set<string>();
+  return t.split(/(?<=[.!?])\s+/)
+    .map((x) => x.trim())
+    .filter((x) => { const k = x.toLowerCase(); if (!k || seen.has(k)) return false; seen.add(k); return true; })
+    .join(" ");
 }

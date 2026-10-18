@@ -11,7 +11,7 @@ import { LevelTag } from "@/components/LevelTag";
 
 export default function Challenge() {
   const ds = useDataset();
-  const { shortlist, pickId, replaceId, presetId, setPreset, customWeights, setCustomWeights, challenge, setChallenge, log } = useStore();
+  const { shortlist, pickId, setPick, replaceId, presetId, setPreset, customWeights, setCustomWeights, challenge, setChallenge, log } = useStore();
   const [critique, setCritique] = useState<string | null>(challenge?.critique ?? null);
   const [busy, setBusy] = useState(false);
 
@@ -47,7 +47,8 @@ export default function Challenge() {
       pick: { id: pick.id, name: pick.name, tri: pick.tri, deliveryRating: pick.del, confirmationRate: pick.conf, sourcingRisk: pick.src },
       replacing: replace ? { id: replace.id, tri: replace.tri } : null,
       checks: result.checks.map((c) => ({ check: c.label, pass: c.pass, detail: c.detail })),
-      scenarios: result.rob.scenarios.map((s) => ({ priority: s.label, rankOfPick: s.rank, of: s.of, leader: s.leaderId })),
+      scenarios: result.rob.scenarios.map((s) => `${s.label}: pick ranks #${s.rank} of ${s.of}${s.rank === 1 ? " (winner)" : `, winner is ${s.leaderId}`}`),
+      robustness: `Pick is #1 in ${result.rob.wins} of ${result.rob.total} priority scenarios`,
     };
     const r = await fetch("/api/critique", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(facts) }).then((r) => r.json()).catch(() => ({ text: null }));
     const text = r.text ?? "AI critique unavailable — the computed checks above stand on their own.";
@@ -77,6 +78,18 @@ export default function Challenge() {
               </div>
             ))}
           </div>
+
+          {(() => {
+            const counts = new Map<string, number>();
+            result.rob.scenarios.forEach((s) => counts.set(s.leaderId, (counts.get(s.leaderId) ?? 0) + 1));
+            const [best, n] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+            return best !== pick.id ? (
+              <div className="card border-fg p-3 mt-3">
+                <div className="font-medium"><span className="num">{best}</span> wins {n} of {result.rob.total} priority scenarios.</div>
+                <button className="btn btn-primary mt-2" onClick={() => { log("Challenge", `Pick changed ${pick.id} → ${best} after challenge`); setPick(best); }}>Switch pick to {best}</button>
+              </div>
+            ) : null;
+          })()}
 
           <h2 className="font-semibold mt-5 mb-2">Robustness across priorities</h2>
           <table className="w-full text-[12px]">
