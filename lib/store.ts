@@ -54,7 +54,15 @@ export const useStore = create<State>()(
   persist(
     (set, get) => ({
       ...initial,
-      setReplace: (id) => { set({ replaceId: id }); get().log("Triage", `Supplier to replace: ${id}`); },
+      // A new supplier to replace starts a new decision: the previous shortlist, pick, challenge, evidence and memo
+      // belonged to the old target and must not leak into the new memo.
+      setReplace: (id) => {
+        const prev = get();
+        if (id === prev.replaceId) return;
+        const hadWork = prev.shortlist.length > 0 || !!prev.pickId || !!prev.memo;
+        set({ replaceId: id, shortlist: [], pickId: null, challenge: null, evidence: null, memo: null });
+        get().log("Triage", hadWork ? `New decision: replacing ${id} (previous decision for ${prev.replaceId} closed)` : `Supplier to replace: ${id}`);
+      },
       add: (id) => {
         const { shortlist } = get();
         if (shortlist.includes(id)) return true;

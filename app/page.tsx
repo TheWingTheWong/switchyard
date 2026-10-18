@@ -48,7 +48,7 @@ export default function Triage() {
                   <td className="leading-tight"><div className="num font-medium">{s.id}</div><div className="text-muted text-[11.5px] truncate max-w-[160px]">{s.name}{hiddenRisk(s).flag && <span className="cap ml-1 !text-[var(--risk-critical)]">hidden risk</span>}</div></td>
                   <td><LevelTag score={s.tri} /></td>
                   <td className="r leading-tight"><div className="num font-semibold">{fmtEur(exposure(s))}</div><div className="num text-muted text-[11px]">of {fmtEur(s.po)}</div></td>
-                  <td className="r !pr-1">{s.id === target.id ? <span className="cap !text-stamp">Replacing</span> : <button className="btn btn-quiet text-[12px] !min-h-[24px] !py-0.5 !px-2" onClick={() => setReplace(s.id)}>Replace this</button>}</td>
+                  <td className="r !pr-1">{s.id === target.id ? <span className="cap !text-stamp">Replacing</span> : <button className="btn btn-quiet text-[12px] !min-h-[24px] !py-0.5 !px-2" onClick={() => { const st = useStore.getState(); if ((st.shortlist.length || st.pickId || st.memo) && !confirm(`Start a new decision to replace ${s.id}? The current shortlist, pick and memo for ${st.replaceId} will be cleared.`)) return; setReplace(s.id); }}>Replace this</button>}</td>
                 </tr>
               ))}
             </tbody>
